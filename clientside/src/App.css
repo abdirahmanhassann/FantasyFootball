@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+body{
+  font-family: 'Roboto', sans-serif;
+  background: #f9f9ff;
+}
+nav{
+  position: fixed;
+  top: 0px;
+  left: 0pc;
+  right: 0px;
+  height: 35px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
+  padding-block: 7px
+}
+.logos{
+  height:30px;
+  width:30px;
+}
+.subnav{
+  height: 12pc;
+  width: 100%;
+  background: #37003c;
+  color: white;
+  background-image: url('./images/purplebgimg.svg');
+  background-position: bottom right;
+  background-repeat: no-repeat;
+  background-size: auto 100%;
+  background-position-y: top;
+  margin-top: 58px;
+}
+.purplebgimg{
+  height:100%;
+  width:auto;
+}
+.centerdiv{
+  margin: auto;
+  margin-top: 93px;
+  width: 35pc;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+.headerdiv{
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: auto;
+    gap: 10px;
+}
+.logo{
+      height: 60px;
+}
+
+
+.google-btn {
+  width: 184px;
+  height: 42px;
+  background-color: black;
+  color:white;
+  border-radius: 2px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.25);
+  cursor:pointer;
+  padding: 3px 16px;
+}
+  .google-icon-wrapper {
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 1px;
+    width: 40px;
+    height: 40px;
+    border-radius: 2px;
+    background-color: fff;
+  }
+  .google-icon {
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 11px;
+    width: 18px;
+    height: 18px;
+  }
+  .btn-text {
+    float: right;
+    margin: 11px 11px 0 0;
+    color: $white;
+    font-size: 14px;
+    letter-spacing: 0.2px;
+    font-family: "Roboto";
+  }
+ .google-btn:hover {
+    box-shadow: 0 0 6px #4285f4;
+  }
+  .google-btn:active {
+    background: #3e3e3e;
+  }
+
