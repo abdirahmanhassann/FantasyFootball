@@ -6,24 +6,32 @@ const admin=require('firebase-admin')
 const credentials=require('./football-fantasy-3c451-firebase-adminsdk-dh80g-1ef35d1d52.json')
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcrypt')
+const {connectToDb,getDb}=require('./db')
+const {MongoClient}=require('mongodb')
+const {ObjectId}=require('mongodb')
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
+const uri ='mongodb://localhost:27017'
 const user=[
     {email:'popoeski@gmail.com',password:'popopopoeskiiii'}
 ]
 
 
-app.post('/crypt',async(req,res,next)=>{
+app.post('/signup',async(req,res)=>{
 const {email}=req.body;
 const {password}=req.body;
 
 const hashedpassword=await bcrypt.hash(req.body.password,10 )
 
-user.push({email:email,password:hashedpassword})
-res.send(user)
-next()
+const result = await db.collection('users').insertOne({
+    email: email,
+    password: hashedpassword,
+  });
+console.log(result)
+  // Send a response to the client
+  res.status(200).send(result);
+
 })
 
 app.post('/login',async(req,res)=>{
@@ -44,8 +52,16 @@ app.post('/',(req,res)=>{
 
     res.json({email:email})
 })
+ 
+let db;
+connectToDb((err)=>{
 
+    if (err) return console.log(err)
 
-app.listen( process.env.PORT || 5001 ,()=>{
-    console.log('app is listening...')
-})
+    app.listen( process.env.PORT || 5002 ,()=>{
+        console.log('app is listening...')
+    })
+    db=getDb()
+
+})    
+

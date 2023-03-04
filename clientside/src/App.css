@@ -16,6 +16,12 @@ nav{
   background: linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
   padding-block: 7px
 }
+input {
+  outline: none;
+    padding: 8px 16px;
+    font-size: 18px;
+    color: #323232;
+}
 .logos{
   height:30px;
   width:30px;
