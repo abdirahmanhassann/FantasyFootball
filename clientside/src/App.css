@@ -44,6 +44,8 @@ nav{
   flex-direction: column;
   text-align: center;
   align-items: center;
+  gap: 20px;
+color:#37003c;
 }
 .headerdiv{
   display: flex;
