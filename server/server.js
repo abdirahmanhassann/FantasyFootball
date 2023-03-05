@@ -9,14 +9,12 @@ const bcrypt=require('bcrypt')
 const {connectToDb,getDb}=require('./db')
 const {MongoClient}=require('mongodb')
 const {ObjectId}=require('mongodb')
+const auth = require('./middleware/auth')
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-const uri ='mongodb://localhost:27017'
-const user=[
-    {email:'popoeski@gmail.com',password:'popopopoeskiiii'}
-]
 
+const user={email:'popoeski',password:'po123'}
 
 app.post('/signup',async(req,res)=>{
 const {email}=req.body;
@@ -34,15 +32,25 @@ console.log(result)
 
 })
 
-app.post('/login',async(req,res)=>{
-const finduser=user.find(i=>i.email===req.body.email)
-if(finduser==undefined) return res.status(500)
+app.post('/auth',auth,(req,res)=>{
+console.log(req.body.email)
 
-if (await bcrypt.compare(req.body.password,finduser.password)){
-    res.send('success')
+})
+
+app.post('/login',async(req,res)=>{
+//const finduser=user.email===req.body.email
+
+const dbcheck = await db.collection('users').findOne({ email: req.body.email });
+console.log(dbcheck)
+if(dbcheck==null) return res.status(500).send('Email does not exist')
+
+if (await bcrypt.compare(req.body.password,dbcheck.password)){
+   
+ const signed=  jwt.sign(req.body.email,process.env.ACCESS_TOKEN)
+    res.send({jwtToken:signed,hashedpass:req.body.password})
 }
 else{
-    res.send({req:req.body.password,user:finduser.password})
+    res.send({passstatuse:'wrong password',reqpassword:req.body.password,password:dbcheck.password})
 }
 
 })
@@ -63,5 +71,5 @@ connectToDb((err)=>{
     })
     db=getDb()
 
-})    
+})
 
