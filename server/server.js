@@ -49,10 +49,9 @@ if (match){
  const signed=  jwt.sign(req.body.email,process.env.ACCESS_TOKEN)
     res.send({jwtToken:signed,hashedpass:req.body.password,match:match})
 }
-else{
+else{ 
     res.send({passstatuse:'wrong password',reqpassword:req.body.password,password:dbcheck.password})
 }
-
 })
 
 app.post('/',(req,res)=>{

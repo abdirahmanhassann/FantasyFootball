@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import Navbar from './Reusable/Navbar.tsx'
 import logo from '../images/pllogowhite.png'
+import { useDispatch, useSelector } from 'react-redux'
+import { jwt } from '../redux/redux'
 
 function Homepage() { 
   const [changed,setchanged]=useState <p>({email:'',password:''})
   const [login,setlogin]=useState <p>({email:'',password:''})
+  const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
+  const dispatch=useDispatch()
 const url='http://localhost:5002/signup'
 const urllogin='http://localhost:5002/login'
   interface p{
@@ -64,7 +68,11 @@ const urllogin='http://localhost:5002/login'
       .then(response => response.json())
       .then(changed => {
         console.log(changed);
-      })
+        if(changed.jwtToken)
+{
+  dispatch(jwt(changed.jwtToken))
+  console.log(jwttoken)
+}      })
       .catch(error => {
         console.error('Error:', error);
       });
