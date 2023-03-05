@@ -32,9 +32,10 @@ console.log(result)
 
 })
 
-app.post('/auth',auth,(req,res)=>{
+app.post('/auth',auth,async (req,res)=>{
 console.log(req.body.email)
-
+const dbcheck = await db.collection('users').findOne({ email: req.body.email });
+console.log(dbcheck.password)
 })
 
 app.post('/login',async(req,res)=>{
@@ -43,11 +44,10 @@ app.post('/login',async(req,res)=>{
 const dbcheck = await db.collection('users').findOne({ email: req.body.email });
 console.log(dbcheck)
 if(dbcheck==null) return res.status(500).send('Email does not exist')
-
-if (await bcrypt.compare(req.body.password,dbcheck.password)){
-   
+const match = await bcrypt.compare(req.body.password, dbcheck.password);
+if (match){
  const signed=  jwt.sign(req.body.email,process.env.ACCESS_TOKEN)
-    res.send({jwtToken:signed,hashedpass:req.body.password})
+    res.send({jwtToken:signed,hashedpass:req.body.password,match:match})
 }
 else{
     res.send({passstatuse:'wrong password',reqpassword:req.body.password,password:dbcheck.password})

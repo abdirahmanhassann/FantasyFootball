@@ -9,10 +9,10 @@ const token=autherization && autherization.split(' ')[1];
  jwt.verify(token,process.env.ACCESS_TOKEN,(err,email)=>{
     if(err){
     console.log(err)
-        res.status(403).send('acces denied')
+        res.status(403).send({accessStatus:false})
     }
     else{
-        res.status(200).send({accessStatus:'Access granted',token:email})
+        res.status(200).send({accessStatus:true,token:email})
         next()
     }
 

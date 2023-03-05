@@ -4,7 +4,9 @@ import logo from '../images/pllogowhite.png'
 
 function Homepage() { 
   const [changed,setchanged]=useState <p>({email:'',password:''})
+  const [login,setlogin]=useState <p>({email:'',password:''})
 const url='http://localhost:5002/signup'
+const urllogin='http://localhost:5002/login'
   interface p{
     email:string;
     password:string;
@@ -12,6 +14,16 @@ const url='http://localhost:5002/signup'
 
   function changedfunction(e){
     setchanged(i=>{
+    return {
+      ...i,
+      [e.target.name]:e.target.value
+    }
+  })
+  
+  }
+
+  function changedlogin(e){
+    setlogin(i=>{
     return {
       ...i,
       [e.target.name]:e.target.value
@@ -40,6 +52,26 @@ const url='http://localhost:5002/signup'
     
   }
   
+  function submittedlogin(e){
+    e.preventDefault()
+    fetch(urllogin, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(login),
+    })
+      .then(response => response.json())
+      .then(changed => {
+        console.log(changed);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+      
+    
+  }
+  
   return (
     <>
             <div>
@@ -52,8 +84,15 @@ const url='http://localhost:5002/signup'
           <p>If you have an existing Premier League account, please use the link below to login and connect this social account to it so that you can log in to the same profile using your original account or using your social account.</p>
 
 <form onSubmit={submitted}>
+  <h1>Sign up</h1>
 <input type='email' placeholder='Email' required={true} value={changed.email} name='email' onChange={e=>changedfunction(e)}/>
 <input type='password' placeholder='Password' required={true} value={changed.password} name='password' onChange={e=>changedfunction(e)}/>
+<button>Enter</button>
+</form>
+<form onSubmit={submittedlogin}>
+  <h1>Login</h1>
+<input type='email' placeholder='Email' required={true} value={login.email} name='email' onChange={e=>changedlogin(e)}/>
+<input type='password' placeholder='Password' required={true} value={login.password} name='password' onChange={e=>changedlogin(e)}/>
 <button>Enter</button>
 </form>
           <div className="google-btn">
