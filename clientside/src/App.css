@@ -128,3 +128,83 @@ color:#37003c;
     background: #3e3e3e;
   }
 
+.massivediv{
+  height: 95vh;
+  width: 93vw;
+  display: flex;
+  flex-direction: row;
+  background: black;
+}
+.pitchdiv{
+      height: 74vh;
+    width: 79vw;
+    background: aliceblue;
+    /* padding: 9px; */
+    contain: strict;
+}
+.settingsdiv{
+  height: 100vh;
+  width: 35%;
+}
+
+.pitchpic{
+  height: 118vh;
+  width: auto;
+}
+.players{
+  position: absolute;
+  top: 9vh;
+  display: flex;
+  flex-direction: inherit;
+  gap: 10vh;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  text-align: -webkit-center;
+}
+.blankshirt{
+  height: 50px;
+  width: 50px;
+}
+
+.def{
+  display: flex;
+  flex-direction: row;
+  /* gap: 3vw; */
+  margin-left: 17vw;
+  width: 42vw;
+  justify-content: space-between;
+}
+.mid{
+  display: flex;
+  flex-direction: row;
+  /* gap: 3vw; */
+  margin-left: 17vw;
+  width: 42vw;
+  justify-content: space-between;
+}
+.att{
+  display: flex;
+  flex-direction: row;
+  /* gap: 3vw; */
+  margin-left: 17vw;
+  width: 42vw;
+  justify-content: space-between;
+}
+.gk{
+  display: flex;
+  flex-direction: row;
+  /* gap: 3vw; */
+  margin-left: 36vw;
+  width: 42vw;
+  justify-content: space-between;
+}
+
+.playerselection{
+  width: 70%;
+  height: 200px;
+  background: aqua;
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 10%;
+}

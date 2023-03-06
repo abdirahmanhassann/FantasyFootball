@@ -47,10 +47,10 @@ if(dbcheck==null) return res.status(500).send('Email does not exist')
 const match = await bcrypt.compare(req.body.password, dbcheck.password);
 if (match){
  const signed=  jwt.sign(req.body.email,process.env.ACCESS_TOKEN)
-    res.send({jwtToken:signed,hashedpass:req.body.password,match:match})
+    res.status(200).send({jwtToken:signed,hashedpass:req.body.password,match:match})
 }
 else{ 
-    res.send({passstatuse:'wrong password',reqpassword:req.body.password,password:dbcheck.password})
+    res.status(403).send({passstatuse:'wrong password or email'})
 }
 })
 
