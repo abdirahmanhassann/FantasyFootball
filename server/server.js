@@ -10,6 +10,9 @@ const {connectToDb,getDb}=require('./db')
 const {MongoClient}=require('mongodb')
 const {ObjectId}=require('mongodb')
 const auth = require('./middleware/auth')
+const https = require('https');
+const playersApiRequest = require('./middleware/playersApiRequest')
+
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -29,7 +32,6 @@ const result = await db.collection('users').insertOne({
 console.log(result)
   // Send a response to the client
   res.status(200).send(result);
-
 })
 
 app.post('/auth',auth,async (req,res)=>{
@@ -59,7 +61,16 @@ app.post('/',(req,res)=>{
 
     res.json({email:email})
 })
- 
+  
+app.get('/loadplayers',auth,playersApiRequest,async (req,res)=>{
+    const { playerArr } = req;
+    await db.collection('players').insertOne({
+        players:playerArr
+      });
+    res.status(200).json({ playerArr });
+
+})
+
 let db;
 connectToDb((err)=>{
 

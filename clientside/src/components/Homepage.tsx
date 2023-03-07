@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom'
 function Homepage() { 
   const [changed,setchanged]=useState <p>({email:'',password:''})
   const [login,setlogin]=useState <p>({email:'',password:''})
-  const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
+  const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt);
+  const [po,setpo]=useState(0)
   const dispatch=useDispatch()
   const navigate=useNavigate()
 const url='http://localhost:5002/signup'
@@ -77,12 +78,8 @@ const urllogin='http://localhost:5002/login'
 }      })
       .catch(error => {
         console.error('Error:', error);
-
-      });
-      
-    
+      }); 
   }
-  
   return (
     <>
             <div>

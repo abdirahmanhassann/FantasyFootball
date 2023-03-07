@@ -5,25 +5,42 @@ import { FormControl } from '@material-ui/core'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
+import { useDispatch, useSelector } from 'react-redux'
 function Chooseleague() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
-  
+  const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
+  const dispatch=useDispatch()
+  const [players,setplayers]=useState<object[]>([{}])
+  const loadplayers='http://localhost:5002/loadplayers'
     const handleLanguageSelection = (language) => {
         setIsOpen(false);
       setSelectedLanguage(language);
     }
-  useEffect(()=>{
-console.log(isOpen)
-  },[isOpen])
+
+    useEffect(()=>{
+        function request(){
+fetch(loadplayers,{
+    method:'GET',
+    headers:{
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${jwttoken}`,
+        }})
+.then((res)=>res.json())
+.then((res)=>console.log(res))
+        }
+        request()
+    },[])
+
     const gk=['gk']
     const defence=['rb','cb','cb','lb']
     const midfield=['cdm','cm','cm']
     const attack=['rw','st','lw']
 const positions=['Goalkeeper','defender','midfielder','attacker']
 function clicked(c){
-   // console.log(c)
+    
 }
+
   return (
 <>
 <div className='massivediv'>

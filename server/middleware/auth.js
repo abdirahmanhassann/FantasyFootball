@@ -12,7 +12,7 @@ const token=autherization && autherization.split(' ')[1];
         res.status(403).send({accessStatus:false})
     }
     else{
-        res.status(200).send({accessStatus:true,token:email})
+     //   res.status(200).send({accessStatus:true,token:email})
         next()
     }
 
