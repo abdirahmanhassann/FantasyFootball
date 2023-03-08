@@ -12,12 +12,13 @@ const {ObjectId}=require('mongodb')
 const auth = require('./middleware/auth')
 const https = require('https');
 const playersApiRequest = require('./middleware/playersApiRequest')
-
+const cron=require('node-cron')
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 const user={email:'popoeski',password:'po123'}
+
 
 app.post('/signup',async(req,res)=>{
 const {email}=req.body;
@@ -62,7 +63,7 @@ app.post('/',(req,res)=>{
     res.json({email:email})
 })
   
-app.get('/loadplayers',auth,playersApiRequest,async (req,res)=>{
+app.get('/loadplayers',auth,async (req,res)=>{
     const { playerArr } = req;
     await db.collection('players').insertOne({
         players:playerArr
@@ -80,6 +81,9 @@ connectToDb((err)=>{
         console.log('app is listening...')
     })
     db=getDb()
+    cron.schedule('41 * * * *',()=>{
+    playersApiRequest()
+})
 
 })
 
