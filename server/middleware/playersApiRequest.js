@@ -23,7 +23,7 @@ async function playersApiRequest () {
             console.error(error);
             resolve();
           });
-        }, 2000);
+        }, 10000);
       });
     }
 

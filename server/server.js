@@ -89,7 +89,7 @@ connectToDb((err)=>{
         console.log('app is listening...')
     })
     db=getDb()
-    cron.schedule('* 23 * * *',()=>{
+    cron.schedule('03 23 * * *',()=>{
     playersApiRequest()
 })
 

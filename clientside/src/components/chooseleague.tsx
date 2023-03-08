@@ -5,7 +5,27 @@ import { FormControl } from '@material-ui/core'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
+import arsenal from '../images/plteamshirts/arsenal.webp';
+import astonvilla from '../images/plteamshirts/astonvilla.webp';
+import bournemouth from '../images/plteamshirts/bournemouth.webp'
+import brentford from '../images/plteamshirts/brentford.webp'
+import brighton from '../images/plteamshirts/brighton.webp'
+import chelsea from '../images/plteamshirts/chelsea.webp'
+import crystalpalace from '../images/plteamshirts/crystalpalace.webp'
+import everton from '../images/plteamshirts/everton.webp'
+import fulham from '../images/plteamshirts/fulham.webp'
+import leeds from '../images/plteamshirts/leeds.webp'
+import leicester from '../images/plteamshirts/leicester.webp'
+import liverpool from '../images/plteamshirts/liverpool.webp'
+import manchestercity from '../images/plteamshirts/manchestercity.webp'
+import manchesterunited from '../images/plteamshirts/manchesterunited.webp'
+import newcastle from '../images/plteamshirts/newcastle.webp'
+import nottinghamforrest from '../images/plteamshirts/nottinghamforrest.webp'
+import southampton from '../images/plteamshirts/southampton.webp'
+import tottenham from '../images/plteamshirts/tottenham.webp'
+import westham from '../images/plteamshirts/westham.webp'
+import wolves from '../images/plteamshirts/wolves.webp'
 function Chooseleague() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -139,11 +159,18 @@ function clicked(c){
 <input type='text' placeholder='enter player' className='input2'/>
 {
   players.playerArr &&
-  players.playerArr.map((i)=>{
+  players.playerArr.slice(0,4).map((i)=>{
     return (
 i.response.map((j)=>{
   return (
-    <p>{j.player.firstname} ,{j.player.lastname}</p>
+    <>
+    <div className='playerdiv'>
+
+    <div className={ j.statistics[0].team.name.toLowerCase().replace(/\s+/g,'')} >
+      </div>
+      <p>{j.player.firstname} ,{j.player.lastname}</p>
+    </div>
+  </>
   )
 }))
   })

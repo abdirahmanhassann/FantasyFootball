@@ -251,3 +251,207 @@ color:#37003c;
     font-size: 18px;
     color: #323232;
 }
+
+.arsenal{
+  background-image: url('./images/plteamshirts/arsenal.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+.astonvilla {
+  background-image: url('./images/plteamshirts/astonvilla.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.bournemouth {
+  background-image: url('./images/plteamshirts/bournemouth.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.brentford {
+  background-image: url('./images/plteamshirts/brentford.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.brighton {
+  background-image: url('./images/plteamshirts/brighton.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.chelsea {
+  background-image: url('./images/plteamshirts/chelsea.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.crystalpalace {
+  background-image: url('./images/plteamshirts/crystalpalace.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.everton {
+  background-image: url('./images/plteamshirts/everton.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.fulham {
+  background-image: url('./images/plteamshirts/fulham.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.leeds {
+  background-image: url('./images/plteamshirts/leeds.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.leicester {
+  background-image: url('./images/plteamshirts/leicester.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.liverpool {
+  background-image: url('./images/plteamshirts/liverpool.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.manchestercity {
+  background-image: url('./images/plteamshirts/manchestercity.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.manchesterunited {
+  background-image: url('./images/plteamshirts/manchesterunited.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.newcastle {
+  background-image: url('./images/plteamshirts/newcastle.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.nottinghamforrest {
+  background-image: url('./images/plteamshirts/nottinghamforrest.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.southampton {
+  background-image: url('./images/plteamshirts/southampton.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.tottenham {
+  background-image: url('./images/plteamshirts/tottenham.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.westham {
+  background-image: url('./images/plteamshirts/westham.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+
+.wolves {
+  background-image: url('./images/plteamshirts/wolves.webp');
+      height: 50px;
+    width: 50px;
+    object-fit: unset;
+    background-repeat: no-repeat;
+    /* background-size: cover; */
+    background-size: contain;
+}
+.playerdiv{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
