@@ -11,7 +11,7 @@ function Chooseleague() {
     const [isOpen, setIsOpen] = useState(false);
   const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
   const dispatch=useDispatch()
-  const [players,setplayers]=useState<object[]>([{}])
+  const [players,setplayers]=useState<any>([{}])
   const loadplayers='http://localhost:5002/loadplayers'
     const handleLanguageSelection = (language) => {
         setIsOpen(false);
@@ -27,7 +27,10 @@ fetch(loadplayers,{
     Authorization: `Bearer ${jwttoken}`,
         }})
 .then((res)=>res.json())
-.then((res)=>console.log(res))
+.then((res)=>{
+  console.log(res)
+  setplayers(res)
+})
         }
         request()
     },[])
@@ -134,6 +137,17 @@ function clicked(c){
 }
     </details>
 <input type='text' placeholder='enter player' className='input2'/>
+{
+  players.playerArr &&
+  players.playerArr.map((i)=>{
+    return (
+i.response.map((j)=>{
+  return (
+    <p>{j.player.firstname} ,{j.player.lastname}</p>
+  )
+}))
+  })
+}
 </div>
         </div>
 </div>

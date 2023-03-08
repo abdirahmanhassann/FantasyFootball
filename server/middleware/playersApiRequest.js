@@ -4,7 +4,7 @@ const {getDb}=require('../db')
 async function playersApiRequest () {
     const playerArr = [];
   const db=getDb();
-    for (let i = 1; i <= 1; i++) {
+    for (let i = 1; i <= 44; i++) {
       await new Promise((resolve) => {
         setTimeout(() => {
           fetch(`https://v3.football.api-sports.io/players?league=39&season=2022&page=${i}`, {

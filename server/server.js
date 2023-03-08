@@ -64,11 +64,19 @@ app.post('/',(req,res)=>{
 })
   
 app.get('/loadplayers',auth,async (req,res)=>{
-    const { playerArr } = req;
-    await db.collection('players').insertOne({
-        players:playerArr
-      });
-    res.status(200).json({ playerArr });
+    const collection = db.collection('players');
+  
+    try {
+      const doc = await collection.findOne({});
+      if (!doc) {
+        return res.status(404).json({ message: 'No player data found' });
+      }
+      const playerArr = doc.players;
+      res.status(200).json({ playerArr });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error retrieving player data' });
+    }
 
 })
 
@@ -81,7 +89,7 @@ connectToDb((err)=>{
         console.log('app is listening...')
     })
     db=getDb()
-    cron.schedule('41 * * * *',()=>{
+    cron.schedule('* 23 * * *',()=>{
     playersApiRequest()
 })
 
