@@ -1,41 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import pitch from '../images/footballpitch.png'
-import blankshirt from '../images/blankshirt.png'
+import blankshirt from '../images/shirtplaceholder.webp'
 import { FormControl } from '@material-ui/core'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useDispatch, useSelector } from 'react-redux';
-import arsenal from '../images/plteamshirts/arsenal.webp';
-import astonvilla from '../images/plteamshirts/astonvilla.webp';
-import bournemouth from '../images/plteamshirts/bournemouth.webp'
-import brentford from '../images/plteamshirts/brentford.webp'
-import brighton from '../images/plteamshirts/brighton.webp'
-import chelsea from '../images/plteamshirts/chelsea.webp'
-import crystalpalace from '../images/plteamshirts/crystalpalace.webp'
-import everton from '../images/plteamshirts/everton.webp'
-import fulham from '../images/plteamshirts/fulham.webp'
-import leeds from '../images/plteamshirts/leeds.webp'
-import leicester from '../images/plteamshirts/leicester.webp'
-import liverpool from '../images/plteamshirts/liverpool.webp'
-import manchestercity from '../images/plteamshirts/manchestercity.webp'
-import manchesterunited from '../images/plteamshirts/manchesterunited.webp'
-import newcastle from '../images/plteamshirts/newcastle.webp'
-import nottinghamforrest from '../images/plteamshirts/nottinghamforrest.webp'
-import southampton from '../images/plteamshirts/southampton.webp'
-import tottenham from '../images/plteamshirts/tottenham.webp'
-import westham from '../images/plteamshirts/westham.webp'
-import wolves from '../images/plteamshirts/wolves.webp'
 function Chooseleague() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
   const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
   const dispatch=useDispatch()
   const [players,setplayers]=useState<any>([{}])
+  const [input,setinput]=useState <string>('')
+  const [indexx,setindexx]=useState<number>(0)
   const loadplayers='http://localhost:5002/loadplayers'
     const handleLanguageSelection = (language) => {
         setIsOpen(false);
       setSelectedLanguage(language);
+      console.log(selectedLanguage);
+      
     }
 
     useEffect(()=>{
@@ -59,9 +43,13 @@ fetch(loadplayers,{
     const defence=['rb','cb','cb','lb']
     const midfield=['cdm','cm','cm']
     const attack=['rw','st','lw']
-const positions=['Goalkeeper','defender','midfielder','attacker']
+const positions=['Goalkeeper',"Defender","Midfielder","Attacker"]
 function clicked(c){
     
+}
+function changed(e){
+setinput(e.target.value)
+console.log(input)
 }
 
   return (
@@ -141,6 +129,7 @@ function clicked(c){
             </div>
 {
     positions.map((i)=>{
+      
         return (
 
             <div className="SelectMenu-list">
@@ -156,27 +145,49 @@ function clicked(c){
       </div>
 }
     </details>
-<input type='text' placeholder='enter player' className='input2'/>
+<input type='text' placeholder='enter player' className='input2' onChange={e=>changed(e)}/>
 <table>
+  <tr>
+  </tr>
+<tr className='playerdiv'>
+      <th>Team</th>
+      <th>Player</th>
+      <th>Rating</th>
+      <th>Apps</th>
+    </tr>
 {
   players.playerArr &&
   
-  players.playerArr.slice(4,6).map((i)=>{
+  players.playerArr.slice(0,43).map((i)=>{
     return (
-i.response.map((j)=>{
-  return (
-    <tr key={j.player.id} className="playerdiv">
+      i.response.map((j)=>{
+        let fullname=`${j.player.firstname} ${j.player.lastname}`
+        if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position){
+  if (input.length== 0 || fullname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
+    return (
+      <tr key={j.player.id} className="playerdiv">
     
         <td>
         <div className={j.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')}></div>
         </td>
         <td>
-        {j.player.lastname.length < 10 ? (
+        <div className='columndiv'>
+
+        {j.player.lastname.length < 8 ? (
           <p className="boldp">{j.player.lastname}</p>
-        ) : (
-          <p className="boldp">{j.player.lastname.slice(0, 10)}...</p>
-        )}
- 
+          ) : (
+            <p className="boldp">{j.player.lastname.slice(0, 8)}...</p>
+            )}
+ <div className='rowdiv'>
+<p className='lightp'>{j.statistics[0].team.name.slice(0,3).toUpperCase()}</p>
+{
+j.statistics[0].games.position == 'Goalkeeper'?
+<p className='lightp'>GK</p>
+:
+<p className='lightp'>{j.statistics[0].games.position.slice(0,3).toUpperCase()}</p>
+}
+ </div>
+            </div>
     </td>
     <td>
       {j.statistics[0].games.rating == null ? (
@@ -191,9 +202,10 @@ i.response.map((j)=>{
       ) : (
         <p className="lightp">{j.statistics[0].games.appearences}</p>
       )}
+      
     </td>
   </tr>
-  )
+  )}}
 }))
   })
 }
@@ -201,6 +213,7 @@ i.response.map((j)=>{
 </div>
         </div>
 </div>
+
 </>  )
 }
 export default Chooseleague;

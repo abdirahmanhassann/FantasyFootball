@@ -92,6 +92,4 @@ connectToDb((err)=>{
     cron.schedule('03 23 * * *',()=>{
     playersApiRequest()
 })
-
 })
-
