@@ -14,7 +14,10 @@ function Chooseleague() {
   const [players,setplayers]=useState<any>([{}])
   const [input,setinput]=useState <string>('')
   const [indexx,setindexx]=useState<number>(0)
-  const loadplayers='http://localhost:5002/loadplayers'
+  const [currentPage, setCurrentPage] = useState(1);
+  const loadplayers='http://localhost:5002/loadplayers';
+
+
     const handleLanguageSelection = (language) => {
         setIsOpen(false);
       setSelectedLanguage(language);
@@ -40,12 +43,13 @@ fetch(loadplayers,{
     },[])
 
     const gk=['gk']
-    const defence=['rb','cb','cb','lb']
-    const midfield=['cdm','cm','cm']
-    const attack=['rw','st','lw']
+    const defence=[{postion:'rb',exact:'Defender'},{postion:'cb',exact:'Defender'},{postion:'cb',exact:'Defender'},{postion:'lb',exact:'Defender'}]
+    const midfield=[{postion:'cm',exact:'Midfielder'},{postion:'cm',exact:'Midfielder'},{postion:'cm',exact:'Midfielder'}]
+    const attack=[{postion:'RW',exact:'Attacker'},{postion:'ST',exact:'Attacker'},{postion:'LW',exact:'Attacker'}]
 const positions=['Goalkeeper',"Defender","Midfielder","Attacker"]
 function clicked(c){
-    
+    console.log(c)
+    setSelectedLanguage(c.exact)
 }
 function changed(e){
 setinput(e.target.value)
@@ -161,9 +165,10 @@ console.log(input)
   players.playerArr.slice(0,43).map((i)=>{
     return (
       i.response.map((j)=>{
+        
         let fullname=`${j.player.firstname} ${j.player.lastname}`
-        if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position){
-  if (input.length== 0 || fullname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
+        if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position ){
+  if (    input.length== 0 || fullname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
     return (
       <tr key={j.player.id} className="playerdiv">
     
