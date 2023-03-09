@@ -14,9 +14,9 @@ function Chooseleague() {
   const [players,setplayers]=useState<any>([{}])
   const [input,setinput]=useState <string>('')
   const [indexx,setindexx]=useState<number>(0)
-  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedplayer, setselectedplayer] = useState<object>({});
   const loadplayers='http://localhost:5002/loadplayers';
-
+const postplayers='http://localhost:5002/postplayer'
 
     const handleLanguageSelection = (language) => {
         setIsOpen(false);
@@ -42,18 +42,40 @@ fetch(loadplayers,{
         request()
     },[])
 
-    const gk=['gk']
-    const defence=[{postion:'rb',exact:'Defender'},{postion:'cb',exact:'Defender'},{postion:'cb',exact:'Defender'},{postion:'lb',exact:'Defender'}]
-    const midfield=[{postion:'cm',exact:'Midfielder'},{postion:'cm',exact:'Midfielder'},{postion:'cm',exact:'Midfielder'}]
-    const attack=[{postion:'RW',exact:'Attacker'},{postion:'ST',exact:'Attacker'},{postion:'LW',exact:'Attacker'}]
+    const gk={position:'gk',exact:'Goalkeeper',player:''}
+    const defence=[{position:'rb',exact:'Defender'},{position:'lcb',exact:'Defender'},{position:'rcb',exact:'Defender'},{position:'lb',exact:'Defender'}]
+    const midfield=[{position:'rcm',exact:'Midfielder'},{position:'cm',exact:'Midfielder'},{position:'lcm',exact:'Midfielder'}]
+    const attack=[{position:'RW',exact:'Attacker'},{position:'ST',exact:'Attacker'},{position:'LW',exact:'Attacker'}]
 const positions=['Goalkeeper',"Defender","Midfielder","Attacker"]
 function clicked(c){
     console.log(c)
     setSelectedLanguage(c.exact)
+setselectedplayer(c.position)
 }
 function changed(e){
 setinput(e.target.value)
 console.log(input)
+}
+function postplayer(i){
+  if(selectedLanguage){
+i={
+  ...i,
+  position:selectedplayer
+}
+console.log(65,i)
+  }
+  fetch(postplayers, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${jwttoken}`,
+    },
+    body: JSON.stringify({team:i}),
+  })
+    .then(response => response.json())
+    .then(changed => {
+      console.log(changed);
+    })
 }
 
   return (
@@ -64,7 +86,13 @@ console.log(input)
     <div className='players'>
 <div className='gk'>
             <div className='blankshirtdiv'>
-                <img src={blankshirt} className='blankshirt'onClick={()=>clicked('gk')}/>
+              {
+                gk.player=='' ?
+                <img src={blankshirt} className='blankshirt' onClick={()=>clicked(gk)}/> 
+                :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(gk)}/> 
+                
+              }
                 </div>
 </div>
 <div className='def'>
@@ -170,7 +198,7 @@ console.log(input)
         if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position ){
   if (    input.length== 0 || fullname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
     return (
-      <tr key={j.player.id} className="playerdiv">
+      <tr key={j.player.id} className="playerdiv" onClick={()=>postplayer(j)}>
     
         <td>
         <div className={j.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')}></div>

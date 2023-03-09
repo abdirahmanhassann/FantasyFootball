@@ -13,6 +13,7 @@ const auth = require('./middleware/auth')
 const https = require('https');
 const playersApiRequest = require('./middleware/playersApiRequest')
 const cron=require('node-cron')
+const postplayer=require('./middleware/postplayer')
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -79,7 +80,6 @@ app.get('/loadplayers',auth,async (req,res)=>{
     }
 
 })
-
 let db;
 connectToDb((err)=>{
 
@@ -89,6 +89,9 @@ connectToDb((err)=>{
         console.log('app is listening...')
     })
     db=getDb()
+    app.post('/postplayer',auth,postplayer,(req,res)=>{
+
+    })    
     cron.schedule('03 23 * * *',()=>{
     playersApiRequest()
 })
