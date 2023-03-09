@@ -157,24 +157,47 @@ function clicked(c){
 }
     </details>
 <input type='text' placeholder='enter player' className='input2'/>
+<table>
 {
   players.playerArr &&
-  players.playerArr.slice(0,4).map((i)=>{
+  
+  players.playerArr.slice(4,6).map((i)=>{
     return (
 i.response.map((j)=>{
   return (
-    <>
-    <div className='playerdiv'>
-
-    <div className={ j.statistics[0].team.name.toLowerCase().replace(/\s+/g,'')} >
-      </div>
-      <p>{j.player.firstname} ,{j.player.lastname}</p>
-    </div>
-  </>
+    <tr key={j.player.id} className="playerdiv">
+    
+        <td>
+        <div className={j.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')}></div>
+        </td>
+        <td>
+        {j.player.lastname.length < 10 ? (
+          <p className="boldp">{j.player.lastname}</p>
+        ) : (
+          <p className="boldp">{j.player.lastname.slice(0, 10)}...</p>
+        )}
+ 
+    </td>
+    <td>
+      {j.statistics[0].games.rating == null ? (
+        <p className="lightp">0</p>
+      ) : (
+        <p className="lightp">{j.statistics[0].games.rating.slice(0, 3)}</p>
+      )}
+    </td>
+    <td>
+      {j.statistics[0].games.appearences == null ? (
+        <p className="lightp">0</p>
+      ) : (
+        <p className="lightp">{j.statistics[0].games.appearences}</p>
+      )}
+    </td>
+  </tr>
   )
 }))
   })
 }
+</table>
 </div>
         </div>
 </div>
