@@ -13,38 +13,12 @@ function Chooseleague() {
   const dispatch=useDispatch()
   const [players,setplayers]=useState<any>([{}])
   const [input,setinput]=useState <string>('')
-  const [indexx,setindexx]=useState<number>(0)
+  const [indexx,setindexx]=useState<any>({})
   const [selectedplayer, setselectedplayer] = useState<object>({});
-  const [team,setteam]=useState<object[]>([{}])
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
 const getplayer='http://localhost:5002/getplayer'
-let count ={
-  count:0,
-  count2:0,
-  count3:0,
-  count4:0,
-  coun5:0,
-  count6:0,
-  count7:0,
-  count8:0,
-  count9:0,
-  count10:0,
-  count11:0
-};
-let index={
-  index:false,
-  index2:false,
-  index3:false,
-  index4:false,
-  index5:false,
-  index6:false,
-  index7:false,
-  index8:false,
-  index9:false,
-  index10:false,
-  index11:false
-}
+
     const handleLanguageSelection = (language) => {
         setIsOpen(false);
       setSelectedLanguage(language);
@@ -65,7 +39,6 @@ fetch(loadplayers,{
   console.log(res)
   setplayers(res)
 })
-
 .then(()=>{
 
   fetch(getplayer, {
@@ -77,21 +50,20 @@ fetch(loadplayers,{
   })
   .then(response => response.json())
   .then(changed => {
-    setteam(changed)
+    setindexx(changed)
     console.log(changed);
-    
+
   })
 })
-
 
         }
         request()
     },[])
 
     const gk={position:'gk',exact:'Goalkeeper',player:''}
-    const defence=[{position:'rb',exact:'Defender'},{position:'lcb',exact:'Defender'},{position:'rcb',exact:'Defender'},{position:'lb',exact:'Defender'}]
+    const defence=[{position:'rb',exact:'Defender'},{position:'rcb',exact:'Defender'},{position:'lcb',exact:'Defender'},{position:'lb',exact:'Defender'}]
     const midfield=[{position:'rcm',exact:'Midfielder'},{position:'cm',exact:'Midfielder'},{position:'lcm',exact:'Midfielder'}]
-    const attack=[{position:'RW',exact:'Attacker'},{position:'ST',exact:'Attacker'},{position:'LW',exact:'Attacker'}]
+    const attack=[{position:'rw',exact:'Attacker'},{position:'st',exact:'Attacker'},{position:'lw',exact:'Attacker'}]
 const positions=['Goalkeeper',"Defender","Midfielder","Attacker"]
 function clicked(c){
     console.log(c)
@@ -103,14 +75,14 @@ setinput(e.target.value)
 console.log(input)
 }
 
-
 function postplayer(i){
-  if(selectedLanguage){
+  if(selectedLanguage && selectedplayer){
+
 i={
   ...i,
   position:selectedplayer
 }
-console.log(65,i)
+console.log(selectedplayer,i)
   }
   fetch(postplayers, {
     method: 'POST',
@@ -122,11 +94,10 @@ console.log(65,i)
   })
     .then(response => response.json())
     .then(changed => {
-      setteam(changed)
       console.log(changed);
-
+setindexx(changed);
     })
-  }
+}
 
   return (
 <>
@@ -136,322 +107,167 @@ console.log(65,i)
     <div className='players'>
 <div className='gk'>
             <div className='blankshirtdiv'>
-            {
-  team ?
-  
-  team.map((i:any)=>{
-    count.count++
-    if(i.position==='gk'){
-      index.index=true
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(gk)} />
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index==false && count.count=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(gk)} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(gk)} />
-}
-
+              {
+                indexx.gk ?
+                <div className='columndiv'>
+                <div className={indexx.gk.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(gk)} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.gk.player.lastname}</p>
+                  <p className='lightp'>{indexx.gk.statistics[0].games.rating ? indexx.gk.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(gk)}/> 
+                
+              }
                 </div>
 </div>
 <div className='def'>
-{ 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count2++
-    if(i.position==='rb'){
-      index.index2=true
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[0])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index2==false && count.count2=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[0])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[0])} />
-}
 
-{ 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count3++
-    if(i.position==='rcb'){
-      index.index3=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index3==false && count.count3=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[1])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[1])} />
-}
-
-{ 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count4++
-    if(i.position==='lcb'){
-      index.index4=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index4==false && count.count4=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[1])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[1])} />
-}
-
-{ 
-  team ?
-  
-  team.map((i:any)=>{
-    count.coun5++
-    if(i.position==='lb'){
-      index.index5=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index5==false && count.coun5=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[1])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(defence[1])} />
-}
-
-
-
-    {/* {
-        
-        defence.map((i)=>{
-            return (
-                <div className='blankshirtdiv'>
-                <img src={blankshirt} className='blankshirt' onClick={()=>clicked(i)} />
-                </div>
-            )
-        })
-    } */}
+{
+                indexx.rb ?
+                <div className='columndiv'>
+                <div className={indexx.rb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[0])} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.rb.player.lastname}</p>
+                  <p className='lightp'>{indexx.rb.statistics[0].games.rating ? indexx.rb.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(defence[0])}/> 
+                
+              }
+{
+                indexx.rcb ?
+                <div className='columndiv'>
+                <div className={indexx.rcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.rcb.player.lastname}</p>
+                  <p className='lightp'>{indexx.rcb.statistics[0].games.rating ? indexx.rcb.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(defence[1])}/> 
+                
+              }
+{
+                indexx.lcb ?
+                <div className='columndiv'>
+                <div className={indexx.lcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[2])} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.lcb.player.lastname}</p>
+                  <p className='lightp'>{indexx.lcb.statistics[0].games.rating ? indexx.lcb.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(defence[2])}/> 
+                
+              }
+      
+{
+                indexx.lb ?
+                <div className='columndiv'>
+                <div className={indexx.lb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[3])} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.lb.player.lastname}</p>
+                  <p className='lightp'>{indexx.lb.statistics[0].games.rating ? indexx.lb.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(defence[3])}/> 
+                
+              }
       
       </div>
       <div className='mid'>
-      { 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count6++
-    if(i.position==='rcm'){
-      index.index6=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[0])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index6==false && count.count6=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(midfield[0])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(midfield[0])} />
-}
-    
-      { 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count7++
-    if(i.position==='cm'){
-      index.index7=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[1])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index7==false && count.count7=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(midfield[1])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(midfield[1])} />
-}
-      { 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count8++
-    if(i.position==='lcm'){
-      index.index8=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[2])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index8==false && count.count8=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(midfield[2])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(midfield[2])} />
-}
-    
+
+      {
+                indexx.rcm ?
+                <div className='columndiv'>
+                <div className={indexx.rcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[0])} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.rcm.player.lastname}</p>
+                  <p className='lightp'>{indexx.rcm.statistics[0].games.rating ? indexx.rcm.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(midfield[0])}/> 
+                
+              }
+      {
+                indexx.cm ?
+                <div className='columndiv'>
+                <div className={indexx.cm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[1])} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.cm.player.lastname}</p>
+                  <p className='lightp'>{indexx.cm.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(midfield[1])}/> 
+                
+              }
+      {
+                indexx.lcm ?
+                <div className='columndiv'>
+                <div className={indexx.lcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[2])} />
+                <div className='rowdiv'>
+                  <p className='boldp'>{indexx.lcm.player.lastname}</p>
+                  <p className='lightp'>{indexx.lcm.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+                </div> 
+              </div>
+                        :
+                <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(midfield[2])}/> 
+                
+              }
+
 </div>
 <div className='att'>
 
-{ 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count9++
-    if(i.position==='RW'){
-      index.index9=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[0])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index9==false && count.count9=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(attack[0])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(attack[0])} />
-}
-    
-{ 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count10++
-    if(i.position==='ST'){
-      index.index10=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[1])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index10==false && count.count10=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(attack[1])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(attack[1])} />
-}
-{ 
-  team ?
-  
-  team.map((i:any)=>{
-    count.count11++
-    if(i.position==='LW'){
-      index.index11=true
-      console.log(i.position)
-      return (
-        <div className='columndiv'>
-        <div className={i.member.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[2])}/>
-        <div className='rowdiv'>
-          <p className='boldp'>{i.member.player.lastname}</p>
-          <p className='lightp'>{i.member.statistics[0].games.rating ? i.member.statistics[0].games.rating :0}</p>
-        </div> 
-      </div>
-      )
-    }
-    if(index.index11==false && count.count11=== team.length){
-      return   <img src={blankshirt} className='blankshirt' onClick={()=>clicked(attack[2])} />
-    }
-  })
-  :
-  
-  <img src={blankshirt} className='blankshirt' onClick={()=>clicked(attack[2])} />
-}  
-</div>
-</div>
+  {
+            indexx.rw ?
+            <div className='columndiv'>
+            <div className={indexx.rw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[0])} />
+            <div className='rowdiv'>
+              <p className='boldp'>{indexx.rw.player.lastname}</p>
+              <p className='lightp'>{indexx.rw.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+            </div> 
+          </div>
+                    :
+            <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(attack[0])}/> 
+            
+          }
+  {
+            indexx.st ?
+            <div className='columndiv'>
+            <div className={indexx.st.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[1])} />
+            <div className='rowdiv'>
+              <p className='boldp'>{indexx.st.player.lastname}</p>
+              <p className='lightp'>{indexx.st.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+            </div> 
+          </div>
+                    :
+            <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(attack[1])}/> 
+            
+          }
+  {
+            indexx.lw ?
+            <div className='columndiv'>
+            <div className={indexx.lw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[2])} />
+            <div className='rowdiv'>
+              <p className='boldp'>{indexx.lw.player.lastname}</p>
+              <p className='lightp'>{indexx.lw.statistics[0].games.rating ? indexx.lw.statistics[0].games.rating :0}</p>
+            </div> 
+          </div>
+                    :
+            <img src={blankshirt} className={'blankshirt'} onClick={()=>clicked(attack[2])}/> 
+            
+          }
+          
     </div>
+
+    </div>
+</div>
 <div className='settingsdiv'>
 <div className='playerselection'>
 <h3 className='largeheader'>Player selection</h3>
@@ -564,6 +380,7 @@ j.statistics[0].games.position == 'Goalkeeper'?
 </div>
         </div>
 </div>
+
 </>  )
 }
 export default Chooseleague;
