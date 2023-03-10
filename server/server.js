@@ -80,6 +80,13 @@ app.get('/loadplayers',auth,async (req,res)=>{
     }
 
 })
+
+
+app.get('/getplayer',auth,async(req,res)=>{
+    const email=req.email;
+    const returnTeam =  await db.collection('users').findOne({email});
+    res.send(returnTeam.team)
+    })
 let db;
 connectToDb((err)=>{
 

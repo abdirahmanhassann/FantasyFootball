@@ -19,7 +19,7 @@ await db.collection('users').findOneAndUpdate(
     );
     
   const returnTeam=  await db.collection('users').findOne({email})
-res.send(returnTeam)
+res.send(returnTeam.team)
 //db.collection('users').document
 }
 
