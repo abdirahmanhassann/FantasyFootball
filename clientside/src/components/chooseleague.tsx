@@ -78,7 +78,6 @@ function postplayer(i){
   if(selectedLanguage){
 i={
   ...i,
-  [i.statistics[0].games.rating] :i.statistics[0].games.rating.slice(0,3),
   position:selectedplayer
 }
 console.log(65,i)
