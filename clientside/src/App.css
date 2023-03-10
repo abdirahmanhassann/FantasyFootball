@@ -136,8 +136,8 @@ color:#37003c;
   gap: 30px;
 }
 .pitchdiv{
-    height: 74vh;
-    width: 87vw;
+  height: 94vh;
+      width: 87vw;
     background: aliceblue;
     /* padding: 9px; */
     contain: strict;
@@ -161,8 +161,8 @@ color:#37003c;
   top: 9vh;
   display: flex;
   flex-direction: inherit;
-  gap: 11vh;
-  justify-content: space-between;
+  gap: 16px;
+    justify-content: space-between;
   flex-wrap: wrap;
   text-align: -webkit-center;
 }

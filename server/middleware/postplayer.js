@@ -8,8 +8,10 @@ const db=getDb();
 await db.collection('users').findOneAndUpdate(
     { email },
     {
-      $addToSet: { "team":  {"position": req.body.team.position, "member": req.body.team} }
-     },
+      $set: {
+        [`team.${req.body.team.position}`]: req.body.team
+      }
+    },
     { returnOriginal: false },
     function(err, result) {
       if (err) throw err;
@@ -19,7 +21,7 @@ await db.collection('users').findOneAndUpdate(
     );
     
   const returnTeam=  await db.collection('users').findOne({email})
-res.send(returnTeam)
+res.send(returnTeam.team)
 //db.collection('users').document
 }
 
