@@ -9,6 +9,8 @@ const db=getDb();
 let check=  await db.collection('users').findOne({email})
 const playerid=i.team.player.id
 
+
+
 if(playerid===check.team.gk?.player.id || playerid===check.team.rb?.player.id || playerid===check.team.rcb?.player.id
   || playerid===check.team.lcb?.player.id || playerid===check.team.lb?.player.id || playerid===check.team.rcm?.player.id
   || playerid===check.team.cm?.player.id || playerid===check.team.lcm?.player.id || playerid===check.team.rw?.player.id

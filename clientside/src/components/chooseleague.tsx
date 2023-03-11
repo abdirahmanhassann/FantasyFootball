@@ -16,6 +16,7 @@ function Chooseleague() {
   const [indexx,setindexx]=useState<any>({})
   const [rerender,setrerender]=useState <boolean>(false)
     const [selectedplayer, setselectedplayer] = useState<object>({});
+    const [selectedpos,setselectedpos]=useState<string | undefined>('')
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
 const getplayer='http://localhost:5002/getplayer'
@@ -70,6 +71,7 @@ function clicked(c){
     console.log(c)
     setSelectedLanguage(c.exact)
 setselectedplayer(c.position)
+setselectedpos(c.exact)
 }
 function changed(e){
 setinput(e.target.value)
@@ -77,8 +79,10 @@ console.log(input)
 }
 
 function postplayer(i){
-  if(selectedLanguage && selectedplayer){
 
+  if(selectedLanguage && selectedplayer &&
+ i.statistics[0].games.position===selectedpos){
+console.log('positions', i.statistics[0].games.position,selectedpos)
 i={
   ...i,
   position:selectedplayer
@@ -353,7 +357,7 @@ setrerender(i=>!i)
         
         let fullname=`${j.player.firstname} ${j.player.lastname}`
         if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position ){
-  if (    input.length== 0 || fullname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
+  if (    input.length== 0 || j.player.name.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
     return (
       <tr key={j.player.id} className="playerdiv" onClick={()=>postplayer(j)}>
     
@@ -364,9 +368,9 @@ setrerender(i=>!i)
         <div className='columndiv'>
 
         {j.player.lastname.length < 8 ? (
-          <p className="boldp">{j.player.lastname}</p>
+          <p className="boldp">{j.player.name}</p>
           ) : (
-            <p className="boldp">{j.player.lastname.slice(0, 8)}...</p>
+            <p className="boldp">{j.player.name.slice(0, 8)}...</p>
             )}
  <div className='rowdiv'>
 <p className='lightp'>{j.statistics[0].team.name.slice(0,3).toUpperCase()}</p>
