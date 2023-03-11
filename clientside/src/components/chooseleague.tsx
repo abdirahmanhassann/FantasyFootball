@@ -14,11 +14,12 @@ function Chooseleague() {
   const [players,setplayers]=useState<any>([{}])
   const [input,setinput]=useState <string>('')
   const [indexx,setindexx]=useState<any>({})
-  const [selectedplayer, setselectedplayer] = useState<object>({});
+  const [rerender,setrerender]=useState <boolean>(false)
+    const [selectedplayer, setselectedplayer] = useState<object>({});
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
 const getplayer='http://localhost:5002/getplayer'
-
+const removePlayerlink='http://localhost:5002/removePlayer'
     const handleLanguageSelection = (language) => {
         setIsOpen(false);
       setSelectedLanguage(language);
@@ -58,7 +59,7 @@ fetch(loadplayers,{
 
         }
         request()
-    },[])
+    },[rerender])
 
     const gk={position:'gk',exact:'Goalkeeper',player:''}
     const defence=[{position:'rb',exact:'Defender'},{position:'rcb',exact:'Defender'},{position:'lcb',exact:'Defender'},{position:'lb',exact:'Defender'}]
@@ -96,7 +97,29 @@ console.log(selectedplayer,i)
     .then(changed => {
       console.log(changed);
 setindexx(changed);
+setrerender(i=>!i)
     })
+}
+
+function removePlayer(i){
+  setselectedplayer(i.position)
+  console.log(selectedplayer)
+  fetch(removePlayerlink, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${jwttoken}`,
+    },
+    body: JSON.stringify({player:selectedplayer}),
+  })
+    .then(response => response.json())
+    .then(changed => {
+      console.log(changed);
+setindexx(changed);
+setrerender(i=>!i)
+    })
+
+
 }
 
   return (
@@ -108,8 +131,8 @@ setindexx(changed);
 <div className='gk'>
             <div className='blankshirtdiv'>
               {
-                indexx.gk ?
-                <div className='columndiv'>
+                 indexx.gk && indexx.gk!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(gk)}>
                 <div className={indexx.gk.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(gk)} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.gk.player.lastname}</p>
@@ -125,8 +148,8 @@ setindexx(changed);
 <div className='def'>
 
 {
-                indexx.rb ?
-                <div className='columndiv'>
+                indexx.rb && indexx.rb!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(defence[0])}>
                 <div className={indexx.rb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[0])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.rb.player.lastname}</p>
@@ -138,8 +161,8 @@ setindexx(changed);
                 
               }
 {
-                indexx.rcb ?
-                <div className='columndiv'>
+                indexx.rcb && indexx.rcb!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(defence[1])}>
                 <div className={indexx.rcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.rcb.player.lastname}</p>
@@ -151,8 +174,8 @@ setindexx(changed);
                 
               }
 {
-                indexx.lcb ?
-                <div className='columndiv'>
+                indexx.lcb && indexx.lcb!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(defence[2])}>
                 <div className={indexx.lcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[2])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.lcb.player.lastname}</p>
@@ -165,8 +188,8 @@ setindexx(changed);
               }
       
 {
-                indexx.lb ?
-                <div className='columndiv'>
+                indexx.lb && indexx.lb!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(defence[3])}>
                 <div className={indexx.lb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[3])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.lb.player.lastname}</p>
@@ -182,8 +205,8 @@ setindexx(changed);
       <div className='mid'>
 
       {
-                indexx.rcm ?
-                <div className='columndiv'>
+                indexx.rcm && indexx.rcm!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(midfield[0])}>
                 <div className={indexx.rcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[0])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.rcm.player.lastname}</p>
@@ -195,8 +218,8 @@ setindexx(changed);
                 
               }
       {
-                indexx.cm ?
-                <div className='columndiv'>
+                indexx.cm && indexx.cm!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(midfield[1])}>
                 <div className={indexx.cm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[1])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.cm.player.lastname}</p>
@@ -208,12 +231,12 @@ setindexx(changed);
                 
               }
       {
-                indexx.lcm ?
-                <div className='columndiv'>
+                indexx.lcm && indexx.lcm!==null ?
+                <div className='columndiv' onClick={()=>removePlayer(midfield[2])}>
                 <div className={indexx.lcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[2])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.lcm.player.lastname}</p>
-                  <p className='lightp'>{indexx.lcm.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.lcm.statistics[0].games.rating ? indexx.lcm.statistics[0].games.rating :0}</p>
                 </div> 
               </div>
                         :
@@ -225,12 +248,12 @@ setindexx(changed);
 <div className='att'>
 
   {
-            indexx.rw ?
-            <div className='columndiv'>
+            indexx.rw && indexx.rw!==null ?
+            <div className='columndiv' onClick={()=>removePlayer(attack[0])}>
             <div className={indexx.rw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[0])} />
             <div className='rowdiv'>
               <p className='boldp'>{indexx.rw.player.lastname}</p>
-              <p className='lightp'>{indexx.rw.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+              <p className='lightp'>{indexx.rw.statistics[0].games.rating ? indexx.rw.statistics[0].games.rating :0}</p>
             </div> 
           </div>
                     :
@@ -238,12 +261,12 @@ setindexx(changed);
             
           }
   {
-            indexx.st ?
-            <div className='columndiv'>
+            indexx.st && indexx.st!==null ?
+            <div className='columndiv' onClick={()=>removePlayer(attack[1])}>
             <div className={indexx.st.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[1])} />
             <div className='rowdiv'>
               <p className='boldp'>{indexx.st.player.lastname}</p>
-              <p className='lightp'>{indexx.st.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+              <p className='lightp'>{indexx.st.statistics[0].games.rating ? indexx.st.statistics[0].games.rating :0}</p>
             </div> 
           </div>
                     :
@@ -251,8 +274,8 @@ setindexx(changed);
             
           }
   {
-            indexx.lw ?
-            <div className='columndiv'>
+            indexx.lw && indexx.lw!==null ?
+            <div className='columndiv' onClick={()=>removePlayer(attack[2])}>
             <div className={indexx.lw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[2])} />
             <div className='rowdiv'>
               <p className='boldp'>{indexx.lw.player.lastname}</p>

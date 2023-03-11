@@ -13,7 +13,7 @@ if(playerid===check.team.gk?.player.id || playerid===check.team.rb?.player.id ||
   || playerid===check.team.lcb?.player.id || playerid===check.team.lb?.player.id || playerid===check.team.rcm?.player.id
   || playerid===check.team.cm?.player.id || playerid===check.team.lcm?.player.id || playerid===check.team.rw?.player.id
   || playerid===check.team.st?.player.id || playerid===check.team.lw?.player.id
-  )
+  ) 
 
   {
   res.send( 'already exists')
@@ -36,8 +36,6 @@ else if(i.team.position===check.team.gk?.position ||i.team.position===check.team
     res.send(returnTeam.team)
 
   }
-
-
 
 else{
    console.log(i)

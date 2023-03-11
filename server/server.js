@@ -14,6 +14,7 @@ const https = require('https');
 const playersApiRequest = require('./middleware/playersApiRequest')
 const cron=require('node-cron')
 const postplayer=require('./middleware/postplayer')
+const removePlayer = require('./middleware/removePlayer')
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -96,6 +97,10 @@ connectToDb((err)=>{
         console.log('app is listening...')
     })
     db=getDb()
+  app.delete('/removePlayer',auth,removePlayer,(req,res)=>{
+
+  })
+
     app.post('/postplayer',auth,postplayer,(req,res)=>{
 
     })    
