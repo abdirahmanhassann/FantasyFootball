@@ -6,6 +6,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useDispatch, useSelector } from 'react-redux';
+
 function Chooseleague() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -82,7 +83,6 @@ function postplayer(i){
 
   if(selectedLanguage && selectedplayer &&
  i.statistics[0].games.position===selectedpos){
-console.log('positions', i.statistics[0].games.position,selectedpos)
 i={
   ...i,
   position:selectedplayer

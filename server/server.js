@@ -15,10 +15,13 @@ const playersApiRequest = require('./middleware/playersApiRequest')
 const cron=require('node-cron')
 const postplayer=require('./middleware/postplayer')
 const removePlayer = require('./middleware/removePlayer')
+const updateRating = require('./middleware/updateRating')
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-
+const {fetchBootstrap,fetchEntryEvent,fetchFixtures}=require('fpl-api')
 const user={email:'popoeski',password:'po123'}
 
 
@@ -59,10 +62,27 @@ else{
 }
 })
 
-app.post('/',(req,res)=>{
-    const {email}=req.body;
-
-    res.json({email:email})
+app.get('/',async (req,res)=>{
+    // const {email}=req.body;
+    // const data=await fetchFixtures(20)
+    // console.log(data)
+    const player=[]
+  fetch('https://fantasy.premierleague.com/api/bootstrap-static/')
+  .then(res1=>res1.json())
+  .then(data => {
+    const footballers = data.elements.filter(element => element.element_type >= 2 && element.element_type <= 4);
+    footballers.forEach((i)=>
+    { 
+      let players={
+  totalPoints:i.total_points,
+  averagePoints:i.points_per_game,
+  firstname:i.first_name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+  surname:i.second_name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      }
+player.push(players)
+    })
+    res.send(player);
+  })
 })
   
 app.get('/loadplayers',auth,async (req,res)=>{
@@ -103,8 +123,12 @@ connectToDb((err)=>{
 
     app.post('/postplayer',auth,postplayer,(req,res)=>{
 
-    })    
-    cron.schedule('03 23 * * *',()=>{
+    })   
+    
+    app.get('/updateRating',updateRating,(req,res)=>{
+
+    })
+    cron.schedule('37 1 * * *',()=>{
     playersApiRequest()
 })
 })
