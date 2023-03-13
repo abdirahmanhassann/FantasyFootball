@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 
-function Chooseleague() {
+function Squadselection() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
   const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
@@ -417,4 +417,4 @@ j.statistics[0].games.position == 'Goalkeeper'?
 
 </>  )
 }
-export default Chooseleague;
+export default Squadselection;

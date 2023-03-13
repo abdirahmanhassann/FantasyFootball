@@ -517,3 +517,15 @@ td {
   width: 76.4%;
   margin-bottom: -15px;
 }
+.card{
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  width: 565px;
+}
+
+.cardtext{
+  background-image: url(./images/pattern-2-d.0a64c7c7.png),linear-gradient(to right, rgb(2, 239, 255), rgb(0 255 102));
+  background-position: 3vw center, left top, 0px center;
+  padding: 16px;
+}
