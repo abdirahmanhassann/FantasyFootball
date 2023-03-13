@@ -524,7 +524,7 @@ td {
   display: flex;
   flex-direction: row;
   height: 200px;
-  width: 565px;
+  width: 585px;
 }
 
 .cardtext{
@@ -559,4 +559,63 @@ td {
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(rgb(2, 239, 255), rgb(0 255 102)) top/100% 100%;
   border-radius: 10px;
+}
+
+footer{
+  width: 100%;
+  text-align: center;
+  height: 166px;
+  padding: 77px;
+}
+.ulfooter{
+  display: flex;
+  flex-direction: initial;
+  gap: 31px;
+  font-size: 10px;
+  place-content: center;
+}
+.boldp2 {
+  font-size: 11px;
+  font-weight: 600;
+  color: #4d004d;
+}
+.rowdiv3 {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  place-content: center;
+  flex-wrap: wrap;
+}
+
+.subnav3{  
+  height: 116px;
+  width: -moz-fit-content;
+  width: fit-content;
+  background: url('./images/pattern-2-d.0a64c7c7.png'), #37003c;
+  background-position: 987px center, left top, 0px center;
+  background-size: 29%;
+  background-repeat: no-repeat;
+  color: white;
+  margin: auto;
+  border-radius: 4px;
+  padding: 1%;
+}
+
+.h3neon{
+  background: linear-gradient(to right, rgb(2 255 103), rgb(98 245 255));
+  -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    font-size: 23px;
+}
+
+.buttonneon{
+  background: linear-gradient(to right, rgb(13 247 99), rgb(87 206 252));
+    height: fit-content;
+    width: fit-content;
+    padding: 10px 48px;
+    font-size: 13px;
+    color: #37003b;
+    font-weight: 500;
+    border-radius: 4px;
 }

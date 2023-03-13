@@ -4,12 +4,23 @@ import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 import leagueshirt from '../images/leaguesshirts.png';
 import leaguepic from '../images/leagues.png'
-function League() {
+import Footer from './Reusable/Footer.tsx';
+function SignedInHome() {
   return (
     <div>
         <Navbar/>
         <Subnav page={'home'} />
-<div className='rowdiv'>
+        <div className='subnav3' style={{marginBottom:'30px'}}>
+            <div className='rowdiv' style={{gap:'50px',alignItems:'center'}}>
+                <div className='columndiv' style={{ width: '60%', alignItems: 'self-start'}}>
+            <h3 className='h3neon'>Invite friends to Play Fantasy Premier League</h3>
+<p>With over 9 million players, Fantasy Premier League is the biggest Fantasy Football game in the world. It’s FREE to play and you can win great prizes!
+</p>              </div>
+<button className='buttonneon'>Share with friends</button>
+
+            </div>
+        </div>
+<div className='rowdiv3'>
     <div className='card'>
         <img src={leagueshirt} className='leaguepic'></img>
         <div className='cardtext'>
@@ -25,8 +36,9 @@ function League() {
         </div>
     </div>
 </div>
+<Footer/>
     </div>
   )
 }
 
-export default League
+export default SignedInHome;
