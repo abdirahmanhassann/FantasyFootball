@@ -130,7 +130,7 @@ setrerender(i=>!i)
   return (
 <>
 <Navbar/>
-<Subnav/>
+<Subnav page={'squad'}/>
 <div className='columndiv2'>
 <h2>Squad seletion</h2>
 <p>Select a maximum of 3 players from a single team</p>

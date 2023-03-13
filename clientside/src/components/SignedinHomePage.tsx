@@ -8,7 +8,7 @@ function League() {
   return (
     <div>
         <Navbar/>
-        <Subnav/>
+        <Subnav page={'home'} />
 <div className='rowdiv'>
     <div className='card'>
         <img src={leagueshirt} className='leaguepic'></img>

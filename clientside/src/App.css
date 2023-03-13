@@ -5,6 +5,8 @@ body{
   color:#37003c;
 
 }
+
+
 nav{
   position: relative;
   height: 50px;
@@ -149,6 +151,7 @@ color:#37003c;
   box-shadow: 0px 0px 6px 0px #e6e6e6;
   border-radius: 5px 5px 0 0;
   gap: 16px;
+  margin-top: -69px;
 }
 
 .pitchpic{
@@ -238,6 +241,7 @@ color:#37003c;
   display: flex;
   flex-direction: column;
     padding: 5%;
+    overflow: scroll;
 }
 
 .input2{
@@ -451,9 +455,8 @@ color:#37003c;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-block: 1px solid lightgray;
-  padding-block: 7px;
-  justify-content: space-between;
+  border-block: 0.5px solid #d8d8d8e8;
+    justify-content: space-between;
 }
 
 .boldp{
@@ -528,4 +531,32 @@ td {
   background-image: url(./images/pattern-2-d.0a64c7c7.png),linear-gradient(to right, rgb(2, 239, 255), rgb(0 255 102));
   background-position: 3vw center, left top, 0px center;
   padding: 16px;
+}
+
+.buttonstrue{
+  background:white;
+  border-radius: 5px 5px 0px 0px;
+  padding: 12px;
+  font-size: 14px;
+  color: #520152;
+  font-weight: 600;
+}
+.buttonstrue:hover{
+  background:white;
+}
+
+::-webkit-scrollbar{
+  width:0.30rem
+}
+
+
+::-webkit-scrollbar-track {
+  background: white;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(rgb(2, 239, 255), rgb(0 255 102)) top/100% 100%;
+  border-radius: 10px;
 }
