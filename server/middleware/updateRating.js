@@ -4,13 +4,13 @@ const {getDb}=require('../db');
 
 async function updateRating (req,res,next) {
   const playerArr = [];
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 5; i++) {
     await new Promise((resolve) => {
       setTimeout(() => {
         fetch(`https://v3.football.api-sports.io/players?league=39&season=2022&page=${i}`, {
           headers: {
             'x-rapidapi-host': 'v3.football.api-sports.io',
-            'x-rapidapi-key':process.env.API_KEY3
+            'x-rapidapi-key':process.env.API_KEY
           }
         })
         .then((response) => response.json())
@@ -23,7 +23,7 @@ async function updateRating (req,res,next) {
           console.error(error);
           resolve();
         });
-      }, 1000);
+      }, 6300);
     });
   }
 
@@ -38,7 +38,9 @@ async function updateRating (req,res,next) {
       totalPoints:i.total_points,
       averagePoints:i.points_per_game,
       firstname:i.first_name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
-      surname:i.second_name.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+      surname:i.second_name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+      name:i.web_name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""),
+      nowcost:i.now_cost,
     }
     player.push(players)
   });
@@ -58,6 +60,18 @@ async function updateRating (req,res,next) {
     }));
 }));
 }));
+
+const db=await getDb();
+const existingPlayers = await db.collection('players').findOne();
+if (existingPlayers) {
+  console.log('Replacing existing players data.');
+  const result = await db.collection('players').replaceOne({}, { players: combined });
+  console.log(result);
+}    
+else{
+  await db.collection('players').insertOne({players:combined})
+}
+
 res.send(combined)
 }
 

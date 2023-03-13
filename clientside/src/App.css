@@ -1,20 +1,18 @@
 @import url("https://unpkg.com/@primer/css@^18.0.0/dist/primer.css");
 
 body{
-  font-family: sans-serif;
   background: white;
+  color:#37003c;
+
 }
 nav{
-  position: fixed;
-  top: 0px;
-  left: 0pc;
-  right: 0px;
-  height: 35px;
-  width: 100%;
+  position: relative;
+  height: 50px;
+    width: 100%;
   display: flex;
-  justify-content: space-between;
-  background: linear-gradient(to right, rgb(2, 239, 255), rgb(98, 123, 255));
-  padding-block: 7px
+  justify-content: center;
+  gap: 32px;
+    padding-block: 7px
 }
 input {
   outline: none;
@@ -58,7 +56,7 @@ background:linear-gradient(to right, rgb(13 232 247), rgb(87 114 252));
   background-repeat: no-repeat;
   background-size: auto 100%;
   background-position-y: top;
-  margin-top: 58px;
+  margin-top: 10px;
 }
 .purplebgimg{
   height:100%;
@@ -81,6 +79,7 @@ color:#37003c;
     align-items: center;
     margin: auto;
     gap: 10px;
+    font-size: 50px;
 }
 .logo{
       height: 60px;
@@ -489,4 +488,32 @@ td {
   flex-direction: column;
   align-items: center;
   cursor:pointer;
+}
+
+.rowdiv2 {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  justify-content: space-between;
+  height: inherit;
+}
+.buttons{
+  background: #00ff87;
+    border-radius: 5px 5px 0px 0px;
+    padding: 12px;
+    font-size: 14px;
+    color: #520152;
+    font-weight: 600;
+}
+.buttons:hover{
+  background:#00ff52;
+  transition:0.2;
+}
+.columndiv2{
+  display: flex;
+  flex-direction: column;
+  padding: 9px 50px;
+  font-size:16px;
+  width: 76.4%;
+  margin-bottom: -15px;
 }

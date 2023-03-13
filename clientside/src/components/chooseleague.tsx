@@ -6,6 +6,8 @@ import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import { useDispatch, useSelector } from 'react-redux';
+import Navbar from './Reusable/Navbar.tsx'
+import Subnav from './Reusable/Subnav.tsx'
 
 function Chooseleague() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -122,12 +124,20 @@ function removePlayer(i){
 setindexx(changed);
 setrerender(i=>!i)
     })
-
-
+    
 }
 
   return (
 <>
+<Navbar/>
+<Subnav/>
+<div className='columndiv2'>
+<h2>Squad seletion</h2>
+<p>Select a maximum of 3 players from a single team</p>
+<div className='playerselection'>
+<h2>Gameweek 28</h2>
+</div>
+</div>
 <div className='massivediv'>
 <div className='pitchdiv'>
     <img src={pitch} className='pitchpic'/>
@@ -351,9 +361,7 @@ setrerender(i=>!i)
 {
   players.playerArr &&
   
-  players.playerArr.map((i)=>{
-    return (
-      i.response.map((j)=>{
+      players.playerArr.map((j)=>{
         
         let fullname=`${j.player.firstname} ${j.player.lastname}`
         if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position ){
@@ -400,8 +408,7 @@ j.statistics[0].games.position == 'Goalkeeper'?
     </td>
   </tr>
   )}}
-}))
-  })
+})
 }
 </table>
 </div>
