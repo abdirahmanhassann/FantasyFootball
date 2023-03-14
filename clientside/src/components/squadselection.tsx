@@ -20,6 +20,7 @@ function Squadselection() {
   const [rerender,setrerender]=useState <boolean>(false)
     const [selectedplayer, setselectedplayer] = useState<object>({});
     const [selectedpos,setselectedpos]=useState<string | undefined>('')
+    const [removeplayerinfo,setremoveplayerinfo]=useState();
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
 const getplayer='http://localhost:5002/getplayer'
@@ -109,14 +110,14 @@ setrerender(i=>!i)
 
 function removePlayer(i){
   setselectedplayer(i.position)
-  console.log(selectedplayer)
+  console.log(i)
   fetch(removePlayerlink, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${jwttoken}`,
     },
-    body: JSON.stringify({player:selectedplayer}),
+    body: JSON.stringify({player:selectedplayer,cost:removeplayerinfo}),
   })
     .then(response => response.json())
     .then(changed => {
@@ -146,11 +147,14 @@ setrerender(i=>!i)
             <div className='blankshirtdiv'>
               {
                  indexx.gk && indexx.gk!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(gk)}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.gk.nowCost)
+                  removePlayer(gk)
+                  }}>
                 <div className={indexx.gk.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(gk)} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.gk.player.lastname}</p>
-                  <p className='lightp'>{indexx.gk.statistics[0].games.rating ? indexx.gk.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.gk.nowCost ? indexx.gk.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -163,11 +167,14 @@ setrerender(i=>!i)
 
 {
                 indexx.rb && indexx.rb!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(defence[0])}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.rb.nowCost)
+                  removePlayer(defence[0])
+                  }}>
                 <div className={indexx.rb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[0])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.rb.player.lastname}</p>
-                  <p className='lightp'>{indexx.rb.statistics[0].games.rating ? indexx.rb.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.rb.nowCost ? indexx.rb.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -176,11 +183,13 @@ setrerender(i=>!i)
               }
 {
                 indexx.rcb && indexx.rcb!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(defence[1])}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.rcb.nowCost)
+                  removePlayer(defence[1])}}>
                 <div className={indexx.rcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.rcb.player.lastname}</p>
-                  <p className='lightp'>{indexx.rcb.statistics[0].games.rating ? indexx.rcb.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.rcb.nowCost ? indexx.rcb.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -189,11 +198,13 @@ setrerender(i=>!i)
               }
 {
                 indexx.lcb && indexx.lcb!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(defence[2])}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.lcb.nowCost)
+                  removePlayer(defence[2])}}>
                 <div className={indexx.lcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[2])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.lcb.player.lastname}</p>
-                  <p className='lightp'>{indexx.lcb.statistics[0].games.rating ? indexx.lcb.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.lcb.nowCost ? indexx.lcb.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -203,11 +214,13 @@ setrerender(i=>!i)
       
 {
                 indexx.lb && indexx.lb!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(defence[3])}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.lb.nowCost)
+                  removePlayer(defence[3])}}>
                 <div className={indexx.lb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[3])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.lb.player.lastname}</p>
-                  <p className='lightp'>{indexx.lb.statistics[0].games.rating ? indexx.lb.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.lb.nowCost ? indexx.lb.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -220,11 +233,13 @@ setrerender(i=>!i)
 
       {
                 indexx.rcm && indexx.rcm!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(midfield[0])}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.rcm.nowCost)
+                  removePlayer(midfield[0])}}>
                 <div className={indexx.rcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[0])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.rcm.player.lastname}</p>
-                  <p className='lightp'>{indexx.rcm.statistics[0].games.rating ? indexx.rcm.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.rcm.nowCost ? indexx.rcm.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -233,11 +248,13 @@ setrerender(i=>!i)
               }
       {
                 indexx.cm && indexx.cm!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(midfield[1])}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.cm.nowCost)
+                  removePlayer(midfield[1])}}>
                 <div className={indexx.cm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[1])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.cm.player.lastname}</p>
-                  <p className='lightp'>{indexx.cm.statistics[0].games.rating ? indexx.cm.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.cm.nowCost ? indexx.cm.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -246,11 +263,13 @@ setrerender(i=>!i)
               }
       {
                 indexx.lcm && indexx.lcm!==null ?
-                <div className='columndiv' onClick={()=>removePlayer(midfield[2])}>
+                <div className='columndiv' onClick={()=>{
+                  setremoveplayerinfo(indexx.lcm.nowCost)
+                  removePlayer(midfield[2])}}>
                 <div className={indexx.lcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[2])} />
                 <div className='rowdiv'>
                   <p className='boldp'>{indexx.lcm.player.lastname}</p>
-                  <p className='lightp'>{indexx.lcm.statistics[0].games.rating ? indexx.lcm.statistics[0].games.rating :0}</p>
+                  <p className='lightp'>{indexx.lcm.nowCost ? indexx.lcm.nowCost :0}</p>
                 </div> 
               </div>
                         :
@@ -263,11 +282,13 @@ setrerender(i=>!i)
 
   {
             indexx.rw && indexx.rw!==null ?
-            <div className='columndiv' onClick={()=>removePlayer(attack[0])}>
+            <div className='columndiv' onClick={()=>{
+              setremoveplayerinfo(indexx.rw.nowCost)
+              removePlayer(attack[0])}}>
             <div className={indexx.rw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[0])} />
             <div className='rowdiv'>
               <p className='boldp'>{indexx.rw.player.lastname}</p>
-              <p className='lightp'>{indexx.rw.statistics[0].games.rating ? indexx.rw.statistics[0].games.rating :0}</p>
+              <p className='lightp'>{indexx.rw.nowCost ? indexx.rw.nowCost :0}</p>
             </div> 
           </div>
                     :
@@ -276,11 +297,13 @@ setrerender(i=>!i)
           }
   {
             indexx.st && indexx.st!==null ?
-            <div className='columndiv' onClick={()=>removePlayer(attack[1])}>
+            <div className='columndiv' onClick={()=>{
+              setremoveplayerinfo(indexx.st.nowCost)
+              removePlayer(attack[1])}}>
             <div className={indexx.st.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[1])} />
             <div className='rowdiv'>
               <p className='boldp'>{indexx.st.player.lastname}</p>
-              <p className='lightp'>{indexx.st.statistics[0].games.rating ? indexx.st.statistics[0].games.rating :0}</p>
+              <p className='lightp'>{indexx.st.nowCost ? indexx.st.nowCost :0}</p>
             </div> 
           </div>
                     :
@@ -289,11 +312,13 @@ setrerender(i=>!i)
           }
   {
             indexx.lw && indexx.lw!==null ?
-            <div className='columndiv' onClick={()=>removePlayer(attack[2])}>
+            <div className='columndiv' onClick={()=>{
+              setremoveplayerinfo(indexx.lw.nowCost)
+              removePlayer(attack[2])}}>
             <div className={indexx.lw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[2])} />
             <div className='rowdiv'>
               <p className='boldp'>{indexx.lw.player.lastname}</p>
-              <p className='lightp'>{indexx.lw.statistics[0].games.rating ? indexx.lw.statistics[0].games.rating :0}</p>
+              <p className='lightp'>{indexx.lw.nowCost ? indexx.lw.nowCost :0}</p>
             </div> 
           </div>
                     :
@@ -363,7 +388,6 @@ setrerender(i=>!i)
   
       players.playerArr.map((j:any)=>{
         if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position ){
-          console.log(selectedLanguage,j.statistics[0].games.position)
   if (    input.length== 0 || j.player.name.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
     return (
       <tr className="playerdiv" onClick={()=>postplayer(j)}>

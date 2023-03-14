@@ -34,6 +34,7 @@ const hashedpassword=await bcrypt.hash(req.body.password,10 )
 const result = await db.collection('users').insertOne({
     email: email,
     password: hashedpassword,
+  budget:200
   });
 console.log(result)
   // Send a response to the client
