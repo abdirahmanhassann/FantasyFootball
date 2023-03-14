@@ -20,22 +20,32 @@ const db=getDb();
 //   client.close();
 // })
 console.log(cost)
-await db.collection ('users').findOneAndUpdate({email},{
-    $inc: { budget: +cost } ,  
-    $set:{
-        [`team.${player}`]:null
+await db.collection('users').updateOne(
+    { email },
+    [
+      {
+        $set: { 
+          budget: { $ifNull: ['$budget', 0] },
+          [`team.${player}`]: null,
+          budgetUpdated: { $cond: { if: { $eq: ['$budget', null] }, then: null, else: new Date() } }
+        },
+      },
+      {
+        $set: { 
+          budget: { $add: ['$budget', cost] },
+          [`team.${player}`]: { $cond: { if: { $eq: ['$budgetUpdated', null] }, then: null, else: `$team.${player}` } },
+        },
+      },
+    ],
+    function(err, result) {
+      if (err) throw err;
+      console.log(`${result.matchedCount} document(s) matched, ${result.modifiedCount} document(s) modified`);
+      client.close();
     }
-},
-{ returnOriginal: false },
-function(err, result) {
-  if (err) throw err;
-  console.log(`${result.value.email} updated`);
-  client.close();
-}
-);
-
+  );
+  
 const returnTeam=  await db.collection('users').findOne({email})
-res.send(returnTeam.team)
+res.send({team: returnTeam.team,budget:returnTeam.budget})
 
 }
 

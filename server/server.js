@@ -22,6 +22,7 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 const {fetchBootstrap,fetchEntryEvent,fetchFixtures}=require('fpl-api')
+const getScores = require('./middleware/getScores')
 const user={email:'popoeski',password:'po123'}
 
 
@@ -95,7 +96,7 @@ app.get('/loadplayers',auth,async (req,res)=>{
         return res.status(404).json({ message: 'No player data found' });
       }
       const playerArr = doc.players;
-      res.status(200).json({ playerArr });
+      res.status(200).json({ playerArr:playerArr });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error retrieving player data' });
@@ -107,7 +108,7 @@ app.get('/loadplayers',auth,async (req,res)=>{
 app.get('/getplayer',auth,async(req,res)=>{
     const email=req.email;
     const returnTeam =  await db.collection('users').findOne({email});
-    res.send(returnTeam.team)
+    res.send({players:returnTeam.team,budget:returnTeam.budget})
     })
 let db;
 connectToDb((err)=>{
@@ -128,6 +129,9 @@ connectToDb((err)=>{
     
     app.get('/updateRating',updateRating,(req,res)=>{
 
+    })
+    app.get('/getScores',getScores,(req,res)=>{
+      
     })
     cron.schedule('37 1 * * *',()=>{
     playersApiRequest()
