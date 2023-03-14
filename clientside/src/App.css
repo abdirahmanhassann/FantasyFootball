@@ -619,3 +619,8 @@ footer{
     font-weight: 500;
     border-radius: 4px;
 }
+.containerdiv{
+  display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

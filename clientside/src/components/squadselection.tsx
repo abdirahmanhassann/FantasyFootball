@@ -24,11 +24,11 @@ function Squadselection() {
 const postplayers='http://localhost:5002/postplayer'
 const getplayer='http://localhost:5002/getplayer'
 const removePlayerlink='http://localhost:5002/removePlayer'
-    const handleLanguageSelection = (language) => {
+    const handleLanguageSelection = (i:string) => {
         setIsOpen(false);
-      setSelectedLanguage(language);
-      console.log(selectedLanguage);
-      
+      setSelectedLanguage(i);
+      console.log({selected:i});
+
     }
 
     useEffect(()=>{
@@ -361,13 +361,12 @@ setrerender(i=>!i)
 {
   players.playerArr &&
   
-      players.playerArr.map((j)=>{
-        
-        let fullname=`${j.player.firstname} ${j.player.lastname}`
+      players.playerArr.map((j:any)=>{
         if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position ){
+          console.log(selectedLanguage,j.statistics[0].games.position)
   if (    input.length== 0 || j.player.name.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
     return (
-      <tr key={j.player.id} className="playerdiv" onClick={()=>postplayer(j)}>
+      <tr className="playerdiv" onClick={()=>postplayer(j)}>
     
         <td>
         <div className={j.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')}></div>

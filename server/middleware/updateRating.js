@@ -4,13 +4,13 @@ const {getDb}=require('../db');
 
 async function updateRating (req,res,next) {
   const playerArr = [];
-  for (let i = 1; i <= 5; i++) {
+  for (let i = 1; i <=44; i++) {
     await new Promise((resolve) => {
       setTimeout(() => {
         fetch(`https://v3.football.api-sports.io/players?league=39&season=2022&page=${i}`, {
           headers: {
             'x-rapidapi-host': 'v3.football.api-sports.io',
-            'x-rapidapi-key':process.env.API_KEY
+            'x-rapidapi-key':process.env.API_KEY3
           }
         })
         .then((response) => response.json())
@@ -53,10 +53,12 @@ async function updateRating (req,res,next) {
             k={
             ...k,
             totalPoints:j.totalPoints,
-            averagePoints:j.averagePoints
+            averagePoints:j.averagePoints,
+            nowCost:j.nowcost
           }   
           combined.push(k)
         }
+    
     }));
 }));
 }));
