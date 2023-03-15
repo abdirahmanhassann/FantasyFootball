@@ -57,9 +57,9 @@ fetch(loadplayers,{
   })
   .then(response => response.json())
   .then(changed => {
-    setindexx(changed.players)
+    setindexx(changed.players ?changed.players: null)
     setbudget(changed.budget)
-    console.log(changed.budget);
+    console.log(changed);
 
   })
 })
@@ -151,7 +151,7 @@ setrerender(i=>!i)
 <div className='gk'>
             <div className='blankshirtdiv'>
               {
-                 indexx.gk && indexx.gk!==null ?
+                indexx!=null && indexx.gk && indexx.gk!==null||undefined ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.gk.nowCost)
                   removePlayer(gk)
@@ -171,7 +171,7 @@ setrerender(i=>!i)
 <div className='def'>
 
 {
-                indexx.rb && indexx.rb!==null ?
+             indexx!=null &&    indexx.rb && indexx.rb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rb.nowCost)
                   removePlayer(defence[0])
@@ -187,7 +187,7 @@ setrerender(i=>!i)
                 
               }
 {
-                indexx.rcb && indexx.rcb!==null ?
+             indexx!=null &&    indexx.rcb && indexx.rcb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rcb.nowCost)
                   removePlayer(defence[1])}}>
@@ -202,7 +202,7 @@ setrerender(i=>!i)
                 
               }
 {
-                indexx.lcb && indexx.lcb!==null ?
+             indexx!=null &&    indexx.lcb && indexx.lcb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lcb.nowCost)
                   removePlayer(defence[2])}}>
@@ -218,7 +218,7 @@ setrerender(i=>!i)
               }
       
 {
-                indexx.lb && indexx.lb!==null ?
+            indexx!=null &&     indexx.lb && indexx.lb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lb.nowCost)
                   removePlayer(defence[3])}}>
@@ -237,7 +237,7 @@ setrerender(i=>!i)
       <div className='mid'>
 
       {
-                indexx.rcm && indexx.rcm!==null ?
+          indexx!=null &&       indexx.rcm && indexx.rcm!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rcm.nowCost)
                   removePlayer(midfield[0])}}>
@@ -252,7 +252,7 @@ setrerender(i=>!i)
                 
               }
       {
-                indexx.cm && indexx.cm!==null ?
+           indexx!=null &&      indexx.cm && indexx.cm!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.cm.nowCost)
                   removePlayer(midfield[1])}}>
@@ -267,7 +267,7 @@ setrerender(i=>!i)
                 
               }
       {
-                indexx.lcm && indexx.lcm!==null ?
+            indexx!=null &&     indexx.lcm && indexx.lcm!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lcm.nowCost)
                   removePlayer(midfield[2])}}>
@@ -286,7 +286,7 @@ setrerender(i=>!i)
 <div className='att'>
 
   {
-            indexx.rw && indexx.rw!==null ?
+          indexx!=null &&   indexx.rw && indexx.rw!==null ?
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.rw.nowCost)
               removePlayer(attack[0])}}>
@@ -301,7 +301,7 @@ setrerender(i=>!i)
             
           }
   {
-            indexx.st && indexx.st!==null ?
+           indexx!=null &&  indexx.st && indexx.st!==null ?
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.st.nowCost)
               removePlayer(attack[1])}}>
@@ -316,7 +316,7 @@ setrerender(i=>!i)
             
           }
   {
-            indexx.lw && indexx.lw!==null ?
+          indexx!=null &&   indexx.lw && indexx.lw!==null ?
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.lw.nowCost)
               removePlayer(attack[2])}}>

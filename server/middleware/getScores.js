@@ -21,11 +21,12 @@ async function getScores(req, res, next) {
     });
   
     const users = await db.collection('users').find().toArray();
-    let count = 0;
     const po = await users.filter((i) => i.team !== undefined);
-    player.forEach((i) => {
-        po.forEach((j)=>{
-      if (
+    po.forEach((j)=>{
+        let count = 0;
+        let score=0;
+        player.map((i) => {
+        if (
         (i.firstname === j.team?.gk?.player.firstname.normalize("NFD").replace(/[\u0300-\u036f]/g, "") && i.surname === j.team?.gk?.player.lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) ||
         (i.firstname === j.team?.rb?.player.firstname.normalize("NFD").replace(/[\u0300-\u036f]/g, "") && i.surname === j.team?.rb?.player.lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) ||
         (i.firstname === j.team?.rcb?.player.firstname.normalize("NFD").replace(/[\u0300-\u036f]/g, "") && i.surname === j.team?.rcb?.player.lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) ||
@@ -38,12 +39,33 @@ async function getScores(req, res, next) {
         ( i.firstname === j.team?.st?.player.firstname.normalize("NFD").replace(/[\u0300-\u036f]/g, "") && i.surname === j.team?.st?.player.lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) ||
         ( i.firstname === j.team?.lw?.player.firstname.normalize("NFD").replace(/[\u0300-\u036f]/g, "") && i.surname === j.team?.lw?.player.lastname.normalize("NFD").replace(/[\u0300-\u036f]/g, "")))
         {
-            console.log(i.nowcost)
-            count+=i.nowcost;
- }
-})
+
+             score=(j.team?.gk?.nowCost ?? 0) +
+             (j.team?.rb?.nowCost ?? 0) +
+             (j.team?.lb?.nowCost ?? 0) +
+             (j.team?.lcb?.nowCost ?? 0) +
+             (j.team?.rcb?.nowCost ?? 0) +
+             (j.team?.cm?.nowCost ?? 0) +
+             (j.team?.rcm?.nowCost ?? 0) +
+             (j.team?.lcm?.nowCost ?? 0) +
+             (j.team?.st?.nowCost ?? 0) +
+             (j.team?.lw?.nowCost ?? 0) +
+             (j.team?.rw?.nowCost ?? 0)
+             ;
+            
+     count+=i.nowcost;
+        }
+    })
+    
+    j={
+        ...j,
+        points:count-score+1
+    }
+    console.log(j.points)
+     db.collection('users').findOneAndUpdate({email:j.email},{ $set:{points:j.points}})
 })
 
-await res.status(200).send({count:count});
+
+await res.status(200).send({po:po});
 }
 module.exports=getScores;
