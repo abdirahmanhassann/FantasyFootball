@@ -55,8 +55,9 @@ async function updateRating (req,res,next) {
             totalPoints:j.totalPoints,
             averagePoints:j.averagePoints,
             nowCost:j.nowcost
-          }   
-          combined.push(k)
+          }  
+          
+        combined.push(k)
         }
     
     }));

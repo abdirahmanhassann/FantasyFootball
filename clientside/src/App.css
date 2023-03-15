@@ -41,7 +41,7 @@ button{
 button:hover{
 
   /* border:1px solid linear-gradient(to right, rgb(184 211 213), rgb(132 78 245)); */
-background:linear-gradient(to right, rgb(13 232 247), rgb(87 114 252));
+  background: linear-gradient(to right, rgb(13 247 56), rgb(87 186 252));
 }
 
 .logos{
@@ -148,7 +148,7 @@ color:#37003c;
   width: 30%;
   display: flex;
   flex-direction: column;
-  box-shadow: 0px 0px 6px 0px #e6e6e6;
+  box-shadow: 0px 5px 6px 0px #e6e6e6;
   border-radius: 5px 5px 0 0;
   gap: 16px;
   margin-top: -69px;
@@ -592,12 +592,12 @@ footer{
   width: -moz-fit-content;
   width: fit-content;
   background: url('./images/pattern-2-d.0a64c7c7.png'), #37003c;
-  background-position: 987px center, left top, 0px center;
-  background-size: 29%;
+  background-position: 951px center, left top, 0px center;
+  background-size: 45%;
   background-repeat: no-repeat;
   color: white;
   margin: auto;
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 1%;
 }
 
@@ -633,9 +633,8 @@ footer{
 .pitchnameheader{
   background: #37003c;
   color: white;
-  padding: 6px 23px;
-    border-radius: 5px 5px 0px 0px;
-  font-size: 11px;
+  padding: 3px 16px;
+    font-size: 12px;
   font-weight: 600;
 }
 .pitchnamep{
@@ -645,4 +644,20 @@ footer{
   font-weight: 700;
   font-size: 12px;
   color: #4d004d;
+}
+
+.purplediv{
+  background: #37003c;
+  align-self: baseline;
+  margin: -7px -2px 10px 11px;
+  border-radius: 0px 0px 8px 8px;
+  padding: 4px 12px 0px 12px;
+}
+
+.pneon{
+  font-size: 13px;
+    background: linear-gradient(to right, rgb(2 255 103), rgb(98 245 255));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
 }

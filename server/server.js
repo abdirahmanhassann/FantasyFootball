@@ -35,7 +35,8 @@ const hashedpassword=await bcrypt.hash(req.body.password,10 )
 const result = await db.collection('users').insertOne({
     email: email,
     password: hashedpassword,
-  budget:200
+  budget:200,
+  points:0
   });
 console.log(result)
   // Send a response to the client
@@ -89,14 +90,15 @@ player.push(players)
   
 app.get('/loadplayers',auth,async (req,res)=>{
     const collection = db.collection('players');
-  
+    const {email}=req.body
     try {
       const doc = await collection.findOne({});
       if (!doc) {
         return res.status(404).json({ message: 'No player data found' });
       }
+
       const playerArr = doc.players;
-      res.status(200).json({ playerArr:playerArr });
+      res.status(200).json({ playerArr:playerArr,email:email,points:doc.points });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error retrieving player data' });
@@ -108,7 +110,7 @@ app.get('/loadplayers',auth,async (req,res)=>{
 app.get('/getplayer',auth,async(req,res)=>{
     const email=req.email;
     const returnTeam =  await db.collection('users').findOne({email});
-    res.send({players:returnTeam.team,budget:returnTeam.budget})
+    res.send({players:returnTeam.team,budget:returnTeam.budget,email:email,points:returnTeam.points })
     })
 let db;
 connectToDb((err)=>{
@@ -131,7 +133,7 @@ connectToDb((err)=>{
 
     })
     app.get('/getScores',getScores,(req,res)=>{
-      
+
     })
     cron.schedule('37 1 * * *',()=>{
     playersApiRequest()

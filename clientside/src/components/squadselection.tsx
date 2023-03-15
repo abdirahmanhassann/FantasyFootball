@@ -9,6 +9,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 
+interface iuserinfo{
+email:string,
+points:number
+}
+
 function Squadselection() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -18,10 +23,13 @@ function Squadselection() {
   const [input,setinput]=useState <string>('')
   const [indexx,setindexx]=useState<any>({})
   const [rerender,setrerender]=useState <boolean>(false)
-    const [selectedplayer, setselectedplayer] = useState<object>({});
+    const [selectedplayer, setselectedplayer] = useState<any>({});
     const [selectedpos,setselectedpos]=useState<string | undefined>('')
     const [removeplayerinfo,setremoveplayerinfo]=useState();
     const [budget,setbudget]=useState(0)
+    const [userinfo,setuserinfo]=useState<iuserinfo>()
+    const [run,setrun]=useState<boolean>(false)
+    const [posted,setposted]=useState()
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
 const getplayer='http://localhost:5002/getplayer'
@@ -59,6 +67,7 @@ fetch(loadplayers,{
   .then(changed => {
     setindexx(changed.players ?changed.players: null)
     setbudget(changed.budget)
+    setuserinfo(changed)
     console.log(changed);
 
   })
@@ -78,6 +87,8 @@ function clicked(c){
     setSelectedLanguage(c.exact)
 setselectedplayer(c.position)
 setselectedpos(c.exact)
+
+
 }
 function changed(e){
 setinput(e.target.value)
@@ -88,6 +99,21 @@ function postplayer(i){
 
   if(selectedLanguage && selectedplayer &&
  i.statistics[0].games.position===selectedpos){
+if(i.player.id===indexx?.team?.gk?.player.id || i.player.id===indexx?.team?.rb?.player.id || i.player.id===indexx?.team?.rcb?.player.id
+  || i.player.id===indexx?.team?.lcb?.player.id || i.player.id===indexx?.team?.lb?.player.id || i.player.id===indexx?.team?.rcm?.player.id
+  || i.player.id===indexx?.team?.cm?.player.id || i.player.id===indexx?.team?.lcm?.player.id || i.player.id===indexx?.team?.rw?.player.id
+  || i.player.id===indexx?.team?.st?.player.id || i.player.id===indexx?.team?.lw?.player.id || i.nowCost>budget 
+ ){
+return null
+ }
+ else{  
+setindexx(j=>{
+  return {
+    ...j,
+    selectedplayer:i
+  }
+})
+console.log('indexxx',indexx)
 i={
   ...i,
   position:selectedplayer
@@ -108,6 +134,31 @@ console.log(selectedplayer,i)
 setrerender(i=>!i)
     })
 }
+}
+useEffect(()=>{
+
+ function postplayer(i){
+    if(selectedLanguage && selectedplayer &&
+      i.statistics[0].games.position===selectedpos){
+     if(i.player.id===indexx?.team?.gk?.player.id || i.player.id===indexx?.team?.rb?.player.id || i.player.id===indexx?.team?.rcb?.player.id
+       || i.player.id===indexx?.team?.lcb?.player.id || i.player.id===indexx?.team?.lb?.player.id || i.player.id===indexx?.team?.rcm?.player.id
+       || i.player.id===indexx?.team?.cm?.player.id || i.player.id===indexx?.team?.lcm?.player.id || i.player.id===indexx?.team?.rw?.player.id
+       || i.player.id===indexx?.team?.st?.player.id || i.player.id===indexx?.team?.lw?.player.id || i.nowCost>budget 
+      ){
+     return null
+      }
+      else{  
+        setindexx(j=>{
+          return {
+            ...j,
+            [selectedplayer]:i
+          }
+        })
+        console.log('postplayer running....',i,selectedplayer)
+    }
+  }}
+postplayer(posted)
+},[run])
 
 function removePlayer(i){
   setselectedplayer(i.position)
@@ -337,7 +388,21 @@ setrerender(i=>!i)
 </div>
 <div className='settingsdiv'>
 <div className='playerselection'>
-<h3 className='largeheader'>Player selection</h3>
+<h3 className='largeheader' style={{  alignSelf: 'self-start',padding:' 0px 15px'}} >
+  {userinfo&&userinfo.email}</h3>
+</div>
+<div className='columndiv' style={{boxShadow:' 0px 13px 13px #ececec'}}>
+  <div className='purplediv'>
+  <p className='pneon'>Points/Rankings</p>
+  </div>
+  <div className='rowdiv' style={{  justifyContent: 'space-between', width: '100%',padding: '6%'}}>
+  <h4 className='boldp'>Total points</h4>
+  <h4 className='boldp'>{userinfo&& userinfo.points}</h4>
+
+  </div>
+</div>
+<div className='playerselection'>
+<h3 className='largeheader'style={{  alignSelf: 'self-start',padding:' 0px 15px'}}  >Player selection</h3>
 </div>
 <div className='playerselection2'>
 <h4 className='largeheader'>View</h4>
@@ -395,7 +460,11 @@ setrerender(i=>!i)
         if(selectedLanguage==='' || selectedLanguage===j.statistics[0].games.position ){
   if (    input.length== 0 || j.player.name.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.firstname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) || j.player.lastname.toLowerCase().includes(input.toLowerCase().replace(/\s+/g, '')) ) {
     return (
-      <tr className="playerdiv" onClick={()=>postplayer(j)}>
+      <tr className="playerdiv" onClick={async ()=>{
+      await  setposted(j)
+       await setrun(i=>!i)
+       await postplayer(j)
+        }}>
     
         <td>
         <div className={j.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')}></div>
