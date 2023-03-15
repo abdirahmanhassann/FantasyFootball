@@ -99,22 +99,7 @@ function postplayer(i){
 
   if(selectedLanguage && selectedplayer &&
  i.statistics[0].games.position===selectedpos){
-if(i.player.id===indexx?.team?.gk?.player.id || i.player.id===indexx?.team?.rb?.player.id || i.player.id===indexx?.team?.rcb?.player.id
-  || i.player.id===indexx?.team?.lcb?.player.id || i.player.id===indexx?.team?.lb?.player.id || i.player.id===indexx?.team?.rcm?.player.id
-  || i.player.id===indexx?.team?.cm?.player.id || i.player.id===indexx?.team?.lcm?.player.id || i.player.id===indexx?.team?.rw?.player.id
-  || i.player.id===indexx?.team?.st?.player.id || i.player.id===indexx?.team?.lw?.player.id || i.nowCost>budget 
- ){
-return null
- }
- else{  
-setindexx(j=>{
-  return {
-    ...j,
-    selectedplayer:i
-  }
-})
-console.log('indexxx',indexx)
-i={
+   i={
   ...i,
   position:selectedplayer
 }
@@ -134,20 +119,21 @@ console.log(selectedplayer,i)
 setrerender(i=>!i)
     })
 }
-}
+
 useEffect(()=>{
 
  function postplayer(i){
     if(selectedLanguage && selectedplayer &&
       i.statistics[0].games.position===selectedpos){
-     if(i.player.id===indexx?.team?.gk?.player.id || i.player.id===indexx?.team?.rb?.player.id || i.player.id===indexx?.team?.rcb?.player.id
-       || i.player.id===indexx?.team?.lcb?.player.id || i.player.id===indexx?.team?.lb?.player.id || i.player.id===indexx?.team?.rcm?.player.id
-       || i.player.id===indexx?.team?.cm?.player.id || i.player.id===indexx?.team?.lcm?.player.id || i.player.id===indexx?.team?.rw?.player.id
-       || i.player.id===indexx?.team?.st?.player.id || i.player.id===indexx?.team?.lw?.player.id || i.nowCost>budget 
+     if(i.player.id===indexx?.gk?.player.id || i.player.id===indexx?.rb?.player.id || i.player.id===indexx?.rcb?.player.id
+       || i.player.id===indexx?.lcb?.player.id || i.player.id===indexx?.lb?.player.id || i.player.id===indexx?.rcm?.player.id
+       || i.player.id===indexx?.cm?.player.id || i.player.id===indexx?.lcm?.player.id || i.player.id===indexx?.rw?.player.id
+       || i.player.id===indexx?.st?.player.id || i.player.id===indexx?.lw?.player.id || i.nowCost>budget 
       ){
-     return null
+     return console.log(i.player.id,'ids are equal')
       }
       else{  
+        console.log(i.player.id, indexx.rcm.id,'ids are not equal')
         setindexx(j=>{
           return {
             ...j,
