@@ -15,7 +15,7 @@ function Leagues() {
 <div className='subnav4'>
     <div className='rowdiv' style={{ gap: '15px'}}>
     <button className='buttons2' onClick={()=>navigate('/leagues/createleague') }>Create or join new league</button>
-    <button className='buttons2'>View joined leagues</button>
+    <button className='buttons2'onClick={()=>navigate('/leagues/viewleagues')}>View joined leagues</button>
     </div>
 </div>
 </div>

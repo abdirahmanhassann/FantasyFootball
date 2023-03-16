@@ -161,6 +161,8 @@ function removePlayerBackend(i){
             [selectedplayer]:null
           }
         })
+if(removeplayerinfo && selectedplayer){
+
 
   fetch(removePlayerlink, {
     method: 'DELETE',
@@ -175,8 +177,9 @@ function removePlayerBackend(i){
       console.log(changed);
 setbudget(changed.budget)
 setrerender(i=>!i)
-    })
     
+    })
+  }
 }
 removePlayerBackend(removeplayerinfo)
 },[runremove])

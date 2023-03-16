@@ -23,6 +23,8 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 const {fetchBootstrap,fetchEntryEvent,fetchFixtures}=require('fpl-api')
 const getScores = require('./middleware/getScores')
+const createleague = require('./middleware/createleague')
+const loadleagues = require('./middleware/loadleagues')
 const user={email:'popoeski',password:'po123'}
 
 
@@ -121,21 +123,17 @@ connectToDb((err)=>{
         console.log('app is listening...')
     })
     db=getDb()
-  app.delete('/removePlayer',auth,removePlayer,(req,res)=>{
+  app.delete('/removePlayer',auth,removePlayer)
 
-  })
-
-    app.post('/postplayer',auth,postplayer,(req,res)=>{
-
-    })   
+    app.post('/postplayer',auth,postplayer)   
     
-    app.get('/updateRating',updateRating,(req,res)=>{
+    app.get('/updateRating',updateRating)
 
-    })
-    app.get('/getScores',getScores,(req,res)=>{
+    app.get('/getScores',getScores)
 
-    })
-    cron.schedule('37 1 * * *',()=>{
-    playersApiRequest()
-})
+    app.post('/createleague',auth,createleague)
+app.get('/loadleagues',auth,loadleagues)
+//     cron.schedule('37 1 * * *',()=>{
+//     playersApiRequest()
+// })
 })
