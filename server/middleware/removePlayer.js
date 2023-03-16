@@ -6,7 +6,7 @@ const {player}=req.body
 const {cost}=req.body;
 const {email}=req
 console.log(player,email)
-const db=getDb();
+const db=await getDb();
 
 // const returnTeam2=  await db.collection('users').find(`team.${player}`)
 

@@ -29,6 +29,7 @@ function Squadselection() {
     const [budget,setbudget]=useState(0)
     const [userinfo,setuserinfo]=useState<iuserinfo>()
     const [run,setrun]=useState<boolean>(false)
+    const [runremove,setrunremove]=useState<boolean>(false)
     const [posted,setposted]=useState()
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
@@ -130,10 +131,10 @@ useEffect(()=>{
        || i.player.id===indexx?.cm?.player.id || i.player.id===indexx?.lcm?.player.id || i.player.id===indexx?.rw?.player.id
        || i.player.id===indexx?.st?.player.id || i.player.id===indexx?.lw?.player.id || i.nowCost>budget 
       ){
-     return console.log(i.player.id,'ids are equal')
+     return null
       }
       else{  
-        console.log(i.player.id, indexx.rcm.id,'ids are not equal')
+       // console.log(i.player.id, indexx.rcm.id,'ids are not equal')
         setindexx(j=>{
           return {
             ...j,
@@ -146,10 +147,21 @@ useEffect(()=>{
 postplayer(posted)
 },[run])
 
-function removePlayer(i){
-  setselectedplayer(i.position)
+useEffect(()=>
+{
+
+
+
+function removePlayerBackend(i){
   console.log(i)
   console.log(removeplayerinfo)
+          setindexx(j=>{
+          return {
+            ...j,
+            [selectedplayer]:null
+          }
+        })
+
   fetch(removePlayerlink, {
     method: 'DELETE',
     headers: {
@@ -166,7 +178,8 @@ setrerender(i=>!i)
     })
     
 }
-
+removePlayerBackend(removeplayerinfo)
+},[runremove])
   return (
 <>
 <Navbar/>
@@ -191,7 +204,8 @@ setrerender(i=>!i)
                 indexx!=null && indexx.gk && indexx.gk!==null||undefined ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.gk.nowCost)
-                  removePlayer(gk)
+                  setselectedplayer(gk.position)
+                  setrunremove(i=>!i)
                   }}>
                 <div className={indexx.gk.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(gk)} />
                 <div className='columndiv'>
@@ -211,8 +225,8 @@ setrerender(i=>!i)
              indexx!=null &&    indexx.rb && indexx.rb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rb.nowCost)
-                  removePlayer(defence[0])
-                  }}>
+                  setselectedplayer(defence[0].position)
+                  setrunremove(i=>!i)                  }}>
                 <div className={indexx.rb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[0])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.rb.player.name}</p>
@@ -227,7 +241,9 @@ setrerender(i=>!i)
              indexx!=null &&    indexx.rcb && indexx.rcb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rcb.nowCost)
-                  removePlayer(defence[1])}}>
+                  setselectedplayer(defence[1].position)
+                  setrunremove(i=>!i) 
+                  }}>
                 <div className={indexx.rcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.rcb.player.name}</p>
@@ -242,7 +258,9 @@ setrerender(i=>!i)
              indexx!=null &&    indexx.lcb && indexx.lcb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lcb.nowCost)
-                  removePlayer(defence[2])}}>
+                  setselectedplayer(defence[2].position)
+                  setrunremove(i=>!i)  
+                }}>
                 <div className={indexx.lcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[2])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.lcb.player.name}</p>
@@ -258,7 +276,9 @@ setrerender(i=>!i)
             indexx!=null &&     indexx.lb && indexx.lb!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lb.nowCost)
-                  removePlayer(defence[3])}}>
+                  setselectedplayer(defence[3].position)
+                  setrunremove(i=>!i)  
+                }}>
                 <div className={indexx.lb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[3])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.lb.player.name}</p>
@@ -277,7 +297,9 @@ setrerender(i=>!i)
           indexx!=null &&       indexx.rcm && indexx.rcm!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rcm.nowCost)
-                  removePlayer(midfield[0])}}>
+                  setselectedplayer(midfield[0].position)
+                  setrunremove(i=>!i) 
+                  }}>
                 <div className={indexx.rcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[0])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.rcm.player.name}</p>
@@ -292,7 +314,9 @@ setrerender(i=>!i)
            indexx!=null &&      indexx.cm && indexx.cm!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.cm.nowCost)
-                  removePlayer(midfield[1])}}>
+                  setselectedplayer(midfield[1].position)
+                  setrunremove(i=>!i)  
+                }}>
                 <div className={indexx.cm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[1])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.cm.player.name}</p>
@@ -307,7 +331,9 @@ setrerender(i=>!i)
             indexx!=null &&     indexx.lcm && indexx.lcm!==null ?
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lcm.nowCost)
-                  removePlayer(midfield[2])}}>
+                  setselectedplayer(midfield[2].position)
+                  setrunremove(i=>!i) 
+                }}>
                 <div className={indexx.lcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[2])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.lcm.player.name}</p>
@@ -326,7 +352,9 @@ setrerender(i=>!i)
           indexx!=null &&   indexx.rw && indexx.rw!==null ?
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.rw.nowCost)
-              removePlayer(attack[0])}}>
+              setselectedplayer(attack[0].position)
+              setrunremove(i=>!i) 
+            }}>
             <div className={indexx.rw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[0])} />
             <div className='columndiv'>
               <p className='pitchnameheader'>{indexx.rw.player.name}</p>
@@ -341,7 +369,9 @@ setrerender(i=>!i)
            indexx!=null &&  indexx.st && indexx.st!==null ?
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.st.nowCost)
-              removePlayer(attack[1])}}>
+              setselectedplayer(attack[1].position)
+              setrunremove(i=>!i) 
+            }}>
             <div className={indexx.st.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[1])} />
             <div className='columndiv'>
               <p className='pitchnameheader'>{indexx.st.player.name}</p>
@@ -356,7 +386,9 @@ setrerender(i=>!i)
           indexx!=null &&   indexx.lw && indexx.lw!==null ?
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.lw.nowCost)
-              removePlayer(attack[2])}}>
+              setselectedplayer(attack[2].position)
+              setrunremove(i=>!i) 
+            }}>
             <div className={indexx.lw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[2])} />
             <div className='columndiv'>
               <p className='pitchnameheader'>{indexx.lw.player.name}</p>
@@ -391,7 +423,9 @@ setrerender(i=>!i)
 <h3 className='largeheader'style={{  alignSelf: 'self-start',padding:' 0px 15px'}}  >Player selection</h3>
 </div>
 <div className='playerselection2'>
-<h4 className='largeheader'>View</h4>
+  <div className='purplediv'>
+<h4 className='pneon'>View</h4>
+  </div>
 <details open={isOpen} onClick={() => setIsOpen(i=>!i)}>
       <summary className="summary" aria-haspopup="true" style={{width:'100%',border:'none'}}>
         {selectedLanguage ? selectedLanguage : 'All Positions'}
