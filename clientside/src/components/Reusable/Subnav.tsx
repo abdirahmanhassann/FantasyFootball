@@ -18,7 +18,7 @@ navigate(`/${a}`)
 <button className={props.page==='home' ? 'buttonstrue':'buttons'} onClick={()=>clicked('signedInHome')} >Home</button>
 
 <button className={props.page==='squad' ? 'buttonstrue':'buttons'} onClick={()=>clicked('squadselection')}>Squad selection</button>
-<button className='buttons'>Leagues</button>
+<button className={props.page==='leagues' ? 'buttonstrue':'buttons'} onClick={()=>clicked('leagues')} >Leagues</button>
 <button className='buttons'>Sign out</button>
     </div>
 </div>

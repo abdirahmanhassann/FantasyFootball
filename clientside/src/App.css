@@ -661,3 +661,51 @@ footer{
     -webkit-text-fill-color: transparent;
     font-weight: 700;
 }
+
+.cardtext2{
+  font-weight: 600;
+  /* opacity: 76%; */
+  border-radius: 7px;
+  /* box-shadow: 1px 1px 6px #00e6ff; */
+  background-image: url('./images/pattern-2-d.0a64c7c7.png'),linear-gradient(to right, rgb(2, 239, 255), rgb(0 255 102));
+  background-position: 555px center, left top, 0px center;
+  padding: 16px;
+}
+
+.subnav4{
+  width: 748px;
+  background: url('./images/pattern-2-d.0a64c7c7.png'), #37003c;
+  background-position: 562px center, left top, 0px center;
+  background-size: 54%;
+  background-repeat: no-repeat;
+  color: white;
+  /* margin: auto; */
+  border-radius: 10px;
+  padding: 1%;
+}
+
+.buttons2{
+  background: linear-gradient(to right, rgb(0 255 196), rgb(0 255 153));
+  border-radius: 5px;
+  padding: 12px;
+  font-size: 14px;
+  color: #520152;
+  font-weight: 600;
+} 
+.buttons2:hover{
+  background: linear-gradient(to right, rgb(0 255 196), rgb(0 255 153));
+
+}
+
+.buttoncard{
+  width: fit-content;
+  padding: 11px 25px;
+  font-size: 14px;
+  color: inherit;
+  border-radius: 3px;
+  background-image: url('./images/pattern-2-d.0a64c7c7.png'),linear-gradient(to right, rgb(2, 239, 255), rgb(0 255 102));
+  background-position: 61px center, left top, 0px center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  font-weight: 600;
+}
