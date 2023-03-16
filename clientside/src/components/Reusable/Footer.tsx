@@ -3,7 +3,7 @@ import React from 'react'
 export default function Footer() {
   return (
     <footer>
-        <p className='boldp2'>©Not Premier league 2023</p>
+        <p className='boldp2' style={{color:'white'}}>©Not Premier league 2023</p>
         <ul className="ulfooter">
   <li>Modern Slavery Statement</li>
   <li>Equality, Diversity and Inclusion Standard</li>

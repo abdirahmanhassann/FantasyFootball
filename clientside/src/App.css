@@ -39,9 +39,7 @@ button{
   transition:background-color 0.4s ease;
 }
 button:hover{
-
-  /* border:1px solid linear-gradient(to right, rgb(184 211 213), rgb(132 78 245)); */
-  background: linear-gradient(to right, rgb(13 247 56), rgb(87 186 252));
+  background: linear-gradient(to right, rgb(13 247 56), rgb(87 216 252));
 }
 
 .logos{
@@ -507,6 +505,8 @@ td {
     font-size: 14px;
     color: #520152;
     font-weight: 600;
+    transition:0.2s ease-in-out;
+
 }
 .buttons:hover{
   background:#00ff52;
@@ -540,6 +540,8 @@ td {
   font-size: 14px;
   color: #520152;
   font-weight: 600;
+  transition:0.2s ease-in-out;
+
 }
 .buttonstrue:hover{
   background:white;
@@ -564,8 +566,10 @@ td {
 footer{
   width: 100%;
   text-align: center;
-  height: 166px;
-  padding: 77px;
+  padding: 20px;
+  background: linear-gradient(to left, #ec12ff, #200023);
+  color: white;
+  margin-top: 30px;
 }
 .ulfooter{
   display: flex;
@@ -618,6 +622,8 @@ footer{
     color: #37003b;
     font-weight: 500;
     border-radius: 4px;
+    transition:0.2s ease-in-out;
+
 }
 .containerdiv{
   display: flex;
@@ -691,6 +697,8 @@ footer{
   font-size: 14px;
   color: #520152;
   font-weight: 600;
+  transition:0.2s ease-in-out;
+
 } 
 .buttons2:hover{
   background: linear-gradient(to right, rgb(0 255 196), rgb(0 255 153));
@@ -708,4 +716,13 @@ footer{
   background-size: 100%;
   background-repeat: no-repeat;
   font-weight: 600;
+  transition:0.2s ease-in-out;
+}
+.leagueinput{
+  background: lightgray;
+    border: none;
+    border-bottom: 1px solid gray;
+    outline: none;
+    padding-block: 6px;
+    font-size: 14px;
 }

@@ -32,7 +32,12 @@ function SignedInHome() {
             <h3 className='h3neon'>Invite friends to Play Fantasy Premier League</h3>
 <p>With over 9 million players, Fantasy Premier League is the biggest Fantasy Football game in the world. It’s FREE to play and you can win great prizes!
 </p>              </div>
-<button className='buttonneon'>Share with friends</button>
+<button className='buttonneon'onClick={() => {
+    navigator.clipboard.writeText('abdirahman.com')
+alert('Link copied to clipboard')
+}
+}
+>Share with friends</button>
 
             </div>
 
