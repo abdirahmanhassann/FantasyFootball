@@ -25,6 +25,8 @@ const {fetchBootstrap,fetchEntryEvent,fetchFixtures}=require('fpl-api')
 const getScores = require('./middleware/getScores')
 const createleague = require('./middleware/createleague')
 const loadleagues = require('./middleware/loadleagues')
+const findleague = require('./middleware/findleague')
+const joinleague = require('./middleware/joinleague')
 const user={email:'popoeski',password:'po123'}
 
 
@@ -133,6 +135,8 @@ connectToDb((err)=>{
 
     app.post('/createleague',auth,createleague)
 app.get('/loadleagues',auth,loadleagues)
+app.post('/findleague',auth,findleague)
+app.post('/joinleague',auth,joinleague)
 //     cron.schedule('37 1 * * *',()=>{
 //     playersApiRequest()
 // })

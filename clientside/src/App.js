@@ -8,6 +8,7 @@ import Createleague from './components/Createleague.tsx';
 import Create from './components/Create.tsx';
 import Joinleague from './components/Joinleague.tsx';
 import Viewleagues from './components/Viewleagues.tsx';
+import Viewleague from './components/Viewleague.tsx';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path='/signedInHome' element={<SignedInHome/>}/>
       <Route path='/Leagues' element={<Leagues/>}/>
       <Route path='/Leagues/viewleagues' element={<Viewleagues/>}/>
+      <Route path='/Leagues/viewleagues/:league' element={<Viewleague/>}/>
       <Route path='/Leagues/createleague' element={<Createleague/>}/>
       <Route path='/Leagues/createleague/join' element={<Joinleague/>}/>
       <Route path='/Leagues/createleague/create' element={<Create/>}/>

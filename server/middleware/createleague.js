@@ -7,13 +7,11 @@ const {email}=req
 const nowDate=new Date()
 const id2=new ObjectId('641365b83d0fdc515900a5c8')
 console.log(league,email) 
-
+const user=await db.collection('users').findOne({email:email})
 await db.collection('leagues').insertOne(
-     {league: league,owner:email,createdAt:nowDate,players:[email]}
+     {league: league,owner:email,createdAt:nowDate,players:[user]}
    )
 
-   const id = await db.collection('leagues').findOne({_id:id2})
-   console.log(id)
 }
 
 

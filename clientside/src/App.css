@@ -453,8 +453,11 @@ color:#37003c;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-block: 0.5px solid #d8d8d8e8;
-    justify-content: space-between;
+  border-block: 1px solid hsl(0, 0%, 96%);
+      justify-content: space-between;
+}
+.playerdiv:hover{
+  background:hsl(0, 0%, 96%)
 }
 
 .boldp{
@@ -477,6 +480,11 @@ td {
   text-align: center;
   padding: 10px;
   cursor:pointer;
+}
+th{
+  width:25%;
+  text-align:center;
+  padding-block:10px
 }
 
 .rowdiv{

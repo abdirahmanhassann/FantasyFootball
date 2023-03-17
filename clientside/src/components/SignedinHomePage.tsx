@@ -5,6 +5,7 @@ import Subnav from './Reusable/Subnav.tsx'
 import leagueshirt from '../images/leaguesshirts.png';
 import leaguepic from '../images/leagues.png'
 import Footer from './Reusable/Footer.tsx';
+import CopyToClipBoard from './Reusable/CopytoClipBoard.ts';
 function SignedInHome() {
   return (
     <div className='containerdiv'>
@@ -32,11 +33,7 @@ function SignedInHome() {
             <h3 className='h3neon'>Invite friends to Play Fantasy Premier League</h3>
 <p>With over 9 million players, Fantasy Premier League is the biggest Fantasy Football game in the world. It’s FREE to play and you can win great prizes!
 </p>              </div>
-<button className='buttonneon'onClick={() => {
-    navigator.clipboard.writeText('abdirahman.com')
-alert('Link copied to clipboard')
-}
-}
+<button className='buttonneon'onClick={() =>CopyToClipBoard('www.abdirahman.com','link') }
 >Share with friends</button>
 
             </div>
