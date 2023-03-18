@@ -30,7 +30,10 @@ function fetchleague(){
     }
         )
         .then(res=>res.json())
-        .then(res=>setleague(res))
+        .then(res=>{
+            
+            console.log(res)
+            setleague(res)})
                 
 }
 fetchleague()
@@ -63,7 +66,7 @@ fetchleague()
     </tr>
     {
 league&&
-league.players?.map((i)=>{
+league[0].playerss?.map((i)=>{
   return(
 <>
 <tr className="playerdiv">

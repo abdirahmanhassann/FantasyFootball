@@ -5,14 +5,22 @@ async function createleague(req,res,next){
 const {league}=req.body;
 const {email}=req
 const nowDate=new Date()
-const id2=new ObjectId('641365b83d0fdc515900a5c8')
 console.log(league,email) 
-const user=await db.collection('users').findOne({email:email})
-await db.collection('leagues').insertOne(
-     {league: league,owner:email,createdAt:nowDate,players:[user]}
-   )
+const leagues =await db.collection('leagues').insertOne(
+    {league: league,owner:email,createdAt:nowDate,players:[email]}
+    )
+    const leaguesid = new ObjectId(leagues.insertedId);
+    
+    const user=await db.collection('users').findOneAndUpdate({email:email},
+        
+            {
+                $addToSet: {leagues:leaguesid}
+            } 
+        
+         )
 
+
+         res.status(200).send(user)
 }
-
 
 module.exports=createleague

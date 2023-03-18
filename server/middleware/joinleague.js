@@ -7,15 +7,19 @@ const {email}=req
 const{id}=req.body;
 const idobject=new ObjectId(id)
 const user=await db.collection('leagues').findOne({_id:idobject})
-
+console.log({id:idobject})
 if(user){
 
-    const person=await db.collection('users').findOne({email:email});
-    console.log(person)
+    const person=await db.collection('users').findOneAndUpdate({email:email}
+        ,{$addToSet: {leagues:idobject}}
+        );
+        const personid=person.value._id
+        console.log({person:person,personId:personid})
   const add=  await db.collection('leagues').findOneAndUpdate({_id:idobject},
-        {$addToSet: {players:person}}
+        {$addToSet: {players:personid}}
      )
-    console.log(add)
+
+
   await  res.status(200).send({status:200,id:id})
 }
 else{

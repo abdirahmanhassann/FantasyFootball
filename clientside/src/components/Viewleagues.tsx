@@ -7,15 +7,17 @@ import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 
 interface Ileague{
-  league:string;
-  _id:string;
-  owner:string;
-  players:[]
+  [0]:{}
+    playeer:[];
+  league:string,
+  _id:string,
+  owner:string,
+  
 }
 
 function Viewleagues() {
   
-const [leagues,setleagues]=useState<Ileague[]>([])
+const [leagues,setleagues]=useState<[]>([])
 const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
 const dispatch=useDispatch();
 const navigate=useNavigate()
@@ -28,7 +30,12 @@ headers:{
 }}
 )
 .then(res=>res.json())
-.then(res=>setleagues(res))
+.then(res=>
+
+{  console.log(res)
+  setleagues(res.res)
+}
+)
 },[])
 
 function clicked(i):void{
@@ -62,7 +69,7 @@ navigate(`/leagues/viewleagues/${i._id}`)
     </tr>
     {
 leagues&& 
-leagues.map((i)=>{
+leagues.map((i:any)=>{
   return(
 <>
 <tr className="playerdiv" onClick={()=>clicked(i)}>

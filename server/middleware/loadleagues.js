@@ -4,11 +4,27 @@ async function loadleagues(req,res,next){
     const db=getDb()
 const {email}=req
 console.log(email)
-const details = await db.collection('leagues').find(  { players: { $elemMatch: { email: email } } }).toArray();
-
-await res.status(200).send(details)
+const details = await db.collection('users' ).aggregate(
+[
+    {
+        $match: { email: email },
+      },
+    
+    {
+      $lookup: {
+        from: "leagues",
+        localField: "leagues",
+        foreignField: "_id",
+        as: "playeer"
+      },
+    } ]
+  ).toArray()
+console.log(details)
+ //const f=await db.collection('users').aggregate({$lookup:{from:"leagues",localField: "leagues",foreignField:"_id",as:"player"}}).toArray()
+//console.log(f)
+await res.status(200).send({res:details[0].playeer})
 
 }
 
 
-module.exports=loadleagues
+module.exports=loadleagues;
