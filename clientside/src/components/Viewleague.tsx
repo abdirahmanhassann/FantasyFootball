@@ -5,6 +5,8 @@ import Footer from './Reusable/Footer.tsx'
 import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 import CopyToClipBoard from './Reusable/CopytoClipBoard.ts'
+import moment from "moment/moment";
+
 interface Ileague{
     league:string;
     _id:string;
@@ -45,9 +47,10 @@ fetchleague()
         <Subnav/>
         <div className='rowdiv' style={{    
             justifyContent: 'space-between',
-            padding: '20px 70px'
+            padding: '20px 70px',
+            width:'800px'
             }}>
- <h2>{league?.league}</h2>
+ <h1>{league?.[0]?.league}</h1>
 <button className='buttoncard'
  onClick={() => { CopyToClipBoard(leagueId,'League ID')}}>Invite friends</button>
         </div>
@@ -56,7 +59,8 @@ fetchleague()
            style={{
            width: '800px',marginLeft: '61px',marginTop:'0px'}}>
                 <div className='purplediv'>
-  <p className='pneon'>{league?.owner}'s league</p>
+  <p className='pneon'>{league?.[0].owner}'s league</p>
+  <p className='pneon'> created {league&& moment(league[0].createdAt).fromNow()}</p>
   </div>
   <table>
     <tr className='playerdiv'>

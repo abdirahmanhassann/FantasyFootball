@@ -6,15 +6,16 @@ const {league}=req.body;
 const {email}=req
 const nowDate=new Date()
 console.log(league,email) 
+
+const person=await db.collection('users').findOne({email:email})
 const leagues =await db.collection('leagues').insertOne(
-    {league: league,owner:email,createdAt:nowDate,players:[email]}
+    {league: league,owner:email,createdAt:nowDate,players:[person._id]}
     )
-    const leaguesid = new ObjectId(leagues.insertedId);
-    
+console.log({leagueid:leagues._id})
     const user=await db.collection('users').findOneAndUpdate({email:email},
         
             {
-                $addToSet: {leagues:leaguesid}
+                $addToSet: {leagues:leagues.insertedId}
             } 
         
          )
