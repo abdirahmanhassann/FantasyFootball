@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import Navbar from './Reusable/Navbar.tsx'
+import Subnav from './Reusable/Subnav.tsx'
 import logo from '../images/pllogowhite.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { jwt } from '../redux/redux'
 import { useNavigate } from 'react-router-dom'
-
+import Subnav3 from './Reusable/Subnav3.tsx'
+import Footer from './Reusable/Footer.tsx'
+import Cards from './Reusable/cards.tsx'
+import News from './Reusable/News.tsx'
 function Homepage() { 
   const [changed,setchanged]=useState <p>({email:'',password:''})
   const [login,setlogin]=useState <p>({email:'',password:''})
   const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt);
+
   const [po,setpo]=useState(0)
   const dispatch=useDispatch()
   const navigate=useNavigate()
@@ -84,25 +89,31 @@ const urllogin='http://localhost:5002/login'
     <>
             <div>
       <Navbar/>
+      <Subnav/>
+      <Cards/>
         <div className='centerdiv'>
-          <div className='headerdiv'>
-<img src={logo} className='logo' />
-          <h1>Fantasy Premier league</h1>
+         <form onSubmit={submittedlogin} className='homeform'>
+  <h3>Login</h3>
+<input className='inputhome' type='email' placeholder='Email' required={true} value={login.email} name='email' onChange={e=>changedlogin(e)}/>
+<input className='inputhome' type='password' placeholder='Password' required={true} value={login.password} name='password' onChange={e=>changedlogin(e)}/>
+<button className='buttoncardpurple'>Login to account</button>
+</form>
+<div className='homediv'>
+  <div className='subhomediv'></div>
+<p>or</p>
+<div className='subhomediv'></div>
+</div>
+<form onSubmit={submitted} className='homeform' style={{ marginLeft: '-25px'}}>
+  <h3>Sign up</h3>
+<input className='inputhome' type='email' placeholder='Email' required={true} value={changed.email} name='email' onChange={e=>changedfunction(e)}/>
+<input className='inputhome' type='password' placeholder='Password' required={true} value={changed.password} name='password' onChange={e=>changedfunction(e)}/>
+<button className='buttoncard'>Create account</button>
+</form>
+      
+          <News/>
           </div>
-          <p>If you have an existing Premier League account, please use the link below to login and connect this social account to it so that you can log in to the same profile using your original account or using your social account.</p>
-
-<form onSubmit={submitted}>
-  <h1>Sign up</h1>
-<input type='email' placeholder='Email' required={true} value={changed.email} name='email' onChange={e=>changedfunction(e)}/>
-<input type='password' placeholder='Password' required={true} value={changed.password} name='password' onChange={e=>changedfunction(e)}/>
-<button>Enter</button>
-</form>
-<form onSubmit={submittedlogin}>
-  <h1>Login</h1>
-<input type='email' placeholder='Email' required={true} value={login.email} name='email' onChange={e=>changedlogin(e)}/>
-<input type='password' placeholder='Password' required={true} value={login.password} name='password' onChange={e=>changedlogin(e)}/>
-<button>Enter</button>
-</form>
+<Subnav3/>
+<Footer/>
           {/* <div className="google-btn">
   <div className="google-icon-wrapper">
     <img className="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
@@ -110,7 +121,6 @@ const urllogin='http://localhost:5002/login'
 
     <p className="btn-text"><b>Sign in with google</b></p>
 </div> */}
-        </div>
     </div>
     </>
   )

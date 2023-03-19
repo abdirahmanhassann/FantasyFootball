@@ -65,13 +65,13 @@ button:hover{
 .centerdiv{
   margin: auto;
   margin-top: 93px;
-  width: 35pc;
+  max-width: 1206px;
   display: flex;
   flex-direction: column;
   text-align: center;
   align-items: center;
-  gap: 10px;
-color:#37003c;
+  gap: 21px;
+  color:#37003c;
 }
 .headerdiv{
   display: flex;
@@ -574,9 +574,9 @@ th{
 footer{
   width: 100%;
   text-align: center;
-  padding: 20px;
-  background: linear-gradient(to left, #ec12ff, #200023);
-  color: white;
+  border-top: 3px solid transparent;
+  background: linear-gradient(to right, #ec12ff, #200023);
+  color: inherit;
   margin-top: 30px;
 }
 .ulfooter{
@@ -605,11 +605,11 @@ footer{
   width: fit-content;
   background: url('./images/pattern-2-d.0a64c7c7.png'), #37003c;
   background-position: 951px center, left top, 0px center;
-  background-size: 45%;
+  background-size: 47%;
   background-repeat: no-repeat;
   color: white;
   margin: auto;
-  border-radius: 10px;
+  border-radius: 6px;
   padding: 1%;
 }
 
@@ -713,6 +713,25 @@ footer{
 
 }
 
+.buttoncardpurple{
+  width: fit-content;
+  padding: 11px 25px;
+  font-size: 14px;
+  color: white;
+  border-radius: 3px;
+  background-image: url('./images/pattern-2-d.0a64c7c7.png'),linear-gradient(to right, rgb(32 0 110), rgb(83 0 55));
+  background-position: 61px center, left top, 0px center;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  font-weight: 300;
+  transition:0.2s ease-in-out;
+}
+.buttoncardpurple:hover{
+  background-image: url('./images/pattern-2-d.0a64c7c7.png'),linear-gradient(to right, rgb(72 0 64), rgb(85 2 170));
+  background-size: 100%;
+  background-repeat: no-repeat;
+ 
+}
 .buttoncard{
   width: fit-content;
   padding: 11px 25px;
@@ -723,7 +742,7 @@ footer{
   background-position: 61px center, left top, 0px center;
   background-size: 100%;
   background-repeat: no-repeat;
-  font-weight: 600;
+  font-weight: 400;
   transition:0.2s ease-in-out;
 }
 .leagueinput{
@@ -733,4 +752,53 @@ footer{
     outline: none;
     padding-block: 6px;
     font-size: 14px;
+}
+.inputhome{
+  outline: none;
+  padding: 0px 70px;
+      font-size: 18px;
+    color: #323232;
+    border: none;
+    border-bottom: 1px solid #800082;
+    background: #e8e8e8;
+}
+
+.homeform{
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: max-content;
+}
+.homediv{
+  width: 100%;
+  margin: auto;
+  /* padding: 0px 181px; */
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 25px;
+}
+
+.subhomediv{
+  border-bottom: 1px solid #969696;
+    width: 100%;
+}
+
+.newscard{
+  width: fit-content;
+  max-width: 1232px;
+    height: fit-content;
+  padding: 6px 6px;
+  font-size: 14px;
+  color: inherit;
+  background-image: url('./images/pattern-2-d.0a64c7c7.png'),linear-gradient(to right, rgb(2, 239, 255), rgb(0 255 102));
+  background-position: 61px center, left top, 0px center;
+  background-repeat: no-repeat;
+  font-weight: 400;
+  transition: 0.2s ease-in-out;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+
 }

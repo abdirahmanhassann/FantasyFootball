@@ -82,14 +82,21 @@ fetch('http://localhost:5002/leaveleague',{
         <div className='rowdiv' style={{    
             justifyContent: 'space-between',
             padding: '20px 70px',
-            width:'800px',
+            width:'100%',
             alignItems: 'baseline'
             }}>
- <h1>{league?.[0]?.league}</h1>
+                <div className='rowdiv'>
+
+ <h2>{league2?.[0]?.league}</h2>
+ <h2 style={{fontWeight:'200'}}>{league2?.[0]?._id}</h2>
+                </div>
+
+ <div className='rowdiv'>
 <button className='buttoncard'
- onClick={() => { CopyToClipBoard(leagueId,'League ID')}}>Invite friends</button>
-<button className='buttoncard'
- onClick={leaveleague}>Leave league</button>
+ onClick={() => { CopyToClipBoard(leagueId,'League ID')}}>Invite friends to league</button>
+<button className='buttoncardpurple'
+ onClick={leaveleague}>Leave this league</button>
+ </div>
         </div>
         
           <div className='settingsdiv'

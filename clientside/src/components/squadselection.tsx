@@ -8,11 +8,19 @@ import MenuItem from '@material-ui/core/MenuItem'
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
+import { useNavigate } from 'react-router-dom'
 
 interface iuserinfo{
 email:string,
 points:number
 }
+interface Ileague{
+  league:string,
+  _id:string,
+  owner:string,
+  players:[]
+}
+
 
 function Squadselection() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
@@ -30,7 +38,9 @@ function Squadselection() {
     const [userinfo,setuserinfo]=useState<iuserinfo>()
     const [run,setrun]=useState<boolean>(false)
     const [runremove,setrunremove]=useState<boolean>(false)
+    const [leagues,setleagues]=useState <[]>([])
     const [posted,setposted]=useState()
+    const navigate=useNavigate()
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
 const getplayer='http://localhost:5002/getplayer'
@@ -70,9 +80,24 @@ fetch(loadplayers,{
     setbudget(changed.budget)
     setuserinfo(changed)
     console.log(changed);
-
+  fetch('http://localhost:5002/loadleagues',{
+    method:'GET',
+    headers:{
+      'Content-Type':'application/json',
+      Authorization:`Bearer ${jwttoken}`
+    }}
+    )
+    .then(res=>res.json())
+    .then(res=>
+    
+    {  console.log(res)
+      setleagues(res.res)
+    }
+    ) 
+  
   })
 })
+
 
         }
         request()
@@ -183,6 +208,9 @@ setrerender(i=>!i)
 }
 removePlayerBackend(removeplayerinfo)
 },[runremove])
+
+
+
   return (
 <>
 <Navbar/>
@@ -407,22 +435,53 @@ removePlayerBackend(removeplayerinfo)
 
     </div>
 </div>
-<div className='settingsdiv'>
+<div className='columndiv' style={{width:'30%'}}>
+<div className='settingsdiv' style={{marginTop: '-87px',width:'100%'}}> 
 <div className='playerselection'>
 <h3 className='largeheader' style={{  alignSelf: 'self-start',padding:' 0px 15px'}} >
   {userinfo&&userinfo.email}</h3>
 </div>
 <div className='columndiv' style={{boxShadow:' 0px 13px 13px #ececec'}}>
-  <div className='purplediv'>
-  <p className='pneon'>Points/Rankings</p>
+<div className='purplediv'>
+  <p className='pneon'>My Leagues</p>
   </div>
   <div className='rowdiv' style={{  justifyContent: 'space-between', width: '100%',padding: '6%'}}>
-  <h4 className='boldp'>Total points</h4>
-  <h4 className='boldp'>{userinfo&& userinfo.points}</h4>
+  <h4 className='boldp'>League name</h4>
+  <h4 className='boldp'>Active players</h4>
+</div>
+  <div className='rowdiv' style={{  justifyContent: 'space-between', width: '100%',padding: '6%'}}>
+{
+  leagues && leagues.slice(0,2).map((i:Ileague)=>{
+    return (
+      <>
+        <h4 className='boldp'>{i.league&& i.league}</h4>
+  <h4 className='boldp'>{i.players&& i.players.length}</h4>
+
+      </>
+    )
+  })
+}
+</div>
+{
+  leagues.length<2&&
+  <button className='buttoncardpurple' style={{width:'100%'}}
+   onClick={()=>{
+    if( leagues.length==0){
+
+      navigate('/leagues/createleague')
+    }
+    else{ 
+      navigate('/leagues/viewleagues')
+    }
+    
+    }}>{  leagues.length>0? 'View Leagues': 'Join leagues'}</button>
+}
 
   </div>
 </div>
+<div className='settingsdiv' style={{marginTop: '25px',width:'100%'}}>
 <div className='playerselection'>
+
 <h3 className='largeheader'style={{  alignSelf: 'self-start',padding:' 0px 15px'}}  >Player selection</h3>
 </div>
 <div className='playerselection2'>
@@ -467,6 +526,8 @@ removePlayerBackend(removeplayerinfo)
 }
     </details>
 <input type='text' placeholder='enter player' className='input2' onChange={e=>changed(e)}/>
+<div style={{    overflow: 'scroll',
+    height:'250px'}}>
 <table>
   <tr>
   </tr>
@@ -532,9 +593,10 @@ j.statistics[0].games.position == 'Goalkeeper'?
 }
 </table>
 </div>
+</div>
         </div>
 </div>
-
+</div>
 </>  )
 }
 export default Squadselection;
