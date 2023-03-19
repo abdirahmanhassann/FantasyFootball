@@ -22,9 +22,12 @@ const user = await db.collection('leagues' ).aggregate(
             foreignField: "_id",
             as: "playerss"
           },
-        } ]
+          
+        } 
+    
+    ]
       ).toArray()
-      
+
     
 
 res.status(200).send(user)

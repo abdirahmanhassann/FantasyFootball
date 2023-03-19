@@ -27,6 +27,7 @@ const createleague = require('./middleware/createleague')
 const loadleagues = require('./middleware/loadleagues')
 const findleague = require('./middleware/findleague')
 const joinleague = require('./middleware/joinleague')
+const leaveleague = require('./middleware/leaveleague')
 const user={email:'popoeski',password:'po123'}
 
 
@@ -137,6 +138,7 @@ connectToDb((err)=>{
 app.get('/loadleagues',auth,loadleagues)
 app.post('/findleague',auth,findleague)
 app.post('/joinleague',auth,joinleague)
+app.delete('/leaveleague',auth,leaveleague)
 //     cron.schedule('37 1 * * *',()=>{
 //     playersApiRequest()
 // })

@@ -188,7 +188,7 @@ removePlayerBackend(removeplayerinfo)
 <Navbar/>
 <Subnav page={'squad'}/>
 <div className='columndiv2'>
-<h2>Squad seletion</h2>
+<h2>Squad selection</h2>
 <p>Select a maximum of 3 players from a single team</p>
 <div className='playerselection'>
   <div className='rowdiv2' style={{padding:'5px 70px', alignItems:'self-end'}}>

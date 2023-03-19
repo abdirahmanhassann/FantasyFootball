@@ -6,19 +6,28 @@ import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 import CopyToClipBoard from './Reusable/CopytoClipBoard.ts'
 import moment from "moment/moment";
+import { useNavigate } from 'react-router-dom'
 
 interface Ileague{
     league:string;
     _id:string;
     owner:string;
-    players:[{email:string,points:number,budget:number }]
-  }
+}
+interface Iplayers
+{email:string,
+    points:number,
+    budget:number,
+    _id:string
+}
   
 function Viewleague() {
-    const [league,setleague]=useState<Ileague>()
+    const [league2,setleague]=useState<Ileague>()
     const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
     const leagueId=useSelector((State:any)=>State.reducer.leaguestatus.league)
-
+    const [players,setplayers]=useState<Iplayers[]>([])
+    const [ifleave,setifleave]=useState<boolean>(false);
+    const navigate=useNavigate();
+    const dispatch=useDispatch()
         useEffect(()=>{
 function fetchleague(){
     fetch('http://localhost:5002/findleague',{
@@ -34,13 +43,38 @@ function fetchleague(){
         .then(res=>res.json())
         .then(res=>{
             
-            console.log(res)
-            setleague(res)})
+        const sort=res[0].playerss
+         
+ sort.sort((a, b) => b.points - a.points);
+            
+            setleague(res)
+            console.log(res._id)
+        setplayers(sort)
+        })
                 
 }
 fetchleague()
 
     },[])
+
+
+function leaveleague(){
+fetch('http://localhost:5002/leaveleague',{
+    method:'DELETE',
+    headers:{
+        'content-Type':'application/json',
+        authorization:`Bearer ${jwttoken}`
+    }
+    ,body:JSON.stringify({leagueid:leagueId})
+})
+.then(res=>{
+    navigate('/leagues/viewleagues')
+    dispatch(league(''))
+})
+}
+
+
+
   return (
 <>
 <Navbar/>
@@ -48,32 +82,38 @@ fetchleague()
         <div className='rowdiv' style={{    
             justifyContent: 'space-between',
             padding: '20px 70px',
-            width:'800px'
+            width:'800px',
+            alignItems: 'baseline'
             }}>
  <h1>{league?.[0]?.league}</h1>
 <button className='buttoncard'
  onClick={() => { CopyToClipBoard(leagueId,'League ID')}}>Invite friends</button>
+<button className='buttoncard'
+ onClick={leaveleague}>Leave league</button>
         </div>
         
           <div className='settingsdiv'
            style={{
            width: '800px',marginLeft: '61px',marginTop:'0px'}}>
                 <div className='purplediv'>
-  <p className='pneon'>{league?.[0].owner}'s league</p>
-  <p className='pneon'> created {league&& moment(league[0].createdAt).fromNow()}</p>
+  <p className='pneon'>{league2?.[0].owner}'s league</p>
+  <p className='pneon'> Created {league2&& moment(league2[0].createdAt).fromNow()}</p>
   </div>
   <table>
     <tr className='playerdiv'>
+    <th style={{width:'9%'}}>rank</th>
     <th>Player name</th>
     <th>Points</th>
     <th>Remainig budget</th>
     </tr>
     {
-league&&
-league[0].playerss?.map((i)=>{
+players&&
+players.map((i,j=0)=>{
+    j++
   return(
 <>
 <tr className="playerdiv">
+    <td style={{width:'9%'}}>{j}</td>
   <td>{i.email} </td>
   <td>{i.points&&i.points} </td>
   <td>£{i.budget&&i.budget}m </td>

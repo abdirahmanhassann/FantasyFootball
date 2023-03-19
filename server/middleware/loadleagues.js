@@ -3,7 +3,6 @@ const {getDb}=require('../db')
 async function loadleagues(req,res,next){
     const db=getDb()
 const {email}=req
-console.log(email)
 const details = await db.collection('users' ).aggregate(
 [
     {
@@ -19,7 +18,6 @@ const details = await db.collection('users' ).aggregate(
       },
     } ]
   ).toArray()
-console.log(details)
  //const f=await db.collection('users').aggregate({$lookup:{from:"leagues",localField: "leagues",foreignField:"_id",as:"player"}}).toArray()
 //console.log(f)
 await res.status(200).send({res:details[0].playeer})
