@@ -780,13 +780,13 @@ footer{
 }
 
 .subhomediv{
-  border-bottom: 1px solid #969696;
+  border-bottom: 1px solid #800082;
     width: 100%;
 }
 
 .newscard{
   width: fit-content;
-  max-width: 1232px;
+  max-width: 1178px;
     height: fit-content;
   padding: 6px 6px;
   font-size: 14px;
@@ -801,4 +801,20 @@ footer{
   flex-direction: row;
   gap: 30px;
 
+}
+.newsimage{
+  height:350px;
+  transition:0.2s ease-in-out;
+}
+.newscard:hover >.containerdiv2 > .newsimage{
+  height: 370px;
+}
+
+.containerdiv2{
+  height: 350px;
+  width: 517px;
+  contain: content;
+}
+.newscard:hover >.columndiv > h1{
+text-decoration:underline;
 }

@@ -5,9 +5,31 @@ const i=req.body
 const email=req.email;
 console.log(email)
 const db=getDb();
-    
+let errorOccurred = false;
+
 let check=  await db.collection('users').findOne({email})
 const playerid=i.team.player.id
+const playersArr=[check.team?.gk ,check.team?.rb ,check.team?.rcb,check.team?.lcb,
+  check.team?.lb,check.team?.rcm, check.team?.cm, check.team?.lcm, check.team?.rw,
+  check.team?.st ,check.team?.lw
+]
+let count=0;
+playersArr.forEach((k)=>{
+  console.log({count:count})
+  if(k?.statistics[0].team.id === i.team.statistics[0].team.id){
+    count++
+    console.log({countChange:count})
+  if(count>=3){
+    res.status(400).send({error:'too many players on the same team'})
+    errorOccurred=true
+   return;
+  }
+ }
+})
+
+if(errorOccurred===true){
+  return;
+}
 
 if(playerid===check.team?.gk?.player.id || playerid===check.team?.rb?.player.id || playerid===check.team?.rcb?.player.id
   || playerid===check.team?.lcb?.player.id || playerid===check.team?.lb?.player.id || playerid===check.team?.rcm?.player.id
@@ -16,12 +38,12 @@ if(playerid===check.team?.gk?.player.id || playerid===check.team?.rb?.player.id 
   ) 
 
   {
-  res.send( 'already exists')
+  res.status(400).send({error:'already exists'})
   next()
 }
 else if(check.budget<i.team.nowCost){
   console.log(check.budget,i.team.nowCost)
-  return res.send('out of your budget')
+  return res.status(400).send({error:'out of your budget'})
 }
 
 

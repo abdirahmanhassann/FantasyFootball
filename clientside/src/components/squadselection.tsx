@@ -40,6 +40,8 @@ function Squadselection() {
     const [runremove,setrunremove]=useState<boolean>(false)
     const [leagues,setleagues]=useState <[]>([])
     const [posted,setposted]=useState()
+    const [error,seterror]=useState<boolean>(false)
+    const [countplayer,setcountplayer]=useState<number>(0)
     const navigate=useNavigate()
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
@@ -142,15 +144,61 @@ console.log(selectedplayer,i)
     .then(response => response.json())
     .then(changed => {
       console.log(changed);
+
+      if(changed.error){
+        alert(changed.error)
+      }
+  
 setrerender(i=>!i)
+    })
+    .catch((err)=>{
+      alert(err.error)
+      console.log(err.error)
     })
 }
 
 useEffect(()=>{
 
+  setcountplayer(0)
+  seterror(false)
+  let counted=0
+  let playererr=false
  function postplayer(i){
-    if(selectedLanguage && selectedplayer &&
-      i.statistics[0].games.position===selectedpos){
+
+  if(selectedLanguage && selectedplayer &&
+    i.statistics[0].games.position===selectedpos)
+    {
+        let loopfinished=false
+    let arr=[indexx.gk ,indexx.rb ,indexx.rcb,indexx.lcb,
+      indexx.lb,indexx.rcm, indexx.cm, indexx.lcm, indexx.rw,
+      indexx.st ,indexx.lw]
+
+      
+    arr.forEach((k,j)=>{
+      if( k &&  k.statistics[0].team.id === i.statistics[0].team.id){
+    //  setcountplayer( i=>i+1  )
+    counted++
+        console.log({countplayerChange:counted})
+        console.log({kstats:k.statistics[0].team.id, istats: i.statistics[0].team.id })
+      
+      if(counted>3){  
+        console.log({count:counted,j:j})
+        //seterror(true)
+        playererr=true
+        console.log('error set to true')
+        return playererr=true
+      }
+    }
+    if(j==arr.length-1 && counted<3){
+ loopfinished=true
+ playererr=false
+ console.log('finishedd')
+    }
+    })
+console.log(loopfinished,error)
+if( loopfinished && playererr==false)
+{
+  console.log('second loop started')
      if(i.player.id===indexx?.gk?.player.id || i.player.id===indexx?.rb?.player.id || i.player.id===indexx?.rcb?.player.id
        || i.player.id===indexx?.lcb?.player.id || i.player.id===indexx?.lb?.player.id || i.player.id===indexx?.rcm?.player.id
        || i.player.id===indexx?.cm?.player.id || i.player.id===indexx?.lcm?.player.id || i.player.id===indexx?.rw?.player.id
@@ -158,8 +206,10 @@ useEffect(()=>{
       ){
      return null
       }
+
       else{  
        // console.log(i.player.id, indexx.rcm.id,'ids are not equal')
+          
         setindexx(j=>{
           return {
             ...j,
@@ -167,8 +217,8 @@ useEffect(()=>{
           }
         })
         console.log('postplayer running....',i,selectedplayer)
-    }
-  }}
+    
+  }}}}
 postplayer(posted)
 },[run])
 

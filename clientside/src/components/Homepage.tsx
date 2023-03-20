@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Navbar from './Reusable/Navbar.tsx'
-import Subnav from './Reusable/Subnav.tsx'
 import logo from '../images/pllogowhite.png'
 import { useDispatch, useSelector } from 'react-redux'
 import { jwt } from '../redux/redux'
@@ -9,6 +8,7 @@ import Subnav3 from './Reusable/Subnav3.tsx'
 import Footer from './Reusable/Footer.tsx'
 import Cards from './Reusable/cards.tsx'
 import News from './Reusable/News.tsx'
+import SubnavSignedOut from './Reusable/SubnavSignedOut.tsx'
 function Homepage() { 
   const [changed,setchanged]=useState <p>({email:'',password:''})
   const [login,setlogin]=useState <p>({email:'',password:''})
@@ -56,6 +56,7 @@ const urllogin='http://localhost:5002/login'
       .then(response => response.json())
       .then(changed => {
         console.log(changed);
+        navigate('/squadselection')
       })
       .catch(error => {
         console.error('Error:', error);
@@ -79,7 +80,7 @@ const urllogin='http://localhost:5002/login'
         if(changed.jwtToken)
 {
   dispatch(jwt(changed.jwtToken))
-  navigate('/chooseleague')
+  navigate('/squadselection')
 }      })
       .catch(error => {
         console.error('Error:', error);
@@ -89,7 +90,7 @@ const urllogin='http://localhost:5002/login'
     <>
             <div>
       <Navbar/>
-      <Subnav/>
+      <SubnavSignedOut/>
       <Cards/>
         <div className='centerdiv'>
          <form onSubmit={submittedlogin} className='homeform'>

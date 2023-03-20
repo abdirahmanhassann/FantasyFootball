@@ -2,7 +2,7 @@ import moment from 'moment'
 import React, { useEffect, useState } from 'react'
 
 interface Inews{
-    articles:[
+    articles:
         {
              image:string
             ,content:string
@@ -15,11 +15,12 @@ interface Inews{
                         url:string
         }
         }
-    ]
+
 }
 
 function News() {
 const [news,setnews]=useState<Inews>()
+const randomNumber = Math.floor(Math.random() * 11);
     useEffect(()=>{
         fetch('http://localhost:5002/news')
         .then(res=>res.json())
@@ -28,18 +29,22 @@ const [news,setnews]=useState<Inews>()
             setnews(res.res)
         })
     },[])
-
+function clicked(){
+    window.open(news && news.articles[randomNumber].source.url)
+}
   return (
 <>
-<div className='newscard'>
-<img src={news && news.articles[0].image} style={{height:'350px'}}></img>
+<div className='newscard' onClick={clicked}>
+    <div className='containerdiv2'>
+<img className='newsimage' src={news && news.articles[randomNumber].image}/>
+    </div>
 <div className='columndiv' style={{
-    gap: '28px',padding: '60px 20px',
+    gap: '28px',padding: '20px 20px', width: '60%',
     textAlign: 'start'}}>
-<h2>{news && news.articles[0].title.slice(0,60)}...</h2>
+<h1>{news && news.articles[randomNumber].title.slice(0,60)}...</h1>
 <div className='columndiv'>
-<p className='lightp'>{news && news.articles[0].description}</p>
-<p className='bolp'>{news &&moment(news.articles[0].publishedAt).fromNow()}</p>
+<p className='lightp'>{news && news.articles[randomNumber].description}</p>
+<p className='bolp'>{news &&moment(news.articles[randomNumber].publishedAt).fromNow()}</p>
 </div>
 </div>
 </div>
