@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 import { useNavigate } from 'react-router-dom'
+import Subnav3 from './Reusable/Subnav3'
 
 interface iuserinfo{
 email:string,
@@ -64,6 +65,7 @@ fetch(loadplayers,{
         }})
 .then((res)=>res.json())
 .then((res)=>{
+
   console.log(res)
   setplayers(res)
 })
@@ -102,6 +104,7 @@ fetch(loadplayers,{
 
 
         }
+        
         request()
     },[rerender])
 
@@ -124,6 +127,9 @@ console.log(input)
 }
 
 function postplayer(i){
+
+  if(players.fixtures?.match[0] ==null ||players.fixtures?.match[0] ==undefined )
+  {
 
   if(selectedLanguage && selectedplayer &&
  i.statistics[0].games.position===selectedpos){
@@ -155,7 +161,7 @@ setrerender(i=>!i)
       alert(err.error)
       console.log(err.error)
     })
-}
+}}
 
 useEffect(()=>{
 
@@ -164,6 +170,8 @@ useEffect(()=>{
   let counted=0
   let playererr=false
  function postplayer(i){
+  if( players.fixtures?.match[0] ==null ||players.fixtures?.match[0] ==undefined )
+  {
 
   if(selectedLanguage && selectedplayer &&
     i.statistics[0].games.position===selectedpos)
@@ -218,7 +226,7 @@ if( loopfinished && playererr==false)
         })
         console.log('postplayer running....',i,selectedplayer)
     
-  }}}}
+  }}}}}
 postplayer(posted)
 },[run])
 
@@ -230,6 +238,10 @@ useEffect(()=>
 function removePlayerBackend(i){
   console.log(i)
   console.log(removeplayerinfo)
+  if(players.fixtures?.match[0] ==null ||players.fixtures?.match[0] ==undefined )
+  {
+
+  
           setindexx(j=>{
           return {
             ...j,
@@ -255,7 +267,7 @@ setrerender(i=>!i)
     
     })
   }
-}
+}}
 removePlayerBackend(removeplayerinfo)
 },[runremove])
 
@@ -265,6 +277,11 @@ removePlayerBackend(removeplayerinfo)
 <>
 <Navbar/>
 <Subnav page={'squad'}/>
+{
+  players?.fixtures?.match[0] &&(
+    <h3>{players.fixtures?.match[0]?.hometeam} vs {players.fixtures?.match[0]?.awayteam} is currently ongoing please check back in a couple hours</h3>
+  )
+}
 <div className='columndiv2'>
 <h2>Squad selection</h2>
 <p>Select a maximum of 3 players from a single team</p>

@@ -29,7 +29,7 @@ const randomNumber = Math.floor(Math.random() * 11);
             setnews(res.res)
         })
     },[])
-    
+
 function clicked(){
     window.open(news && news.articles[randomNumber].source.url)
 }
@@ -37,7 +37,7 @@ function clicked(){
 <>
 <div className='newscard' onClick={clicked}>
     <div className='containerdiv2'>
-<img className='newsimage' src={news?.articles[randomNumber].image && news.articles[randomNumber].image}/>
+<img className='newsimage' src={news?.articles[randomNumber]?.image && news.articles[randomNumber].image}/>
     </div>
 <div className='columndiv' style={{
     gap: '28px',padding: '20px 20px', width: '60%',

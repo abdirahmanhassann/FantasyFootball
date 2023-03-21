@@ -31,7 +31,6 @@ const leaveleague = require('./middleware/leaveleague')
 const news = require('./middleware/news')
 const Loadnews = require('./middleware/loadnews')
 const FixturesCheck = require('./middleware/FixturesCheck')
-const user={email:'popoeski',password:'po123'}
 
 
 app.post('/signup',async(req,res)=>{
@@ -96,9 +95,11 @@ player.push(players)
   })
 })
   
-app.get('/loadplayers',auth,async (req,res)=>{
+app.get('/loadplayers',auth,FixturesCheck,async (req,res)=>{
     const collection = db.collection('players');
     const {email}=req.body
+    const {match}=req
+    console.log('match',match)
     try {
       const doc = await collection.findOne({});
       if (!doc) {
@@ -106,7 +107,7 @@ app.get('/loadplayers',auth,async (req,res)=>{
       }
 
       const playerArr = doc.players;
-      res.status(200).json({ playerArr:playerArr,email:email,points:doc.points });
+      res.status(200).json({ playerArr:playerArr,email:email,points:doc.points,fixtures:match });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error retrieving player data' });
@@ -129,9 +130,9 @@ connectToDb((err)=>{
         console.log('app is listening...')
     })
     db=getDb()
-  app.delete('/removePlayer',auth,removePlayer)
+  app.delete('/removePlayer',auth,FixturesCheck,removePlayer)
 
-    app.post('/postplayer',auth,postplayer)   
+    app.post('/postplayer',auth,FixturesCheck,postplayer)   
     
     app.get('/updateRating',updateRating)
 

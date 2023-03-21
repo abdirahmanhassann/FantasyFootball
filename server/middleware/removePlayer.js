@@ -7,7 +7,7 @@ const {cost}=req.body;
 const {email}=req
 console.log(player,email)
 const db=await getDb();
-
+console.log('this is remove plyer')
 // const returnTeam2=  await db.collection('users').find(`team.${player}`)
 
 // await db.collection('users').updateOne({email},{
@@ -45,7 +45,7 @@ await db.collection('users').updateOne(
   );
   
 const returnTeam=  await db.collection('users').findOne({email})
-res.send({team: returnTeam.team,budget:returnTeam.budget})
+res.send({team: returnTeam.team,budget:returnTeam.budget,matches:req.match})
 
 }
 
