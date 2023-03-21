@@ -30,6 +30,7 @@ const joinleague = require('./middleware/joinleague')
 const leaveleague = require('./middleware/leaveleague')
 const news = require('./middleware/news')
 const Loadnews = require('./middleware/loadnews')
+const FixturesCheck = require('./middleware/FixturesCheck')
 const user={email:'popoeski',password:'po123'}
 
 
@@ -143,6 +144,7 @@ app.post('/joinleague',auth,joinleague)
 app.delete('/leaveleague',auth,leaveleague)
 app.get('/Newnews',news)
 app.get('/news',Loadnews)
+app.get('/fixturescheck',FixturesCheck)
 //     cron.schedule('37 1 * * *',()=>{
 //     playersApiRequest()
 // })

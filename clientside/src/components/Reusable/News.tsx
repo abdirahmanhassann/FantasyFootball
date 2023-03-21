@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 interface Inews{
     articles:
-        {
+        [{
              image:string
             ,content:string
               ,description:string,
@@ -14,12 +14,12 @@ interface Inews{
                      name:string,
                         url:string
         }
-        }
+        }]
 
 }
 
 function News() {
-const [news,setnews]=useState<Inews>()
+const [news,setnews]=useState<Inews |undefined>()
 const randomNumber = Math.floor(Math.random() * 11);
     useEffect(()=>{
         fetch('http://localhost:5002/news')
@@ -29,6 +29,7 @@ const randomNumber = Math.floor(Math.random() * 11);
             setnews(res.res)
         })
     },[])
+    
 function clicked(){
     window.open(news && news.articles[randomNumber].source.url)
 }
@@ -36,7 +37,7 @@ function clicked(){
 <>
 <div className='newscard' onClick={clicked}>
     <div className='containerdiv2'>
-<img className='newsimage' src={news && news.articles[randomNumber].image}/>
+<img className='newsimage' src={news?.articles[randomNumber].image && news.articles[randomNumber].image}/>
     </div>
 <div className='columndiv' style={{
     gap: '28px',padding: '20px 20px', width: '60%',
