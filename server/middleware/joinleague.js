@@ -3,9 +3,12 @@ const {getDb}=require('../db')
 const {ObjectId}=require('mongodb')
 async function joinleague(req,res,next){
     const db=getDb()
-const {email}=req
+const {email}=req.email
 const{id}=req.body;
-const idobject=new ObjectId(id)
+try{
+
+    const idobject=new ObjectId(id)
+
 const user=await db.collection('leagues').findOne({_id:idobject})
 console.log({id:idobject})
 if(user){
@@ -25,7 +28,11 @@ if(user){
 else{
 
     await  res.status(400).send({status:400})
+}}
+catch(err){
+    await  res.status(400).send({status:400})
 }
+
 }
 
 

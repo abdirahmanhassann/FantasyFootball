@@ -47,12 +47,22 @@ navigate(`/leagues/viewleagues/${i._id}`)
   return (
 <>
 <Navbar/>
-        <Subnav/>
+        <Subnav page={'leagues'}/>
+
           <div className='settingsdiv'
            style={{
            width: '800px',marginLeft: '61px',marginTop:'0px',backgroundPosition: '293px center, left top, 0px center'}}>
-      
+      <div className='subnav4' >
+    <div className='rowdiv' style={{ gap: '15px',alignItems:'center',justifyContent: 'space-around'}}>
+    <h1 className='h3neon' style={{fontWeight:'500'}}>Create or join leagues with friends!</h1>
+    <button className='buttonneon' style={{boxShadow: '0px 0px 16px 0px #120125'}}
+    onClick={()=>navigate('/leagues/createleague') }>Create or join</button>
+    
+    </div>
+</div>
+
         <div className='playerselection'>
+
           <h3>Leagues</h3>
           </div>
           <div className='purplediv'>

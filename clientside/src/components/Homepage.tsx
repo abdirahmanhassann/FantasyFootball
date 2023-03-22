@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import Navbar from './Reusable/Navbar.tsx'
 import logo from '../images/pllogowhite.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { jwt } from '../redux/redux'
+import { jwt, refresh } from '../redux/redux'
 import { useNavigate } from 'react-router-dom'
 import Subnav3 from './Reusable/Subnav3.tsx'
 import Footer from './Reusable/Footer.tsx'
@@ -13,7 +13,10 @@ function Homepage() {
   const [changed,setchanged]=useState <p>({email:'',password:''})
   const [login,setlogin]=useState <p>({email:'',password:''})
   const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt);
-
+const loginemail=useRef<HTMLInputElement>(null)
+const loginpassword=useRef<HTMLInputElement>(null)
+const signupemail=useRef<HTMLInputElement>(null)
+const signuppassword=useRef<HTMLInputElement>(null)
   const [po,setpo]=useState(0)
   const dispatch=useDispatch()
   const navigate=useNavigate()
@@ -51,11 +54,12 @@ const urllogin='http://localhost:5002/login'
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(changed),
+      body: JSON.stringify({email:signupemail.current?.value, password:signuppassword.current?.value}),
     })
       .then(response => response.json())
       .then(changed => {
         console.log(changed);
+        dispatch(jwt(changed.jwtToken))
         navigate('/squadselection')
       })
       .catch(error => {
@@ -66,13 +70,14 @@ const urllogin='http://localhost:5002/login'
   }
   
   function submittedlogin(e){
+  
     e.preventDefault()
     fetch(urllogin, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(login),
+      body: JSON.stringify({email:loginemail.current?.value, password:loginpassword.current?.value}),
     })
       .then(response => response.json())
       .then(changed => {
@@ -80,6 +85,7 @@ const urllogin='http://localhost:5002/login'
         if(changed.jwtToken)
 {
   dispatch(jwt(changed.jwtToken))
+  dispatch(refresh(changed.refreshToken))
   navigate('/squadselection')
 }      })
       .catch(error => {
@@ -95,8 +101,9 @@ const urllogin='http://localhost:5002/login'
         <div className='centerdiv'>
          <form onSubmit={submittedlogin} className='homeform'>
   <h3>Login</h3>
-<input className='inputhome' type='email' placeholder='Email' required={true} value={login.email} name='email' onChange={e=>changedlogin(e)}/>
-<input className='inputhome' type='password' placeholder='Password' required={true} value={login.password} name='password' onChange={e=>changedlogin(e)}/>
+<input className='inputhome' type='email' placeholder='Email' required={true}  name='email' ref={loginemail}/>
+<input className='inputhome' type='password' placeholder='Password' ref={loginpassword}
+ required={true}  name='password' />
 <button className='buttoncardpurple'>Login to account</button>
 </form>
 <div className='homediv'>
@@ -106,8 +113,10 @@ const urllogin='http://localhost:5002/login'
 </div>
 <form onSubmit={submitted} className='homeform' style={{ marginLeft: '-25px'}}>
   <h3>Sign up</h3>
-<input className='inputhome' type='email' placeholder='Email' required={true} value={changed.email} name='email' onChange={e=>changedfunction(e)}/>
-<input className='inputhome' type='password' placeholder='Password' required={true} value={changed.password} name='password' onChange={e=>changedfunction(e)}/>
+<input className='inputhome' type='email' placeholder='Email' ref={signupemail}
+ required={true}  name='email' />
+<input className='inputhome' type='password' placeholder='Password'  ref={signuppassword}
+required={true}  name='password'/>
 <button className='buttoncard'>Create account</button>
 </form>
       

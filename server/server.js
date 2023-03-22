@@ -39,15 +39,24 @@ const {password}=req.body;
 
 const hashedpassword=await bcrypt.hash(req.body.password,10 )
 
+const check=await db.collection('users').findOne({email:email})
+if(check?.email) return res.status(403).send({error:'email already exists'})
 const result = await db.collection('users').insertOne({
     email: email,
     password: hashedpassword,
+    team:null,
   budget:200,
   points:0
   });
 console.log(result)
-  // Send a response to the client
-  res.status(200).send(result);
+
+  const payload={email:req.body.email}
+const signed= jwt.sign(payload ,process.env.ACCESS_TOKEN, { expiresIn: '20m' })
+
+const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN)
+await db.collection('users').findOneAndUpdate({email:email}, {refreshToken:refreshToken} )
+res.status(200).send({jwtToken:signed,refreshToken:refreshToken})
+// Send a response to the client
 })
 
 app.post('/auth',auth,async (req,res)=>{
@@ -64,11 +73,19 @@ console.log(dbcheck)
 if(dbcheck==null) return res.status(500).send('Email does not exist')
 const match = await bcrypt.compare(req.body.password, dbcheck.password);
 if (match){
- const signed=  jwt.sign(req.body.email,process.env.ACCESS_TOKEN)
-    res.status(200).send({jwtToken:signed,hashedpass:req.body.password,match:match})
+  const payload={email:req.body.email}
+ const signed=  jwt.sign(payload ,process.env.ACCESS_TOKEN)
+
+ const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN,{ expiresIn: '30m' })
+  await db.collection('users').findOneAndUpdate({email:req.body.email}, {$set: {refreshToken:refreshToken} })
+  const dbrefresh=await db.collection('users').findOne({email:req.body.email})
+
+    res.status(200).send({jwtToken:signed,refreshToken:dbrefresh.refreshToken})
 }
-else{ 
-    res.status(403).send({passstatuse:'wrong password or email'})
+else{     
+
+  res.status(403).send({passstatuse:'wrong password or email'})
+
 }
 })
 
@@ -102,7 +119,7 @@ app.get('/loadplayers',auth,FixturesCheck,async (req,res)=>{
     console.log('match',match)
     try {
       const doc = await collection.findOne({});
-      if (!doc) {
+      if (!doc) { 
         return res.status(404).json({ message: 'No player data found' });
       }
 
@@ -117,8 +134,9 @@ app.get('/loadplayers',auth,FixturesCheck,async (req,res)=>{
 
 
 app.get('/getplayer',auth,async(req,res)=>{
-    const email=req.email;
-    const returnTeam =  await db.collection('users').findOne({email});
+    const email=req.email.email;
+    const returnTeam =  await db.collection('users').findOne({email:email});
+console.log(email)
     res.send({players:returnTeam.team,budget:returnTeam.budget,email:email,points:returnTeam.points })
     })
 let db;

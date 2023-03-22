@@ -78,11 +78,12 @@ fetch('http://localhost:5002/leaveleague',{
   return (
 <>
 <Navbar/>
-        <Subnav/>
+        <Subnav page={'leagues'}/>
         <div className='rowdiv' style={{    
             justifyContent: 'space-between',
             padding: '20px 70px',
             width:'100%',
+            maxWidth: '930px',
             alignItems: 'baseline'
             }}>
                 <div className='rowdiv'>

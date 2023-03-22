@@ -26,9 +26,12 @@ fetch('http://localhost:5002/joinleague',{
 .then((res)=>
 {
     console.log(res)
-    if (res){
+    if (res.status===200){
         dispatch(league(res.id))
         navigate(`/leagues/viewleagues/${res.id}`)
+    }
+    else{
+        seterr('Code does not exist')
     }
 })
 .catch((err)=>{
@@ -61,7 +64,7 @@ Enter League ID
             console.log(change)
         }
             } />
-        <button className='buttoncard' style={{paddingInline:'45px'}} >Join</button>
+        <button className='buttoncard' style={{paddingInline:'45px'}} >Join league</button>
         </form>
         <p color='red'>{error!=='' && error}</p>
         </div>

@@ -16,7 +16,7 @@ return(
 )
 })
 
-const timeNow = new Date('2023-04-01T15:00:00.000Z');
+const timeNow = new Date()
 
 
 for (let eventTime of  timeArr) {

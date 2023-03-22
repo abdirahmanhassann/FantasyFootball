@@ -20,7 +20,7 @@ function Createleague() {
 <div className='columndiv2' style={{marginBottom:0}}>
 <h2>Create a League </h2>
 <p>Create an invitational league to compete against friends.</p>
-<button className='buttoncard' onClick={()=>{navigate('/leagues/createleague/create')}}>Create a league</button>
+<button className='buttoncardpurple' onClick={()=>{navigate('/leagues/createleague/create')}}>Create a league</button>
 </div>
 </div>
 <Footer/>

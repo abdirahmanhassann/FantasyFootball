@@ -7,7 +7,7 @@ const {ObjectId}=require('mongodb')
 
 async function leaveleague(req,res,next){
     const db=getDb()
-const {email}=req
+const {email}=req.email
 const{leagueid}=req.body;
 const leagueIdObj = new ObjectId(leagueid);
 

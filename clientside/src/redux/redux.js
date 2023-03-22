@@ -22,6 +22,20 @@ reducers:{
 }
     }
 )
+
+const refreshslice=createSlice(
+    {
+        name:'refresh',
+        initialState:false,
+reducers:{
+    refresh :(state,action)=>{
+        return {...state, refresh: action.payload};
+    },
+   
+  
+}
+    }
+)
 const leagueslice=createSlice(
     {
         name:'league',
@@ -43,12 +57,14 @@ const persistConfig={
 };
 const reducer= combineReducers({
     jwtstatus:jwtslice.reducer,
+    refreshstatus:refreshslice.reducer,
     leaguestatus:leagueslice.reducer
 
 })
 const persistedReducer=persistReducer(persistConfig,reducer);
 
 export const {jwt}=jwtslice.actions;
+export const {refresh}=refreshslice.actions;
 export const {league}=leagueslice.actions;
 const store=configureStore({
     reducer:{ 

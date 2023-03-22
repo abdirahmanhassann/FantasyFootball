@@ -10,6 +10,7 @@ import Navbar from './Reusable/Navbar.tsx'
 import Subnav from './Reusable/Subnav.tsx'
 import { useNavigate } from 'react-router-dom'
 import Subnav3 from './Reusable/Subnav3'
+import { refresh } from '../redux/redux'
 
 interface iuserinfo{
 email:string,
@@ -27,6 +28,7 @@ function Squadselection() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
   const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
+  const refreshtoken=useSelector((State:any)=>State.reducer.refreshstatus.refresh)
   const dispatch=useDispatch()
   const [players,setplayers]=useState<any>([{}])
   const [input,setinput]=useState <string>('')
@@ -62,7 +64,8 @@ fetch(loadplayers,{
     headers:{
     'Content-Type': 'application/json',
     Authorization: `Bearer ${jwttoken}`,
-        }})
+    'refresh-token':refreshtoken
+  }})
 .then((res)=>res.json())
 .then((res)=>{
 
@@ -76,6 +79,7 @@ fetch(loadplayers,{
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${jwttoken}`,
+      'refresh-token':refreshtoken
     },
   })
   .then(response => response.json())
@@ -88,8 +92,10 @@ fetch(loadplayers,{
     method:'GET',
     headers:{
       'Content-Type':'application/json',
-      Authorization:`Bearer ${jwttoken}`
-    }}
+      Authorization:`Bearer ${jwttoken}`,
+    'refresh-token':refreshtoken
+  }}
+
     )
     .then(res=>res.json())
     .then(res=>
@@ -144,7 +150,9 @@ console.log(selectedplayer,i)
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${jwttoken}`,
-    },
+      'refresh-token':refreshtoken
+  },
+
     body: JSON.stringify({team:i}),
   })
     .then(response => response.json())
@@ -256,7 +264,9 @@ if(removeplayerinfo && selectedplayer){
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${jwttoken}`,
-    },
+      'refresh-token':refreshtoken
+},
+
     body: JSON.stringify({player:selectedplayer,cost:removeplayerinfo}),
   })
     .then(response => response.json())
@@ -512,25 +522,25 @@ removePlayerBackend(removeplayerinfo)
 <div className='purplediv'>
   <p className='pneon'>My Leagues</p>
   </div>
-  <div className='rowdiv' style={{  justifyContent: 'space-between', width: '100%',padding: '6%'}}>
+  <div className='rowdiv' style={{  justifyContent: 'space-between', width: '100%',padding: '6px'}}>
   <h4 className='boldp'>League name</h4>
   <h4 className='boldp'>Active players</h4>
 </div>
-  <div className='rowdiv' style={{  justifyContent: 'space-between', width: '100%',padding: '6%'}}>
 {
   leagues && leagues.slice(0,2).map((i:Ileague)=>{
     return (
       <>
+      <div className='rowdiv' style={{  justifyContent: 'space-between', width: '100%',padding:'6px'}}>
         <h4 className='boldp'>{i.league&& i.league}</h4>
   <h4 className='boldp'>{i.players&& i.players.length}</h4>
 
+      </div>
       </>
     )
   })
 }
-</div>
 {
-  leagues.length<2&&
+  leagues&&
   <button className='buttoncardpurple' style={{width:'100%'}}
    onClick={()=>{
     if( leagues.length==0){
@@ -541,7 +551,7 @@ removePlayerBackend(removeplayerinfo)
       navigate('/leagues/viewleagues')
     }
     
-    }}>{  leagues.length>0? 'View Leagues': 'Join leagues'}</button>
+    }}>{  leagues.length>0? 'View more leagues': 'Join leagues'}</button>
 }
 
   </div>
