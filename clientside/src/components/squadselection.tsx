@@ -288,9 +288,10 @@ removePlayerBackend(removeplayerinfo)
 <Navbar/>
 <Subnav page={'squad'}/>
 {
-  players?.fixtures?.match[0] &&(
+  players?.fixtures?.match?(
     <h3>{players.fixtures?.match[0]?.hometeam} vs {players.fixtures?.match[0]?.awayteam} is currently ongoing please check back in a couple hours</h3>
   )
+  :null
 }
 <div className='columndiv2'>
 <h2>Squad selection</h2>

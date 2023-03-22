@@ -45,7 +45,7 @@ const result = await db.collection('users').insertOne({
     email: email,
     password: hashedpassword,
     team:null,
-  budget:200,
+  budget:400,
   points:0
   });
 console.log(result)
@@ -164,7 +164,11 @@ app.delete('/leaveleague',auth,leaveleague)
 app.get('/Newnews',news)
 app.get('/news',Loadnews)
 app.get('/fixturescheck',FixturesCheck)
-//     cron.schedule('37 1 * * *',()=>{
-//     playersApiRequest()
-// })
+    cron.schedule('29 * * * *',()=>{
+    getScores()
+})
+    cron.schedule('38 * * * *',()=>{
+    FixturesCheck()
+})
+
 })

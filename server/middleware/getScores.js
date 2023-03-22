@@ -59,13 +59,12 @@ async function getScores(req, res, next) {
     
     j={
         ...j,
-        points:count-score+1
+        points:count-score
     }
     console.log(j.points)
      db.collection('users').findOneAndUpdate({email:j.email},{ $set:{points:j.points}})
 })
 
 
-await res.status(200).send({po:po});
 }
 module.exports=getScores;

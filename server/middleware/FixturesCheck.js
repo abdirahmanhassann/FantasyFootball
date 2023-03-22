@@ -16,7 +16,7 @@ return(
 )
 })
 
-const timeNow = new Date()
+const timeNow = new Date('2023-04-01T11:30:00+00:00')
 
 
 for (let eventTime of  timeArr) {
@@ -34,16 +34,17 @@ newArr.push(eventTime)
 }
 console.log('newArrr',newArr)
 if(newArr.length>0){
-    console.log(req.url)
-    if(req.url ==='/loadplayers'){
+    console.log(req?.url)
+    if(req?.url ==='/loadplayers'){
         req.match={match:newArr,status:'ongoing'}
         next();
     }
 }
 else
 {
-    req.match={match:null,status:'no match'}
-    next()
+    if(req?.url){
+        next()
+    }
 }
 
 }
