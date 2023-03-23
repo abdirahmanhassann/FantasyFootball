@@ -2,7 +2,7 @@ const {getDb}=require('../db')
 
 async function postplayer(req,res,next){
 const i=req.body
-const email=req.email;
+const email=req.email.email;
 console.log(email)
 const db=getDb();
 let errorOccurred = false;

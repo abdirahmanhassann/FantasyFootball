@@ -26,7 +26,7 @@ const randomNumber = Math.floor(Math.random() * 11);
         .then(res=>res.json())
         .then(res=>{
             console.log(res.res)
-            setnews(res.res)
+            setnews(res.res.news)
         })
     },[])
 
@@ -37,15 +37,18 @@ function clicked(){
 <>
 <div className='newscard' onClick={clicked}>
     <div className='containerdiv2'>
+        {
+news &&
 <img className='newsimage' src={news?.articles[randomNumber]?.image && news.articles[randomNumber].image}/>
+        }
     </div>
 <div className='columndiv' style={{
-    gap: '28px',padding: '20px 20px', width: '60%',
+    gap: '10px',padding: '20px 20px', width: '60%',
     textAlign: 'start'}}>
-<h1>{news && news.articles[randomNumber].title.slice(0,60)}...</h1>
-<div className='columndiv'>
-<p className='lightp'>{news && news.articles[randomNumber].description}</p>
-<p className='bolp'>{news &&moment(news.articles[randomNumber].publishedAt).fromNow()}</p>
+<h1>{news && news?.articles[randomNumber].title?.slice(0,70)}...</h1>
+<div className='columndiv' style={{alignItems:'start'}}>
+<p className='lightp'>{news && news?.articles[randomNumber].description}</p>
+<p className='lightp' style={{alignSelf: 'self-start'}}>{news &&moment(news?.articles[randomNumber].publishedAt).fromNow()}</p>
 </div>
 </div>
 </div>

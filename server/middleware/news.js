@@ -8,9 +8,7 @@ const db=getDb()
 .then((res)=>res.json())
 .then(async (res1)=>{
     const result = await db.collection('news').replaceOne({}, { news: res1 });
-    res.status(200).send({res:result})
-
 })
 }
 
-module.exports= news
+module.exports= news;

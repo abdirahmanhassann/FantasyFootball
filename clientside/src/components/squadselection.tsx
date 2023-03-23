@@ -45,6 +45,7 @@ function Squadselection() {
     const [posted,setposted]=useState()
     const [error,seterror]=useState<boolean>(false)
     const [countplayer,setcountplayer]=useState<number>(0)
+    const [currentfixture,setcurrentfixture]=useState<number>(0)
     const navigate=useNavigate()
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
@@ -71,6 +72,7 @@ fetch(loadplayers,{
 
   console.log(res)
   setplayers(res)
+  setcurrentfixture(res.currentfixture)
 })
 .then(()=>{
 
@@ -298,7 +300,7 @@ removePlayerBackend(removeplayerinfo)
 <p>Select a maximum of 3 players from a single team</p>
 <div className='playerselection'>
   <div className='rowdiv2' style={{padding:'5px 70px', alignItems:'self-end'}}>
-<h2 className='greenheader'>Gameweek 28</h2>
+<h2 className='greenheader'>Gameweek {currentfixture ? currentfixture : 0}</h2>
 <h2 className='greenheader'>£{budget&& budget}m remaining</h2>
   </div>
 </div>

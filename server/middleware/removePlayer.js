@@ -4,7 +4,7 @@ async function removePlayer(req,res,next)
 {
 const {player}=req.body
 const {cost}=req.body;
-const {email}=req
+const {email}=req.email
 console.log(player,email)
 const db=await getDb();
 console.log('this is remove plyer')

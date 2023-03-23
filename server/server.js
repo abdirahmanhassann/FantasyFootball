@@ -31,6 +31,8 @@ const leaveleague = require('./middleware/leaveleague')
 const news = require('./middleware/news')
 const Loadnews = require('./middleware/loadnews')
 const FixturesCheck = require('./middleware/FixturesCheck')
+const currentfixturrapicheck = require('./middleware/CurrentFixtureApiCheck')
+const currentfixture = require('./middleware/getcurrentfixture')
 
 
 app.post('/signup',async(req,res)=>{
@@ -112,11 +114,13 @@ player.push(players)
   })
 })
   
-app.get('/loadplayers',auth,FixturesCheck,async (req,res)=>{
+app.get('/loadplayers',auth,currentfixture,FixturesCheck,async (req,res)=>{
     const collection = db.collection('players');
     const {email}=req.body
     const {match}=req
+    const {currentfixture}=req
     console.log('match',match)
+    console.log('currentfixture',currentfixture)
     try {
       const doc = await collection.findOne({});
       if (!doc) { 
@@ -124,7 +128,7 @@ app.get('/loadplayers',auth,FixturesCheck,async (req,res)=>{
       }
 
       const playerArr = doc.players;
-      res.status(200).json({ playerArr:playerArr,email:email,points:doc.points,fixtures:match });
+      res.status(200).json({ playerArr:playerArr,email:email,points:doc.points,fixtures:match,currentfixture:currentfixture });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Error retrieving player data' });
@@ -164,11 +168,21 @@ app.delete('/leaveleague',auth,leaveleague)
 app.get('/Newnews',news)
 app.get('/news',Loadnews)
 app.get('/fixturescheck',FixturesCheck)
-    cron.schedule('29 * * * *',()=>{
+app.get('/currentfixtureapicheck',currentfixturrapicheck)
+app.get('/currentfixture',currentfixture)
+    cron.schedule('10 * * * *',()=>{
     getScores()
 })
-    cron.schedule('38 * * * *',()=>{
+    cron.schedule('00 * * * *',()=>{
     FixturesCheck()
 })
+    cron.schedule('46 0 * * *',()=>{
+    news()
+})
+
+    cron.schedule('50 0 * * *',()=>{
+      currentfixtureapicheck()
+})
+
 
 })
