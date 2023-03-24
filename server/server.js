@@ -183,6 +183,4 @@ app.get('/currentfixture',currentfixture)
     cron.schedule('50 0 * * *',()=>{
       currentfixtureapicheck()
 })
-
-
 })
