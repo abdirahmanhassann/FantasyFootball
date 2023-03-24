@@ -16,6 +16,7 @@ dispatch(refresh(null))
 }
 
   return (
+    <div className='subnavlargediv2'>
     <div className='subnav'>
 <div className='rowdiv2'>
 <div className='columndiv'>
@@ -31,6 +32,7 @@ dispatch(refresh(null))
 </div>
 <img src={playerpic} className='navbarpic'/>
 </div>
+    </div>
     </div>
   )
 }

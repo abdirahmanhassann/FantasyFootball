@@ -6,7 +6,7 @@ export default function Subnav3() {
             <div className='rowdiv' style={{gap:'50px',alignItems:'center'}}>
                 <div className='columndiv' style={{ width: '60%', alignItems: 'self-start'}}>
             <h3 className='h3neon'>Invite friends to Play Fantasy Premier League</h3>
-<p>With over 9 million players, Fantasy Premier League is the biggest Fantasy Football game in the world. It’s FREE to play and you can win great prizes!
+<p className='subnav3p'>With over 9 million players, Fantasy Premier League is the biggest Fantasy Football game in the world. It’s FREE to play and you can win great prizes!
 </p>              </div>
 <button className='buttonneon'onClick={() =>CopytoClipboard('www.abdirahman.com','link') }
 >Share with friends</button>
