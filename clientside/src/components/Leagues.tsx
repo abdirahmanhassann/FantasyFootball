@@ -10,7 +10,8 @@ function Leagues() {
 <>
 <Navbar/>
 <Subnav  page={'leagues'}/>
-<div className='columndiv2'>
+<div className='centerdiv'>
+
 <h1>Leagues</h1>
 <div className='subnav4'>
     <div className='rowdiv' style={{ gap: '15px'}}>

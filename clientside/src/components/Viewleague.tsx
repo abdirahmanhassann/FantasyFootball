@@ -79,6 +79,10 @@ fetch('http://localhost:5002/leaveleague',{
 <>
 <Navbar/>
         <Subnav page={'leagues'}/>
+        <div className='settingsdiv'
+           style={{
+           width: 'fit-content',marginLeft: '61px',marginTop:'10px',
+          boxShadow:'none',maxWidth:'1200px' ,  margin: 'auto',    padding: '10px'}}>
         <div className='rowdiv' style={{    
             justifyContent: 'space-between',
             padding: '20px 70px',
@@ -132,6 +136,7 @@ players.map((i,j=0)=>{
 })
     }
   </table>
+        </div>
         </div>
 <Footer/>
 </>

@@ -52,7 +52,12 @@ seterr('Code does not exist')
     <div>
         <Navbar/>
         <Subnav/>
-        <div className='columndiv2' style={{gap:'20px'}}>
+        <div className='settingsdiv'
+           style={{
+           marginLeft: '61px',marginTop:'10px',
+          boxShadow:'none',maxWidth:'1200px' ,  margin: 'auto',    padding: '10px'}}>
+
+        <div className='columndiv2' style={{gap:'20px',width:'100%'}}>
         <h1>Join Invitational League</h1>
         <label htmlFor='input' className='lightlabel'> 
 Enter League ID
@@ -67,6 +72,7 @@ Enter League ID
         <button className='buttoncard' style={{paddingInline:'45px'}} >Join league</button>
         </form>
         <p color='red'>{error!=='' && error}</p>
+        </div>
         </div>
         <Footer/>
 

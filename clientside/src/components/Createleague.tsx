@@ -10,6 +10,11 @@ function Createleague() {
 <>
 <Navbar/>
 <Subnav page={'leagues'}/>
+<div className='settingsdiv'
+           style={{
+           width: '800px',marginLeft: '61px',marginTop:'10px',
+           backgroundPosition: '293px center, left top, 0px center',  margin: 'auto'}}>
+
 <div className='columndiv2' style={{gap:'20px'}}>
 <h1>Create or Join Leagues</h1>
     <div className='columndiv2' style={{marginBottom:0}}> 
@@ -21,6 +26,7 @@ function Createleague() {
 <h2>Create a League </h2>
 <p>Create an invitational league to compete against friends.</p>
 <button className='buttoncardpurple' onClick={()=>{navigate('/leagues/createleague/create')}}>Create a league</button>
+</div>
 </div>
 </div>
 <Footer/>

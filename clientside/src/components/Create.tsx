@@ -33,6 +33,11 @@ const navigate=useNavigate()
     <div>
         <Navbar/>
         <Subnav/>
+        <div className='settingsdiv'
+           style={{
+           width: '800px',marginLeft: '61px',marginTop:'10px',
+           backgroundPosition: '293px center, left top, 0px center',  margin: 'auto',    padding: '10px'}}>
+
         <div className='columndiv2' style={{gap:'20px'}}>
         <h1>Create Invitational League</h1>
         <input type='text' maxLength={30} minLength={5} placeholder='' className='leagueinput' value={name} onChange={(e)=>setname(e.target.value)}/>
@@ -42,6 +47,7 @@ const navigate=useNavigate()
         </p>
         <button className='buttoncardpurple' style={{paddingInline:'35px'}}>Create league</button>
         </form>
+        </div>
         </div>
         <Footer/>
 

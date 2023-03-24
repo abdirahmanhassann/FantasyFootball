@@ -48,10 +48,12 @@ navigate(`/leagues/viewleagues/${i._id}`)
 <>
 <Navbar/>
         <Subnav page={'leagues'}/>
+        <div className='columndiv2'>
 
           <div className='settingsdiv'
            style={{
-           width: '800px',marginLeft: '61px',marginTop:'0px',backgroundPosition: '293px center, left top, 0px center'}}>
+           width: '800px',marginLeft: '61px',marginTop:'0px',
+           backgroundPosition: '293px center, left top, 0px center',  margin: 'auto'}}>
       <div className='subnav4' >
     <div className='rowdiv' style={{ gap: '15px',alignItems:'center',justifyContent: 'space-around'}}>
     <h1 className='h3neon' style={{fontWeight:'500'}}>Create or join leagues with friends!</h1>
@@ -93,6 +95,7 @@ leagues.map((i:any)=>{
 })
     }
   </table>
+        </div>
         </div>
 <Footer/>
 </>

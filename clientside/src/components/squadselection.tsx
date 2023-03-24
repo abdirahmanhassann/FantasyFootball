@@ -295,10 +295,10 @@ removePlayerBackend(removeplayerinfo)
   )
   :null
 }
-<div className='columndiv2'>
+<div className='columndiv22'>
 <h2>Squad selection</h2>
 <p>Select a maximum of 3 players from a single team</p>
-<div className='playerselection'>
+<div className='playerselection' style={{width:'73.5%'}}>
   <div className='rowdiv2' style={{padding:'5px 70px', alignItems:'self-end'}}>
 <h2 className='greenheader'>Gameweek {currentfixture ? currentfixture : 0}</h2>
 <h2 className='greenheader'>£{budget&& budget}m remaining</h2>
@@ -515,13 +515,13 @@ removePlayerBackend(removeplayerinfo)
 
     </div>
 </div>
-<div className='columndiv' style={{width:'30%'}}>
+<div className='columndivnew' style={{width:'30%'}}>
 <div className='settingsdiv' style={{marginTop: '-87px',width:'100%'}}> 
 <div className='playerselection'>
 <h3 className='largeheader' style={{  alignSelf: 'self-start',padding:' 0px 15px'}} >
   {userinfo&&userinfo.email}</h3>
 </div>
-<div className='columndiv' style={{boxShadow:' 0px 13px 13px #ececec'}}>
+<div className='columndivnew' style={{boxShadow:' 0px 13px 13px #ececec'}}>
 <div className='purplediv'>
   <p className='pneon'>My Leagues</p>
   </div>
