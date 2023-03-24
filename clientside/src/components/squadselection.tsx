@@ -187,9 +187,9 @@ useEffect(()=>{
     i.statistics[0].games.position===selectedpos)
     {
         let loopfinished=false
-    let arr=[indexx.gk ,indexx.rb ,indexx.rcb,indexx.lcb,
-      indexx.lb,indexx.rcm, indexx.cm, indexx.lcm, indexx.rw,
-      indexx.st ,indexx.lw]
+    let arr=[indexx?.gk ,indexx?.rb ,indexx?.rcb,indexx?.lcb,
+      indexx?.lb,indexx?.rcm, indexx?.cm, indexx?.lcm, indexx?.rw,
+      indexx?.st ,indexx?.lw]
 
       
     arr.forEach((k,j)=>{

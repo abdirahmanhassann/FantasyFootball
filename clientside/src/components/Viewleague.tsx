@@ -87,7 +87,7 @@ fetch('http://localhost:5002/leaveleague',{
             justifyContent: 'space-between',
             padding: '20px 70px',
             width:'100%',
-            maxWidth: '930px',
+            maxWidth: '950px',
             alignItems: 'baseline'
             }}>
                 <div className='rowdiv'>

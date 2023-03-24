@@ -42,12 +42,11 @@ const {password}=req.body;
 const hashedpassword=await bcrypt.hash(req.body.password,10 )
 
 const check=await db.collection('users').findOne({email:email})
-if(check?.email) return res.status(403).send({error:'email already exists'})
+if(check?.email) return res.status(401).send({error:'email already exists'})
 const result = await db.collection('users').insertOne({
     email: email,
     password: hashedpassword,
-    team:null,
-  budget:400,
+  budget:550,
   points:0
   });
 console.log(result)
@@ -56,7 +55,7 @@ console.log(result)
 const signed= jwt.sign(payload ,process.env.ACCESS_TOKEN, { expiresIn: '20m' })
 
 const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN)
-await db.collection('users').findOneAndUpdate({email:email}, {refreshToken:refreshToken} )
+await db.collection('users').findOneAndUpdate({email:email},{$set:{refreshToken:refreshToken}} )
 res.status(200).send({jwtToken:signed,refreshToken:refreshToken})
 // Send a response to the client
 })

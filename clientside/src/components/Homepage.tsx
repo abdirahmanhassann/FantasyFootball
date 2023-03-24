@@ -59,11 +59,14 @@ const urllogin='http://localhost:5002/login'
       .then(response => response.json())
       .then(changed => {
         console.log(changed);
+        if(changed.error) return alert(changed.error)
         dispatch(jwt(changed.jwtToken))
         navigate('/squadselection')
       })
-      .catch(error => {
-        console.error('Error:', error);
+      .catch(err => {
+        console.error('Error:', err);
+        console.log('there is an error')
+        alert(err?.error)
       });
       
     
@@ -82,6 +85,7 @@ const urllogin='http://localhost:5002/login'
       .then(response => response.json())
       .then(changed => {
         console.log(changed);
+        if(changed.passstatuse) return alert(changed.passstatuse)
         if(changed.jwtToken)
 {
   dispatch(jwt(changed.jwtToken))
