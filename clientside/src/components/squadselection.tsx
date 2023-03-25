@@ -59,8 +59,8 @@ const removePlayerlink='http://localhost:5002/removePlayer'
     }
 
     useEffect(()=>{
-        function request(){
-fetch(loadplayers,{
+      function request(){
+fetch(loadplayers|| `${process.env.PORT}/loadplayers` ,{
     method:'GET',
     headers:{
     'Content-Type': 'application/json',
@@ -71,6 +71,7 @@ fetch(loadplayers,{
 .then((res)=>{
 
   console.log(res)
+  console.log('process env: ',process.env.API_KEY)
   setplayers(res)
   setcurrentfixture(res.currentfixture)
 })
