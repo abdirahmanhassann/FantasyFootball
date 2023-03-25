@@ -168,7 +168,7 @@ button:hover{
   top: 9vh;
   display: flex;
   flex-direction: inherit;
-  gap: 11vh;
+  gap: 5vh;
   justify-content: space-between;
   flex-wrap: wrap;
   text-align: -webkit-center;
@@ -407,8 +407,8 @@ button:hover{
     background-size: contain;
 }
 
-.nottinghamforrest {
-  background-image: url('./images/plteamshirts/nottinghamforrest.webp');
+.nottinghamforest {
+  background-image: url('./images/plteamshirts/nottinghamforest.webp');
       height: 50px;
     width: 50px;
     object-fit: unset;
