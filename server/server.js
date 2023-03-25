@@ -33,6 +33,7 @@ const Loadnews = require('./middleware/loadnews')
 const FixturesCheck = require('./middleware/FixturesCheck')
 const currentfixturrapicheck = require('./middleware/CurrentFixtureApiCheck')
 const currentfixture = require('./middleware/getcurrentfixture')
+const test = require('./middleware/test')
 
 
 app.post('/signup',async(req,res)=>{
@@ -161,6 +162,7 @@ connectToDb((err)=>{
 
     app.post('/createleague',auth,createleague)
 app.get('/loadleagues',auth,loadleagues)
+app.get('/playersapirequest',playersApiRequest)
 app.post('/findleague',auth,findleague)
 app.post('/joinleague',auth,joinleague)
 app.delete('/leaveleague',auth,leaveleague)
@@ -169,6 +171,7 @@ app.get('/news',Loadnews)
 app.get('/fixturescheck',FixturesCheck)
 app.get('/currentfixtureapicheck',currentfixturrapicheck)
 app.get('/currentfixture',currentfixture)
+app.get('/test',test)
     cron.schedule('10 * * * *',()=>{
     getScores()
 })

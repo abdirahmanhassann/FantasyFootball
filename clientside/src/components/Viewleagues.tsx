@@ -76,7 +76,7 @@ navigate(`/leagues/viewleagues/${i._id}`)
 
     <th>League name</th>
     <th>League ID</th>
-    <th>Current rank</th>
+    <th>Owner</th>
     <th>Active players</th>
     </tr>
     {
@@ -86,9 +86,9 @@ leagues.map((i:any)=>{
 <>
 <tr className="playerdiv" onClick={()=>clicked(i)}>
   <td>{i.league} </td>
-  <td>{i._id}</td>
-  <td>33</td>
-  <td>{i.players && i.players.length}</td>
+  <td style={{width:'30%'}}>{i._id}</td>
+  <td>{i.owner} </td>
+      <td>{i.players && i.players.length}</td>
 </tr>
 </>
   )
