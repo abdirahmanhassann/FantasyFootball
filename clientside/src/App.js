@@ -19,6 +19,7 @@ function App() {
         jwtToken ?
     <Routes>
       <Route path='/' element={<SignedInHome/>}/>
+      <Route path='*' element={<SignedInHome/>}/>
       <Route path='/squadselection' element={<Squadselection/>}/>
       <Route path='/signedInHome' element={<SignedInHome/>}/>
       <Route path='/Leagues' element={<Leagues/>}/>
@@ -31,6 +32,7 @@ function App() {
     :
     <Routes>
       <Route path='/' element={<Homepage/>}/>
+      <Route path='*' element={<Homepage/>}/>
       <Route path='/squadselection' element={<Homepage/>}/>
       <Route path='/signedInHome' element={<Homepage/>}/>
       <Route path='/Leagues' element={<Homepage/>}/>

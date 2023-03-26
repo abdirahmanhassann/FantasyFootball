@@ -15,7 +15,7 @@ const navigate=useNavigate()
       alert('League name has to be longer than 5 characters');
     }
     else{        
-        fetch('http://localhost:5002/createleague',{
+        fetch( 'https://fantasyfootballbackend2.onrender.com/createleague',{
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',

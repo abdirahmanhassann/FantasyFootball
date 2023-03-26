@@ -22,7 +22,7 @@ const jwttoken=useSelector((State:any)=>State.reducer.jwtstatus.jwt)
 const dispatch=useDispatch();
 const navigate=useNavigate()
 useEffect(()=>{
-fetch('http://localhost:5002/loadleagues',{
+fetch( 'https://fantasyfootballbackend2.onrender.com/loadleagues',{
 method:'GET',
 headers:{
   'Content-Type':'application/json',

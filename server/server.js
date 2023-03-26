@@ -148,7 +148,7 @@ connectToDb((err)=>{
 
     if (err) return console.log(err)
 
-    app.listen( process.env.PORT || 5002 ,()=>{
+    app.listen( process.env.PORT ,()=>{
         console.log('app is listening...')
     })
     db=getDb()

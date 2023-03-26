@@ -14,7 +14,7 @@ const navigate=useNavigate()
 const dispatch=useDispatch()
    async function clicked(e){
 e.preventDefault();
-fetch('http://localhost:5002/joinleague',{
+fetch( 'https://fantasyfootballbackend2.onrender.com/joinleague',{
     method:'POST',
     headers:{
       'content-Type':'application/json' ,

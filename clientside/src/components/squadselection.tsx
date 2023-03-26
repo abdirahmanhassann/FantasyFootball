@@ -60,7 +60,7 @@ const removePlayerlink='http://localhost:5002/removePlayer'
 
     useEffect(()=>{
       function request(){
-fetch(loadplayers|| `${process.env.PORT}/loadplayers` ,{
+fetch('https://fantasyfootballbackend2.onrender.com/loadplayers' ,{
     method:'GET',
     headers:{
     'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ fetch(loadplayers|| `${process.env.PORT}/loadplayers` ,{
 })
 .then(()=>{
 
-  fetch(getplayer, {
+  fetch('https://fantasyfootballbackend2.onrender.com/getplayer', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ fetch(loadplayers|| `${process.env.PORT}/loadplayers` ,{
     setbudget(changed.budget)
     setuserinfo(changed)
     console.log(changed);
-  fetch('http://localhost:5002/loadleagues',{
+  fetch('https://fantasyfootballbackend2.onrender.com/loadleagues',{
     method:'GET',
     headers:{
       'Content-Type':'application/json',
@@ -148,7 +148,7 @@ function postplayer(i){
 }
 console.log(selectedplayer,i)
   }
-  fetch(postplayers, {
+  fetch('https://fantasyfootballbackend2.onrender.com/postplayer', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -262,7 +262,7 @@ function removePlayerBackend(i){
 if(removeplayerinfo && selectedplayer){
 
 
-  fetch(removePlayerlink, {
+  fetch(removePlayerlink || 'https://fantasyfootballbackend2.onrender.com/removeplayer', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',

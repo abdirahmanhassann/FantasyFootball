@@ -30,7 +30,7 @@ function Viewleague() {
     const dispatch=useDispatch()
         useEffect(()=>{
 function fetchleague(){
-    fetch('http://localhost:5002/findleague',{
+    fetch( 'https://fantasyfootballbackend2.onrender.com/findleague',{
         method:'POST',
         headers:{
             'content-Type':'application/json',
@@ -59,7 +59,7 @@ fetchleague()
 
 
 function leaveleague(){
-fetch('http://localhost:5002/leaveleague',{
+fetch('https://fantasyfootballbackend2.onrender.com/leaveleague',{
     method:'DELETE',
     headers:{
         'content-Type':'application/json',

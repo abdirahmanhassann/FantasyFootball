@@ -49,7 +49,7 @@ const urllogin='http://localhost:5002/login'
 
   function submitted(e){
     e.preventDefault()
-    fetch(url, {
+    fetch( 'https://fantasyfootballbackend2.onrender.com/signup' , {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ const urllogin='http://localhost:5002/login'
   function submittedlogin(e){
   
     e.preventDefault()
-    fetch(urllogin, {
+    fetch( 'https://fantasyfootballbackend2.onrender.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

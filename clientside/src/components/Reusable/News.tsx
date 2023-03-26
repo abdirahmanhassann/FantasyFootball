@@ -22,7 +22,7 @@ function News() {
 const [news,setnews]=useState<Inews |undefined>()
 const randomNumber = Math.floor(Math.random() * 11);
     useEffect(()=>{
-        fetch('http://localhost:5002/news')
+        fetch('https://fantasyfootballbackend2.onrender.com/news')
         .then(res=>res.json())
         .then(res=>{
             console.log(res.res)
