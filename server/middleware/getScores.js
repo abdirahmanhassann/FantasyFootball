@@ -136,53 +136,7 @@ async function getScores(req, res, next) {
       console.log('count:',count,'score',score)
       
       }
-      console.log(score)
-      // if (! j.team?.gk?.exists) {
-      //   score -= j.team?.gk?.nowCost
-      //   }
-        
-      //   if (!j?.team?.rb?.exists) {
-      //   score -= j.team?.rb?.nowCost
-      //   }
-        
-      //   if (!j?.team?.lb?.exists) {
-      //   score -= j.team?.lb?.nowCost
-      //   }
-        
-      //   if (!j?.team?.rcb?.exists) {
-      //   score -= j.team?.rcb?.nowCost
-      //   }
-        
-      //   if (!j?.team?.lcb?.exists) {
-      //   score -= j.team?.lcb?.nowCost
-      //   }
-        
-      //   if (!j?.team?.cm?.exists) {
-      //   score -= j.team?.cm?.nowCost
-      //   }
-        
-      //   if (!j?.team?.rcm?.exists) {
-      //   score -= j.team?.rcm?.nowCost
-      //   }
-        
-      //   if (!j?.team?.lcm?.exists) {
-      //   score -= j.team?.lcm?.nowCost
-      //   }
-        
-      //   if (!j?.team?.st?.exists) {
-      //   score -= j.team?.st?.nowCost
-      //   }
-        
-      //   if (!j?.team?.lw?.exists) {
-      //   score -= j.team?.lw?.nowCost
-      //   }
-        
-      //   if (!j?.team?.rw?.exists) {
-      //   score -= j.team?.rw?.nowCost
-      //   console.log('count:',count,'score',score)
-        
-      //   }
-  
+      console.log(score)  
       j={
         ...j,
         points:count-score
