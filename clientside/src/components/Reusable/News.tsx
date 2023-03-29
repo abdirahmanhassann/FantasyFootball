@@ -45,7 +45,7 @@ news &&
 <div className='columndiv' style={{
     gap: '10px',padding: '20px 20px', width: '60%',
     textAlign: 'start'}}>
-<h1>{news && news?.articles[randomNumber].title?.slice(0,70)}...</h1>
+<h1>{news && news?.articles[randomNumber]?.title?.slice(0,70)}...</h1>
 <div className='columndiv' style={{alignItems:'start'}}>
 <p className='lightp'>{news && news?.articles[randomNumber].description}</p>
 <p className='lightp' style={{alignSelf: 'self-start'}}>{news &&moment(news?.articles[randomNumber].publishedAt).fromNow()}</p>

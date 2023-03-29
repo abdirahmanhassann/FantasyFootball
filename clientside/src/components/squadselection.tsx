@@ -312,6 +312,7 @@ return null;
 function addplayerportal(){
   setrun(i=>!i)
   setportal(false)
+  postplayer(posted)
 }
 
 
@@ -671,7 +672,6 @@ function addplayerportal(){
     return (
       <tr className="playerdiv" onClick={async ()=>{
       await  setposted(j)
-       await postplayer(j)
        setportal(true)
         }}>
     
