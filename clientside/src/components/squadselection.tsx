@@ -54,6 +54,7 @@ function Squadselection() {
     const [currentfixture,setcurrentfixture]=useState<number>(0)
     const refOne=useRef<any>(null)
   const [portal,setportal]=useState<boolean>(false)
+  const [portalremove,setportalremove]=useState<boolean>(false)
     const navigate=useNavigate()
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
@@ -130,6 +131,7 @@ fetch('https://fantasyfootballbackend2.onrender.com/loadplayers' ,{
     const midfield=[{position:'rcm',exact:'Midfielder'},{position:'cm',exact:'Midfielder'},{position:'lcm',exact:'Midfielder'}]
     const attack=[{position:'rw',exact:'Attacker'},{position:'st',exact:'Attacker'},{position:'lw',exact:'Attacker'}]
 const positions=['Goalkeeper',"Defender","Midfielder","Attacker"]
+
 function clicked(c){
     console.log(c)
     setSelectedLanguage(c.exact)
@@ -302,6 +304,8 @@ function outsideclick(e){
   if(!refOne?.current?.contains(e.target))
   {
 setportal(false)
+setportalremove(false)
+
   }
   else
   {
@@ -309,10 +313,19 @@ return null;
   }
 }
 
-function addplayerportal(){
-  setrun(i=>!i)
-  setportal(false)
-  postplayer(posted)
+function addplayerportal(i){
+  if(i==='add'){
+
+    setrun(i=>!i)
+    setportal(false)
+    postplayer(posted)
+  }
+  else{
+    setrunremove(i=>!i)
+    setportal(false)
+    setportalremove(false)
+
+  }
 }
 
 
@@ -337,7 +350,15 @@ function addplayerportal(){
 </div>
 <div className='columndiv'>
 </div>
-<button className='buttoncard' style={{width:'100%'}} onClick={addplayerportal}>add player</button>
+<button className='buttoncard' style={{width:'100%'}} onClick={
+  ()=>{
+    if(!portalremove)
+     {addplayerportal('add')}
+     else{
+       addplayerportal('remove');
+     }
+
+  }}>{!portalremove ?'add player ':'remove player'}</button>
 </div>
 </div>
 }
@@ -362,7 +383,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.gk.nowCost)
                   setselectedplayer(gk.position)
-                  setrunremove(i=>!i)
+                  setportalremove(true)
+                  setportal(true)
+
                   }}>
                 <div className={indexx.gk.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(gk)} />
                 <div className='columndiv'>
@@ -383,7 +406,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rb.nowCost)
                   setselectedplayer(defence[0].position)
-                  setrunremove(i=>!i)                  }}>
+                  setportalremove(true)
+                  setportal(true)
+                                    }}>
                 <div className={indexx.rb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[0])} />
                 <div className='columndiv'>
                   <p className='pitchnameheader'>{indexx.rb.player.name}</p>
@@ -399,7 +424,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rcb.nowCost)
                   setselectedplayer(defence[1].position)
-                  setrunremove(i=>!i) 
+                  setportalremove(true)
+                  setportal(true)
+
                   }}>
                 <div className={indexx.rcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[1])} />
                 <div className='columndiv'>
@@ -416,7 +443,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lcb.nowCost)
                   setselectedplayer(defence[2].position)
-                  setrunremove(i=>!i)  
+                  setportalremove(true)
+                  setportal(true)
+
                 }}>
                 <div className={indexx.lcb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[2])} />
                 <div className='columndiv'>
@@ -434,7 +463,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lb.nowCost)
                   setselectedplayer(defence[3].position)
-                  setrunremove(i=>!i)  
+                  setportalremove(true)
+                  setportal(true)
+
                 }}>
                 <div className={indexx.lb.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(defence[3])} />
                 <div className='columndiv'>
@@ -455,7 +486,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.rcm.nowCost)
                   setselectedplayer(midfield[0].position)
-                  setrunremove(i=>!i) 
+                  setportalremove(true)
+                  setportal(true)
+
                   }}>
                 <div className={indexx.rcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[0])} />
                 <div className='columndiv'>
@@ -472,7 +505,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.cm.nowCost)
                   setselectedplayer(midfield[1].position)
-                  setrunremove(i=>!i)  
+                  setportalremove(true)
+                  setportal(true)
+
                 }}>
                 <div className={indexx.cm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[1])} />
                 <div className='columndiv'>
@@ -489,7 +524,9 @@ function addplayerportal(){
                 <div className='columndiv' onClick={()=>{
                   setremoveplayerinfo(indexx.lcm.nowCost)
                   setselectedplayer(midfield[2].position)
-                  setrunremove(i=>!i) 
+                  setportalremove(true)
+                  setportal(true)
+
                 }}>
                 <div className={indexx.lcm.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(midfield[2])} />
                 <div className='columndiv'>
@@ -510,7 +547,9 @@ function addplayerportal(){
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.rw.nowCost)
               setselectedplayer(attack[0].position)
-              setrunremove(i=>!i) 
+              setportalremove(true)
+              setportal(true)
+
             }}>
             <div className={indexx.rw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[0])} />
             <div className='columndiv'>
@@ -527,7 +566,9 @@ function addplayerportal(){
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.st.nowCost)
               setselectedplayer(attack[1].position)
-              setrunremove(i=>!i) 
+              setportalremove(true)
+              setportal(true)
+
             }}>
             <div className={indexx.st.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[1])} />
             <div className='columndiv'>
@@ -544,7 +585,9 @@ function addplayerportal(){
             <div className='columndiv' onClick={()=>{
               setremoveplayerinfo(indexx.lw.nowCost)
               setselectedplayer(attack[2].position)
-              setrunremove(i=>!i) 
+              setportalremove(true)
+              setportal(true)
+
             }}>
             <div className={indexx.lw.statistics[0].team.name.toLowerCase().replace(/\s+/g, '')} onClick={()=>clicked(attack[2])} />
             <div className='columndiv'>
