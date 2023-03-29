@@ -55,8 +55,8 @@ button:hover{
 .subnav{
   height: 100%;
   width: 100%;
-  max-width: 1177px;
-  background: #37003c;
+  max-width: 1276px;
+    background: #37003c;
   color: white;
   background-image: url('./images/purplebgimg.svg');
   background-position: bottom right;
@@ -801,8 +801,8 @@ footer{
 
 .newscard{
   width: 99%;
-    max-width: 1280px;
-    height: fit-content;
+  max-width: 1270px;
+ height: fit-content;
   padding: 6px 6px;
   font-size: 14px;
   color: inherit;
@@ -904,4 +904,28 @@ text-decoration:underline;
 @media(width<1200px){
 
 
+}
+
+.portal{
+  background: white;
+  margin: auto;
+  justify-self: center;
+  height: min-content;
+  gap: 20px;
+  width: 526px;
+  box-shadow: 1px 1px 12px 0px lightgray;
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+}
+.largeportal{
+  position: fixed;
+  top: 0px;
+  background: #ffffff30;
+  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  box-shadow: 1px 1px 12px 0px lightgray;
+  display: flex;
+  flex-direction: column;
 }

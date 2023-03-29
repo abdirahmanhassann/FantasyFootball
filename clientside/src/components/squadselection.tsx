@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import pitch from '../images/footballpitch.png'
 import blankshirt from '../images/shirtplaceholder.webp'
 import { FormControl } from '@material-ui/core'
@@ -22,8 +22,14 @@ interface Ileague{
   owner:string,
   players:[]
 }
+interface Iposted{
+player:{
+  name:string;
 
-
+}
+nowCost:number;
+statistics:{games:{position}};
+}
 function Squadselection() {
     const [selectedLanguage, setSelectedLanguage] = useState('');
     const [isOpen, setIsOpen] = useState(false);
@@ -42,10 +48,12 @@ function Squadselection() {
     const [run,setrun]=useState<boolean>(false)
     const [runremove,setrunremove]=useState<boolean>(false)
     const [leagues,setleagues]=useState <[]>([])
-    const [posted,setposted]=useState()
+    const [posted,setposted]=useState<any>()
     const [error,seterror]=useState<boolean>(false)
     const [countplayer,setcountplayer]=useState<number>(0)
     const [currentfixture,setcurrentfixture]=useState<number>(0)
+    const refOne=useRef<any>(null)
+  const [portal,setportal]=useState<boolean>(false)
     const navigate=useNavigate()
   const loadplayers='http://localhost:5002/loadplayers';
 const postplayers='http://localhost:5002/postplayer'
@@ -185,7 +193,7 @@ useEffect(()=>{
   {
 
   if(selectedLanguage && selectedplayer &&
-    i.statistics[0].games.position===selectedpos)
+    i?.statistics[0].games.position===selectedpos)
     {
         let loopfinished=false
     let arr=[indexx?.gk ,indexx?.rb ,indexx?.rcb,indexx?.lcb,
@@ -262,7 +270,7 @@ function removePlayerBackend(i){
 if(removeplayerinfo && selectedplayer){
 
 
-  fetch(removePlayerlink || 'https://fantasyfootballbackend2.onrender.com/removeplayer', {
+  fetch('https://fantasyfootballbackend2.onrender.com/removeplayer', {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
@@ -285,6 +293,27 @@ removePlayerBackend(removeplayerinfo)
 },[runremove])
 
 
+useEffect(()=>{
+  document.addEventListener('click',outsideclick,true)
+  console.log('portal',posted)
+},[portal])
+
+function outsideclick(e){
+  if(!refOne?.current?.contains(e.target))
+  {
+setportal(false)
+  }
+  else
+  {
+return null;
+  }
+}
+
+function addplayerportal(){
+  setrun(i=>!i)
+  setportal(false)
+}
+
 
   return (
 <>
@@ -295,6 +324,21 @@ removePlayerBackend(removeplayerinfo)
     <h3>{players.fixtures?.match[0]?.hometeam} vs {players.fixtures?.match[0]?.awayteam} is currently ongoing please check back in a couple hours</h3>
   )
   :null
+}
+{
+  portal &&
+<div className='largeportal'>
+<div className='portal' ref={refOne}>
+<div className='playerselection'>
+<h2>
+  {posted?.player.name}
+  </h2>
+</div>
+<div className='columndiv'>
+</div>
+<button className='buttoncard' style={{width:'100%'}} onClick={addplayerportal}>add player</button>
+</div>
+</div>
 }
 <div className='columndiv22'>
 <h2>Squad selection</h2>
@@ -608,7 +652,7 @@ removePlayerBackend(removeplayerinfo)
     </details>
 <input type='text' placeholder='enter player' className='input2' onChange={e=>changed(e)}/>
 <div style={{    overflow: 'scroll',
-    height:'250px'}}>
+    height:'320px'}}>
 <table>
   <tr>
   </tr>
@@ -627,8 +671,8 @@ removePlayerBackend(removeplayerinfo)
     return (
       <tr className="playerdiv" onClick={async ()=>{
       await  setposted(j)
-       await setrun(i=>!i)
        await postplayer(j)
+       setportal(true)
         }}>
     
         <td>

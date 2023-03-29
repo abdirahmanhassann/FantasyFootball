@@ -50,6 +50,7 @@ const result = await db.collection('users').insertOne({
   budget:550,
   points:0
   });
+  
 console.log(result)
 
   const payload={email:req.body.email}
