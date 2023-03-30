@@ -14,7 +14,15 @@ import { refresh } from '../redux/redux'
 
 interface iuserinfo{
 email:string,
-points:number
+points:number,
+players?:{
+  selectedplayer?:{
+    player:
+    {
+      name:string
+    }|undefined
+  }|undefined
+}|undefined
 }
 interface Ileague{
   league:string,
@@ -44,7 +52,7 @@ function Squadselection() {
     const [selectedpos,setselectedpos]=useState<string | undefined>('')
     const [removeplayerinfo,setremoveplayerinfo]=useState();
     const [budget,setbudget]=useState(0)
-    const [userinfo,setuserinfo]=useState<iuserinfo>()
+    const [userinfo,setuserinfo]=useState<iuserinfo |any>()
     const [run,setrun]=useState<boolean>(false)
     const [runremove,setrunremove]=useState<boolean>(false)
     const [leagues,setleagues]=useState <[]>([])
@@ -140,7 +148,7 @@ setselectedpos(c.exact)
 
 
 }
-function changed(e){
+function changedd(e){
 setinput(e.target.value)
 console.log(input)
 }
@@ -345,7 +353,8 @@ function addplayerportal(i){
 <div className='portal' ref={refOne}>
 <div className='playerselection'>
 <h2>
-  {posted?.player.name}
+  {!portalremove&& posted?.player.name}
+  {portalremove&& userinfo?.players[selectedplayer].player.name}
   </h2>
 </div>
 <div className='columndiv'>
@@ -694,7 +703,7 @@ function addplayerportal(i){
       </div>
 }
     </details>
-<input type='text' placeholder='enter player' className='input2' onChange={e=>changed(e)}/>
+<input type='text' placeholder='enter player' className='input2' onChange={e=>changedd(e)}/>
 <div style={{    overflow: 'scroll',
     height:'320px'}}>
 <table>

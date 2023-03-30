@@ -50,15 +50,21 @@ const result = await db.collection('users').insertOne({
   budget:550,
   points:0
   });
-  
+
 console.log(result)
 
   const payload={email:req.body.email}
 const signed= jwt.sign(payload ,process.env.ACCESS_TOKEN, { expiresIn: '20m' })
 
 const refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN)
-await db.collection('users').findOneAndUpdate({email:email},{$set:{refreshToken:refreshToken}} )
+const person=await db.collection('users').findOneAndUpdate({email:email},{$set:{refreshToken:refreshToken}} )
+const personid=person.value._id
+ await db.collection('leagues').findOneAndUpdate({league:'public league'},
+  {$addToSet: {players:personid}}
+)
+
 res.status(200).send({jwtToken:signed,refreshToken:refreshToken})
+
 // Send a response to the client
 })
 
