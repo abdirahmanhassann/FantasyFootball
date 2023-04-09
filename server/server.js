@@ -185,7 +185,7 @@ app.get('/test',test)
     cron.schedule('00 * * * *',()=>{
     FixturesCheck()
 })
-    cron.schedule('46 0 * * *',()=>{
+    cron.schedule('23 1 * * *',()=>{
     news()
 })
 

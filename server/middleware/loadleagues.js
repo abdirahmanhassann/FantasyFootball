@@ -19,7 +19,7 @@ const details = await db.collection('users' ).aggregate(
     } ]
   ).toArray()
  //const f=await db.collection('users').aggregate({$lookup:{from:"leagues",localField: "leagues",foreignField:"_id",as:"player"}}).toArray()
-//console.log(f)
+console.log(details)
 await res.status(200).send({res:details[0]?.playeer})
 
 }

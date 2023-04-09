@@ -9,6 +9,7 @@ import Footer from './Reusable/Footer.tsx'
 import Cards from './Reusable/cards.tsx'
 import News from './Reusable/News.tsx'
 import SubnavSignedOut from './Reusable/SubnavSignedOut.tsx'
+import {CSpinner} from '@coreui/react'
 function Homepage() { 
   const [changed,setchanged]=useState <p>({email:'',password:''})
   const [login,setlogin]=useState <p>({email:'',password:''})

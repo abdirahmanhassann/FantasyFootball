@@ -1,5 +1,9 @@
+import { CSpinner } from '@coreui/react';
 import moment from 'moment'
 import React, { useEffect, useState } from 'react'
+import env from "react-dotenv";
+import ScaleLoader from "react-spinners/ClipLoader";
+
 
 interface Inews{
     articles:
@@ -19,7 +23,7 @@ interface Inews{
 }
 
 function News() {
-const [news,setnews]=useState<Inews |undefined>()
+const [news,setnews]=useState<Inews | undefined>()
 const randomNumber = Math.floor(Math.random() * 11);
     useEffect(()=>{
         fetch('https://fantasyfootballbackend2.onrender.com/news')
@@ -45,10 +49,18 @@ news &&
 <div className='columndiv' style={{
     gap: '10px',padding: '20px 20px', width: '60%',
     textAlign: 'start'}}>
+           {
+!news &&
+ <ScaleLoader
+ size={150}
+ margin-left={'500px'}
+ color={'#2557a7'}
+/>
+}
 <h1>{news && news?.articles[randomNumber]?.title?.slice(0,70)}...</h1>
 <div className='columndiv' style={{alignItems:'start'}}>
-<p className='lightp'>{news && news?.articles[randomNumber].description}</p>
-<p className='lightp' style={{alignSelf: 'self-start'}}>{news &&moment(news?.articles[randomNumber].publishedAt).fromNow()}</p>
+<p className='lightp'>{news && news?.articles[randomNumber]?.description}</p>
+<p className='lightp' style={{alignSelf: 'self-start'}}>{news &&moment(news?.articles[randomNumber]?.publishedAt).fromNow()}</p>
 </div>
 </div>
 </div>
