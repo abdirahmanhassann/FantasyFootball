@@ -213,7 +213,11 @@ button:hover{
   display: flex;
   flex-direction: row;
   /* gap: 3vw; */
+<<<<<<< HEAD
   margin-left: 42vw;
+=======
+margin-left: 44vw;
+>>>>>>> 3cc314ca1eede6d44051f902a1e7a3899c339b5d
   width: 42vw;
   justify-content: space-between;
 }
